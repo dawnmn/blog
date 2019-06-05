@@ -17,3 +17,7 @@ sysbench fileio --threads=16 --file-total-size=3G --file-test-mode=rndrw prepare
 sysbench fileio --threads=16 --file-total-size=3G --file-test-mode=rndrw run
 sysbench fileio --threads=16 --file-total-size=3G --file-test-mode=rndrw cleanup
 ```
+#### **Memory**
+```
+sysbench memory --memory-block-size=8k --memory-total-size=4G run
+```
