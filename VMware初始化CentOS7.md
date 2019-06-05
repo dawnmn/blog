@@ -12,3 +12,6 @@ chkconfig iptables off
 vim  /etc/selinux/config
 ```
 设置SELINUX=disabled
+
+#### **惯例配置**
+`mkdir /var/download`
