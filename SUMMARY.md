@@ -4,3 +4,5 @@
     * [mysql5.7](mysql5.7.md)
         * [安装](安装mysql5.7.md)
         * [主从同步](主从同步.md)
+    * [性能测试](性能测试.md)
+        * [sysbench](sysbench.md)
