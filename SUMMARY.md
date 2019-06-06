@@ -1,7 +1,7 @@
 * [CentOS服务器](服务器.md)
     * [VMware](VMware.md)
         * [VMware初始化CentOS7](VMware初始化CentOS7.md)
-    * [mysql5.7](mysql5.7.md)
+    * [MySQL5.7](mysql5.7.md)
         * [安装](安装mysql5.7.md)
         * [主从同步](主从同步.md)
         * [服务器性能优化](服务器性能优化.md)
