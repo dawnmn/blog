@@ -12,6 +12,8 @@
         * [sysbench](CentOS服务器/性能测试/sysbench.md)
     * [指令语法](指令语法.md)
         * [实用技能](CentOS服务器/指令语法/实用技能.md)
+    * [缓存服务器](缓存服务器.md)
+        * [Memcache安装与PHP扩展配置](CentOS服务器/缓存服务器/Memcache安装与PHP扩展配置.md)
 * [PHP](PHP.md)
     * [算法](算法.md)
         * [基本](PHP/算法/基本.md)
