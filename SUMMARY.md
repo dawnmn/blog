@@ -6,6 +6,8 @@
         * [实用技能](CentOS服务器/MySQL5.7/实用技能.md)
         * [服务器性能优化](CentOS服务器/MySQL5.7/服务器性能优化.md)
         * [主从同步](CentOS服务器/MySQL5.7/主从同步.md)
+    * [Nginx](nginx.md)
+        * [实用技能](CentOS服务器/Nginx/实用技能.md)
     * [性能测试](性能测试.md)
         * [sysbench](CentOS服务器/性能测试/sysbench.md)
     * [指令语法](指令语法.md)
