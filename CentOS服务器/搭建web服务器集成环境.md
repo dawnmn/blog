@@ -135,7 +135,7 @@ systemctl enable supervisord
 ```
 cd /etc/supervisor/conf.d
 ```
-先关闭各应用的守护进程模式，在配置
+先关闭各应用的守护进程模式，再配置
 nginx
 ```
 vim nginx.conf
