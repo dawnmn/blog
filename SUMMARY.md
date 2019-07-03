@@ -19,3 +19,5 @@
         * [基本](PHP/算法/基本.md)
     * [composer](composer.md)
         * [实用技能](PHP/composer/实用技能.md)
+    * [git](git.md)
+        * [安装配置](安装配置.md)
