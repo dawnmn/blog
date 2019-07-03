@@ -135,11 +135,55 @@ systemctl enable supervisord
 ```
 cd /etc/supervisor/conf.d
 ```
-先关闭各应用的守护进程模式
-
+先关闭各应用的守护进程模式，在配置
 nginx
+```
+vim nginx.conf
 
+[program:nginx]
+command = /usr/sbin/nginx -g 'daemon off;'
+user = root
+autostart = true
+autoresart = true
+stderr_logfile = /var/log/supervisor/nginx.stderr.log
+```
+php-fpm
+```
+vim php -fpm.conf
 
+[program:php-fpm]
+command = bash -c "sleep 1 && /usr/local/php/sbin/php-fpm --fpm-config /usr/local/php/etc/php-fpm.conf --pid /usr/local/php/var/run/php-fpm.pid"
+user = root
+autostart = true
+autoresart = true
+startretries=5
+exitcodes=0,2,70
+stopsignal=QUIT
+stopwaitsecs=2
+stderr_logfile = /var/log/supervisor/php-fpm.stderr.log
+```
+redis
+```
+vim redis.conf
+
+[program:redis]
+command = /usr/local/redis/bin/redis-server
+user = root
+autostart = true
+autoresart = true
+stderr_logfile = /var/log/supervisor/redis.stderr.log
+```
+php脚本
+```
+vim php-task.conf
+
+[program:php-task]
+command = /usr/local/php/bin/php /var/path/php-task.php
+user = root
+autostart = true
+autoresart = true
+stderr_logfile = /var/log/supervisor/delay-queue.stderr.log
+```
 
 
 
