@@ -178,7 +178,7 @@ php脚本
 vim php-task.conf
 
 [program:php-task]
-command = /usr/local/php/bin/php /var/path/php-task.php
+command = /usr/local/php/bin/php /var/path/php-task.php
 user = root
 autostart = true
 autoresart = true
