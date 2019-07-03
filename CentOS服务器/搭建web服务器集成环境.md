@@ -182,7 +182,7 @@ command = /usr/local/php/bin/php /var/path/php-task.php
 user = root
 autostart = true
 autoresart = true
-stderr_logfile = /var/log/supervisor/delay-queue.stderr.log
+stderr_logfile = /var/log/supervisor/php-task.stderr.log
 ```
 
 
