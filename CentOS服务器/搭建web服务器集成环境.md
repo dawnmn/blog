@@ -66,7 +66,7 @@ phpize
 ./configure
 make && make install
 
-vim /etc/php.ini
+vim /usr/local/php/lib/php.ini
 extension=redis.so
 ```
 
