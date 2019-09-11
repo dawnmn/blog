@@ -10,7 +10,8 @@ chkconfig iptables off
 vim  /etc/selinux/config
 SELINUX=disabled
 ```
-启动
+重启服务器
+
 ```
 service nginx start
 ```
