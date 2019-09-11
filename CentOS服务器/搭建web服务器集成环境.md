@@ -74,6 +74,8 @@ extension=redis.so
 [官方文档](http://supervisord.org/)
 安装
 ```
+yum install epel-release
+
 yum install python-pip
  
 pip install --upgrade pip
