@@ -102,6 +102,8 @@ files = /etc/supervisor/conf.d/*.conf
 ```
 ulimit -n
  
+ulimit -n 65535
+
 vim /etc/security/limits.conf
 * soft nofile 65535
 * hard nofile 65535
