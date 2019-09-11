@@ -152,7 +152,7 @@ stderr_logfile = /var/log/supervisor/nginx.stderr.log
 ```
 php-fpm
 ```
-vim php -fpm.conf
+vim php-fpm.conf
 
 [program:php-fpm]
 command = bash -c "sleep 1 && /usr/local/php/sbin/php-fpm --fpm-config /usr/local/php/etc/php-fpm.conf --pid /usr/local/php/var/run/php-fpm.pid"
