@@ -138,6 +138,8 @@ systemctl enable supervisord
 ```
 配置被管理的应用
 ```
+mkdir /var/log/supervisor
+
 cd /etc/supervisor/conf.d
 ```
 先关闭各应用的守护进程模式，再配置
