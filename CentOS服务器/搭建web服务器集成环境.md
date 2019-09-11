@@ -31,8 +31,8 @@ make && make install
 配置环境变量
 ```
 vim /etc/profile
-#PATH=$PATH:/usr/local/php/bin
-#export PATH
+PATH=$PATH:/usr/local/php/bin
+export PATH
  
 source /etc/profile
  
