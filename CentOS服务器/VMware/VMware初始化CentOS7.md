@@ -8,16 +8,16 @@
 **如果提示未开启vt**
 进入BIOS，选择带有 virtualization的选项并开启
 
+#### **不能联网**
+`vi /etc/sysconfig/network-scripts/ifcfg-ens33`
+将ONBOOT=no这一项改为ONBOOT=yes，重启虚拟机。
+
 **查看IP**
 ```
 yum install net-tools
 
 ifconfig
 ```
-
-#### **不能联网**
-`vi /etc/sysconfig/network-scripts/ifcfg-ens33`
-将ONBOOT=no这一项改为ONBOOT=yes，重启虚拟机。
 
 #### **允许外网访问**
 ```
