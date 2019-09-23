@@ -39,6 +39,11 @@ service redisd start
 service redisd stop
 #设置为开机自启动服务器
 chkconfig redisd on
+
+#测试
+/usr/local/redis/bin/redis-cli
+ping
+#出现PONG
 ```
 [pecl下载](https://pecl.php.net/package/redis)PHP扩展并解压，进入目录
 ```
