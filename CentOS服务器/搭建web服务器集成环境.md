@@ -60,7 +60,7 @@ service php-fpm start
 make PREFIX=/usr/local/redis install
 cp redis.conf  /usr/local/redis/bin
 ```
-[pecl下载]([https://pecl.php.net/package/redis](https://pecl.php.net/package/redis))PHP扩展并解压，进入目录
+[pecl下载](https://pecl.php.net/package/redis)PHP扩展并解压，进入目录
 ```
 phpize
 ./configure
