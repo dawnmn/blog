@@ -13,6 +13,7 @@ wget http://soft.vpser.net/lnmp/lnmp1.6.tar.gz -cO lnmp1.6.tar.gz && tar zxf lnm
 
 /usr/local/nginx/conf/nginx.conf
 /usr/local/nginx/conf/vhost/xx.conf
+/home/wwwroot
 
 /etc/my.cnf
 ```
