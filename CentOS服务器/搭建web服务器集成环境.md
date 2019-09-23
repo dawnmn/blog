@@ -64,7 +64,6 @@ cp redis.conf  /usr/local/redis/bin
 ```
 phpize
 ./configure
-# lnmp一键安装包需要./configure --with-php-config=/usr/local/php/bin/php-config
 make && make install
 
 vim /usr/local/php/lib/php.ini
