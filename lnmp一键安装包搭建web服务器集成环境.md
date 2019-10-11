@@ -17,6 +17,15 @@ wget http://soft.vpser.net/lnmp/lnmp1.6.tar.gz -cO lnmp1.6.tar.gz && tar zxf lnm
 
 /etc/my.cnf
 ```
+支持thinkphp5
+```
+vim /usr/local/nginx/conf/fastcgi.conf
+fastcgi_param PHP_ADMIN_VALUE"open_basedir=$document_root/:/tmp/:/proc/";
+
+vim /usr/local/nginx/conf/vhost/xxx.com.conf
+set $basedir "open_basedir=/home/wwwroot/dev.yunshare.net/:/tmp/:/proc/";
+include enable-php.conf;
+```
 #### **redis**
 [官网下载](https://redis.io/download)，解压并进入目录
 ```
