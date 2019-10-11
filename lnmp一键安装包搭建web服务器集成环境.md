@@ -1,5 +1,5 @@
 #### **lnmp**
-[官网安装]([https://lnmp.org/install.html](https://lnmp.org/install.html))
+[官网安装](https://lnmp.org/install.html)
 ```
 yum install screen
 screen -S lnmp
