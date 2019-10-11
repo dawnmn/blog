@@ -17,7 +17,7 @@ wget http://soft.vpser.net/lnmp/lnmp1.6.tar.gz -cO lnmp1.6.tar.gz && tar zxf lnm
 
 /etc/my.cnf
 ```
-支持thinkphp5
+nginx支持thinkphp5
 ```
 vim /usr/local/nginx/conf/fastcgi.conf
 fastcgi_param PHP_ADMIN_VALUE"open_basedir=$document_root/:/tmp/:/proc/";
