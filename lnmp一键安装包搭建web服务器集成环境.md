@@ -23,8 +23,57 @@ vim /usr/local/nginx/conf/fastcgi.conf
 fastcgi_param PHP_ADMIN_VALUE"open_basedir=$document_root/:/tmp/:/proc/";
 
 vim /usr/local/nginx/conf/vhost/xxx.com.conf
-set $basedir "open_basedir=/home/wwwroot/dev.yunshare.net/:/tmp/:/proc/";
-include enable-php.conf;
+server
+    {
+        listen 80;
+        server_name api.sofa.com;
+        index index.html index.htm index.php;
+        root  /home/wwwroot/sofa/api/public;
+
+        set $basedir "open_basedir=/home/wwwroot/sofa/api/:/tmp/:/proc/";
+
+        location / {
+                index  index.php index.html index.htm;
+                #如果请求既不是一个文件，也不是一个目录，则执行一下重写规则
+                if (!-e $request_filename)
+                {
+                        #地址作为将参数rewrite到index.php上。
+                        rewrite ^/(.*)$ /index.php/$1;
+                        #若是子目录则使用下面这句，将subdir改成目录名称即可。
+                        #rewrite ^/subdir/(.*)$ /subdir/index.php/$1;
+                }
+        }
+
+        include enable-php-pathinfo.conf;
+
+        location /nginx_status
+        {
+            stub_status on;
+            access_log   off;
+        }
+
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+        {
+            expires      30d;
+        }
+
+        location ~ .*\.(js|css)?$
+        {
+            expires      12h;
+        }
+
+        location ~ /.well-known {
+            allow all;
+        }
+
+        location ~ /\.
+        {
+            deny all;
+        }
+
+        access_log  /home/wwwlogs/access.log;
+    }
+
 ```
 #### **redis**
 [官网下载](https://redis.io/download)，解压并进入目录
