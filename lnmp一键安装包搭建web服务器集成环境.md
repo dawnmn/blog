@@ -1,4 +1,4 @@
-#### **lnmp**
+#### **lnmp1.6**
 [官网安装](https://lnmp.org/install.html)
 ```
 yum install screen
@@ -24,6 +24,8 @@ display_errors = On
 
 vim /usr/local/nginx/conf/fastcgi.conf
 fastcgi_param PHP_ADMIN_VALUE"open_basedir=$document_root/:/tmp/:/proc/";
+fastcgi_param PHP_ADMIN_VALUE $basedir if_not_empty;
+
 
 vim /usr/local/nginx/conf/vhost/xxx.com.conf
 server
