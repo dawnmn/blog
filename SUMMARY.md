@@ -27,3 +27,4 @@
 * [Git安装配置](PHP/Git安装配置.md)
 * [架构、原理](架构、原理.md)
     * [REST架构](REST架构.md)
+* [HTTP认证方案](HTTP认证方案.md)
