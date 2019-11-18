@@ -20,6 +20,7 @@
     * [搭建小白](CentOS服务器/搭建小白.md)
     * [Docker](Docker.md)
         * [起步](起步.md)
+    * [Shell](Shell.md)
 * [PHP](PHP.md)
     * [算法](算法.md)
         * [基本](PHP/算法/基本.md)
