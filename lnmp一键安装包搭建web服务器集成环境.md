@@ -21,7 +21,14 @@ wget http://soft.vpser.net/lnmp/lnmp1.6.tar.gz -cO lnmp1.6.tar.gz && tar zxf lnm
 ```
 lnmp restart
 ```
+切换PHP版本
+```
+cd lnmp1.6
+./install.sh mphp
 
+vim /usr/local/nginx/conf/nginx.conf
+include enable-php7.2.conf;
+```
 nginx支持thinkphp5
 ```
 vim /usr/local/php/etc/php.ini
