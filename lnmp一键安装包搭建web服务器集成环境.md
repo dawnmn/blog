@@ -17,6 +17,11 @@ wget http://soft.vpser.net/lnmp/lnmp1.6.tar.gz -cO lnmp1.6.tar.gz && tar zxf lnm
 
 /etc/my.cnf
 ```
+指令
+```
+lnmp restart
+```
+
 nginx支持thinkphp5
 ```
 vim /usr/local/php/etc/php.ini
