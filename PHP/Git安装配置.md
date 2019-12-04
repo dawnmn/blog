@@ -34,8 +34,3 @@ ssh-keygen -t rsa -C "邮箱"
 
 3 配置Personal Access Tokens：
 点击头像->settings->Access Tokens，账号是邮箱，密码是生成的token
-```
-machine  gitee.com
-login  youremail@126.com
-password  yourpassword
-```
