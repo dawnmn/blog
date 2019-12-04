@@ -18,3 +18,24 @@ machine  gitee.com
 login  youremail@126.com
 password  yourpassword
 ```
+
+#### **gitlab**
+配置Two-Factor Authenticator：
+手机开VPN，在应用宝下载Google Play，在Google Play里面装google-authencator，进行配置。
+
+配置SSH Keys：
+git bash
+```
+cd ~/.ssh   #检查是否生成过KEY
+ssh-keygen -t rsa -C "邮箱"
+#一路回车，生成文件
+```
+点击头像->settings->SSH Keys
+
+配置Personal Access Tokens：
+点击头像->settings->Access Tokens，账号是邮箱，密码是生成的token
+```
+machine  gitee.com
+login  youremail@126.com
+password  yourpassword
+```
