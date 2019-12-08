@@ -123,7 +123,7 @@ ping
 [pecl下载](https://pecl.php.net/package/redis)PHP扩展并解压，进入目录
 ```
 phpize
-./configure --with-php-config=/usr/local/php/bin/php-config
+./configure --with-php-config=/usr/local/php/bin/php-config
 make && make install
 
 vim /usr/local/php/etc/php.ini
