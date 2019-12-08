@@ -34,6 +34,8 @@ php -m |  grep xdebug
 ![](images/10.png)
 ![](images/11.png)
 ![](images/13.png)
+
+#### **调试配置**
 代码打上断点进行调试，延长调试时间：
 ```
 #php.ini
