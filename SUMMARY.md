@@ -26,6 +26,8 @@
         * [基本](PHP/算法/基本.md)
     * [composer](composer.md)
         * [实用技能](PHP/composer/实用技能.md)
+    * [调试](调试.md)
+        * [XDEBUG远程调试配置](XDEBUG远程调试配置.md)
 * [Git安装配置](PHP/Git安装配置.md)
 * [架构、原理](架构、原理.md)
     * [REST架构](REST架构.md)
