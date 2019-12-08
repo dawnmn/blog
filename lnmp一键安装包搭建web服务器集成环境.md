@@ -89,7 +89,7 @@ server
 cd lnmp1.6
 ./install.sh mphp
 
-vim /usr/local/nginx/conf/nginx.conf
+vim /usr/local/nginx/conf/vhost/xxx.conf
 include enable-php7.2.conf;
 ```
 #### **redis**
