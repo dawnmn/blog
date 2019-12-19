@@ -9,6 +9,7 @@
     * [Nginx](nginx.md)
         * [实用技能](CentOS服务器/Nginx/实用技能.md)
         * [深入理解](深入理解.md)
+        * [调优](调优.md)
     * [性能测试](性能测试.md)
         * [sysbench](CentOS服务器/性能测试/sysbench.md)
     * [指令语法](指令语法.md)
