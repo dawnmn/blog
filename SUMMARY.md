@@ -23,6 +23,7 @@
         * [起步](起步.md)
     * [Shell](Shell.md)
     * [安装jdk8](安装jdk8.md)
+    * [搭建kafka+php运行](搭建kafka+php运行.md)
 * [PHP](PHP.md)
     * [算法](算法.md)
         * [基本](PHP/算法/基本.md)
