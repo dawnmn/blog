@@ -29,8 +29,9 @@ chkconfig iptables off
 
 yum install vim
 vim  /etc/selinux/config
+SELINUX=disabled
 ```
-设置SELINUX=disabled
+重启虚拟机。
 
 #### **惯例配置**
 `mkdir /var/download`
