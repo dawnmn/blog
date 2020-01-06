@@ -10,8 +10,11 @@
 
 #### **不能联网**
 配置ifcfg-ensxxx文件
-`vi /etc/sysconfig/network-scripts/ifcfg-ensXX`
-将ONBOOT=no这一项改为ONBOOT=yes，重启虚拟机。
+```
+vi /etc/sysconfig/network-scripts/ifcfg-ensxxx
+ONBOOT=yes
+```
+重启虚拟机。
 
 **查看IP**
 ```
