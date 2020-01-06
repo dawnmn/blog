@@ -10,7 +10,7 @@
 
 #### **不能联网**
 配置ifcfg-ensxxx文件
-`vi /etc/sysconfig/network-scripts/ifcfg-ens33`
+`vi /etc/sysconfig/network-scripts/ifcfg-ensXX`
 将ONBOOT=no这一项改为ONBOOT=yes，重启虚拟机。
 
 **查看IP**
@@ -27,6 +27,7 @@ systemctl disable firewalld.service
 service iptables stop
 chkconfig iptables off
 
+yum install vim
 vim  /etc/selinux/config
 ```
 设置SELINUX=disabled
