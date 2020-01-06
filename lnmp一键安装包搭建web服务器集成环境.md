@@ -33,23 +33,22 @@ lnmp restart
 ```
 nginx支持pathinfo
 ```
-vim /usr/local/php/etc/php.ini
-display_errors = On
-cgi.fix_pathinfo=0
-
+#配置fastcgi
 vim /usr/local/nginx/conf/fastcgi.conf
 fastcgi_param PHP_ADMIN_VALUE"open_basedir=$document_root/:/tmp/:/proc/";
 fastcgi_param PHP_ADMIN_VALUE $basedir if_not_empty;
 
+#复制/usr/local/nginx/conf/nginx.conf里面的default配置，修改如下
 vim /usr/local/nginx/conf/vhost/xxx.com.conf
 server
-    {
-        ...
+{
+	...
 
-        set $basedir "open_basedir=/home/wwwroot/sofa/api/:/tmp/:/proc/";
+	set $basedir "open_basedir=/home/wwwroot/project_name/:/tmp/:/proc/";
 
-       ...
-    }
+	include enable-php-pathinfo.conf;
+	...
+}
 
 ```
 切换PHP版本
