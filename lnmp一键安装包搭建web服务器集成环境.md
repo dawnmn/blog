@@ -25,6 +25,7 @@ nginx支持pathinfo
 ```
 vim /usr/local/php/etc/php.ini
 display_errors = On
+cgi.fix_pathinfo=0
 
 vim /usr/local/nginx/conf/fastcgi.conf
 fastcgi_param PHP_ADMIN_VALUE"open_basedir=$document_root/:/tmp/:/proc/";
