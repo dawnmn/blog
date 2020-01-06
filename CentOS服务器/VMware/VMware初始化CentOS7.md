@@ -37,4 +37,7 @@ SELINUX=disabled
 重启虚拟机。
 
 #### **惯例配置**
-`mkdir /var/download`
+```
+mkdir /var/download
+yum install wget
+```
