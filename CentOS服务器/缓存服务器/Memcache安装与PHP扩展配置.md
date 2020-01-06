@@ -6,6 +6,10 @@ yum install memcached
 ```
 /usr/bin/memcached -d -l 127.0.0.1 -p 11211 -m 32 -u root # 分配32M内存
 ps -ef | grep memcached
+
+#开机启动
+vim /etc/rc.d/rc.local
+/usr/bin/memcached -d -l 127.0.0.1 -p 11211 -m 32 -u root
 ```
 libmemcached安装
 ```
