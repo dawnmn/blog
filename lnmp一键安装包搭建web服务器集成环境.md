@@ -7,6 +7,16 @@ screen -S lnmp
 wget http://soft.vpser.net/lnmp/lnmp1.6.tar.gz -cO lnmp1.6.tar.gz && tar zxf lnmp1.6.tar.gz && cd lnmp1.6 && ./install.sh lnmp
 #大约40分钟左右的安装时间
 ```
+惯例配置
+```
+# 配置phpmyadmin
+vim /home/wwwroot/default/phpmyadmin/config.inc.php
+$cfg['Servers'][$i]['auth_type'] = 'config'; // 修改为config
+...
+$cfg['Servers'][$i]['uer'] = 'root'; // 新增
+$cfg['Servers'][$i]['password'] = 'Jsdf234+'; // 新增
+```
+
 配置路径
 ```
 /usr/local/php/etc/php.ini
