@@ -40,4 +40,5 @@ SELINUX=disabled
 ```
 mkdir /var/download
 yum install wget
+yum install zip unzip
 ```
