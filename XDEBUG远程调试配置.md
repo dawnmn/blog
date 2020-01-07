@@ -1,5 +1,5 @@
 #### **安装xdebug扩展**
-[官网下载]([https://xdebug.org/download#releases](https://xdebug.org/download#releases))，解压进入目录
+[官网下载](https://xdebug.org/download#releases)，解压进入目录
 ```
 phpize
 ./configure --with-php-config=/usr/local/php/bin/php-config
