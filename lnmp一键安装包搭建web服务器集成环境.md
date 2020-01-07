@@ -47,6 +47,10 @@ server
 	set $basedir "open_basedir=/home/wwwroot/project_name/:/tmp/:/proc/";
 
 	include enable-php-pathinfo.conf;
+
+	location / {
+		try_files $uri $uri/ /index.php$is_args$args;
+	}
 	...
 }
 
