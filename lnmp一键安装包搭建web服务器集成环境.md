@@ -73,6 +73,7 @@ mkdir /etc/redis
 cp redis.conf /etc/redis/6379.conf
 vim /etc/redis/6379.conf
 daemonize yes
+#requirepass yourpassword # 设置密码
 
 cp utils/redis_init_script /etc/init.d/redisd
 vim /etc/init.d/redisd
