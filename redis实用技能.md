@@ -34,14 +34,11 @@ vim /etc/sysctl.conf
 vm.overcommit_memory = 1
 ```
 #### **从文件中批量插入数据**
-1 安装EPEL(Extra Packages for Enterprise Linux )即企业版Linux的扩展包
-[下载和安装说明](https://pkgs.org/download/epel-release)
-2 安装unix2dos
+
 ```
+yum install epel-release
 yum install unix2dos
-```
-3 插入数据
-```
+
 vim redis.txt #不能有多余的制表符
 set myk12 v1
 zadd zset12 0 a 1 b 3 c
