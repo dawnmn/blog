@@ -27,3 +27,9 @@ $redis->subscribe(['mytopic'], function($redis, $channel, $message){
     echo "2 $channel:$message";
 });
 ```
+#### **调优**
+```
+sysctl vm.overcommit_memory=1
+vim /etc/sysctl.conf
+vm.overcommit_memory = 1
+```
