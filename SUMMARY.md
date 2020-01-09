@@ -17,6 +17,7 @@
     * [缓存服务器](缓存服务器.md)
         * [Memcache安装与PHP扩展配置](CentOS服务器/缓存服务器/Memcache安装与PHP扩展配置.md)
         * [redis实用技能](redis实用技能.md)
+        * [Redis安装与PHP扩展配置](Redis安装与PHP扩展配置.md)
     * [手动搭建web服务器集成环境](CentOS服务器/搭建web服务器集成环境.md)
     * [lnmp1.6一键安装包搭建web服务器集成环境](lnmp一键安装包搭建web服务器集成环境.md)
     * [搭建小白](CentOS服务器/搭建小白.md)
