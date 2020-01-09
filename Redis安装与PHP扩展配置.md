@@ -26,6 +26,11 @@ chkconfig redisd on
 /usr/local/redis/bin/redis-cli
 ping
 #出现PONG表示成功
+
+#调优
+sysctl vm.overcommit_memory=1
+vim /etc/sysctl.conf
+vm.overcommit_memory = 1
 ```
 [pecl下载](https://pecl.php.net/package/redis)PHP扩展并解压，进入目录
 ```
