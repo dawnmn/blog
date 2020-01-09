@@ -52,5 +52,5 @@ hmset myset22 k2 v2 k3 v3 k4 v4
 set myk32 v3
 
 unix2dos redis.txt
-cat redis.txt|/usr/local/redis/bin/redis-cli
+cat redis.txt|/usr/local/redis/bin/redis-cli --pipe
 ```
