@@ -42,7 +42,7 @@ yum install unix2dos
 ```
 3 插入数据
 ```
-vim redis.txt
+vim redis.txt #不能有多余的制表符
 set myk12 v1
 zadd zset12 0 a 1 b 3 c
 sadd sset12 e f g hh
@@ -51,6 +51,6 @@ hset myset12 k1 v1
 hmset myset22 k2 v2 k3 v3 k4 v4
 set myk32 v3
 
-unix2dos redis.txt
+unix2dos redis.txt #必须转码
 cat redis.txt|/usr/local/redis/bin/redis-cli --pipe
 ```
