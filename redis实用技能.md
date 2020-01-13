@@ -36,7 +36,6 @@ vm.overcommit_memory = 1
 #### **从文件中批量插入数据**
 
 ```
-yum install epel-release
 yum install unix2dos
 
 vim redis.txt #不能有多余的制表符
@@ -50,4 +49,17 @@ set myk32 v3
 
 unix2dos redis.txt #必须转码
 cat redis.txt|/usr/local/redis/bin/redis-cli --pipe
+```
+
+#### **使用管道**
+```
+$redis = new \Redis();
+$redis->connect('192.168.37.132', 6379);
+$redis->auth('yourpassword');
+$pipe = $redis->multi(\Redis::PIPELINE);
+for ($i=0;$i<5;$i++){
+    $pipe->incr('pipe');
+}
+$result = $pipe->exec();
+echo $redis->get('pipe');
 ```
