@@ -39,4 +39,14 @@ vim 7005.conf
 
 余下步骤与服务器A相同
 ```
+[官网安装ruby](https://www.ruby-lang.org/zh_cn/documentation/installation/)，选择源码编译安装最新版本
+```
+ruby -v
+```
+redis-cli创建集群
+```
+/usr/local/redis/bin/redis-cli -h 192.168.37.132 -p 7000 -a yourpassword --cluster create 192.168.37.133:7003   192.168.37.133:7004   192.168.37.133:7005  192.168.37.132:7000  192.168.37.132:7001  192.168.37.132:7002 --cluster-replicas 1
+
+```
+
 
