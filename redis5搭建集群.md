@@ -52,7 +52,7 @@ ruby -v
 /usr/local/redis/bin/redis-cli -h 192.168.37.132 -p 7000 -a yourpassword -c
 set test_cluster 100
 #测试 服务器B
-/usr/local/redis/bin/redis-cli -h 192.168.37.133 -p 7000 -a yourpassword -c
+/usr/local/redis/bin/redis-cli -h 192.168.37.133 -p 7003 -a yourpassword -c
 get test_cluster 
 ```
 
