@@ -55,5 +55,10 @@ set test_cluster 100
 /usr/local/redis/bin/redis-cli -h 192.168.37.133 -p 7003 -a yourpassword -c
 get test_cluster 
 ```
+PHP调用集群
+```
+$redisCluster = new \RedisCluster(null,['192.168.37.132:7000'], 1.5, 1.5, true, "yourpassword");
+echo $redisCluster->get('test_cluster');
+```
 
 
