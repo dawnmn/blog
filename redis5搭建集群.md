@@ -45,8 +45,15 @@ ruby -v
 ```
 redis-cli创建集群
 ```
+#创建
 /usr/local/redis/bin/redis-cli -h 192.168.37.132 -p 7000 -a yourpassword --cluster create 192.168.37.133:7003   192.168.37.133:7004   192.168.37.133:7005  192.168.37.132:7000  192.168.37.132:7001  192.168.37.132:7002 --cluster-replicas 1
 
+#测试
+/usr/local/redis/bin/redis-cli -h 192.168.37.132 -p 7000 -a yourpassword -c
+set test_cluster 100
+
+/usr/local/redis/bin/redis-cli -h 192.168.37.133 -p 7000 -a yourpassword -c
+get test_cluster 
 ```
 
 
