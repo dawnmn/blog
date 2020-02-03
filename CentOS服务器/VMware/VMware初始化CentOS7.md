@@ -1,5 +1,5 @@
 #### **安装VMware**
-官网选择Workstation Player，下载并安装
+官网选择[Workstation Pro](https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html)，下载并安装
 
 #### **新建操作系统**
 **下载CentOS7.2**
