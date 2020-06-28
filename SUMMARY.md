@@ -33,7 +33,7 @@
     * [composer](PHP/composer.md)
         * [实用技能](PHP/composer/实用技能.md)
     * [调试](PHP/调试.md)
-        * [phpstorm+xdebug+postman远程调试](XDEBUG远程调试配置.md)
+        * [phpstorm+xdebug+postman远程调试](PHP/调试/phpstorm+xdebug+postman远程调试.md)
     * [PHPStorm 激活](CentOS服务器/PHPStorm激活.md)
 * [Git安装配置](PHP/Git安装配置.md)
 * [架构、原理](架构、原理.md)
