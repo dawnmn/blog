@@ -63,3 +63,11 @@ for ($i=0;$i<5;$i++){
 $result = $pipe->exec();
 echo $redis->get('pipe');
 ```
+
+#### **异常**
+```
+#ERROR
+/var/run/redis_6379.pid exists, process is already running or crashed
+#SOLUTION
+rm -rf /var/run/redis_6379.pid
+```
