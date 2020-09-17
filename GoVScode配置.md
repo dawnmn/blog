@@ -12,7 +12,7 @@ go env
 go env
 #确认GOPATH为自定义的
 ```
-获取远程包
+go get 获取远程包
 ```
 go get github.com/go-sql-driver/mysql
 ```
