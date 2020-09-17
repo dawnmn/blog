@@ -12,6 +12,10 @@ go env
 go env
 #确认GOPATH为自定义的
 ```
+获取远程包
+```
+go get github.com/go-sql-driver/mysql
+```
 
 #### 安装VS Code
 [官网下载并安装]([https://code.visualstudio.com/](https://code.visualstudio.com/))
