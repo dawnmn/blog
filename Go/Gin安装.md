@@ -35,3 +35,34 @@ go build
 go run test.go
 ```
 在浏览器输入localhost:8080/ping
+
+go module vscode 代码提示
+```
+go install github.com/Go-zh/tools/cmd/gopls
+```
+file->preferences->setting 输入go，选择setting.json，添加：
+```
+"go.useLanguageServer": true,
+"[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+    },
+    // Optional: Disable snippets, as they conflict with completion ranking.
+    "editor.snippetSuggestions": "none",
+},
+"[go.mod]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+    },
+},
+"gopls": {
+     // Add parameter placeholders when completing a function.
+    "usePlaceholders": true,
+
+    // If true, enable additional analyses with staticcheck.
+    // Warning: This will significantly increase memory usage.
+    "staticcheck": false,
+}
+```
