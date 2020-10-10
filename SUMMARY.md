@@ -34,5 +34,7 @@
     * [REST架构](架构、原理/REST架构.md)
     * [SOA架构](架构、原理/SOA架构.md)
     * [HTTP认证方案](架构、原理/HTTP认证方案.md)
-* [Go VScode 配置](GoVScode配置.md)
 * [目录](SUMMARY.md)
+* [Go](Go.md)
+    * [VScode 配置](Go/VScode配置.md)
+    * [Gin安装](Go/Gin安装.md)
