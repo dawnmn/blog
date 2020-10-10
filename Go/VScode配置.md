@@ -29,4 +29,34 @@ go env -w GOPROXY=https://goproxy.cn,direct
 ctrl+shift+p，输入`Go:Install/Update Tools`，选择全部并安装
 ![](images/go-test.png)
 
+go module vscode 代码提示
+```
+go install github.com/Go-zh/tools/cmd/gopls
+```
+file->preferences->setting 输入go，选择setting.json，添加：
+```
+"go.useLanguageServer": true,
+"[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+    },
+    // Optional: Disable snippets, as they conflict with completion ranking.
+    "editor.snippetSuggestions": "none",
+},
+"[go.mod]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+    },
+},
+"gopls": {
+     // Add parameter placeholders when completing a function.
+    "usePlaceholders": true,
+
+    // If true, enable additional analyses with staticcheck.
+    // Warning: This will significantly increase memory usage.
+    "staticcheck": false,
+}
+```
 
