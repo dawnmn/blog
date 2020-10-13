@@ -2,20 +2,9 @@
 [官网下载并安装](https://golang.org/dl/)
 ```
 go version
-
 go env
 ```
-系统环境变量配置GOPATH为你自己的路径
-
-重启电脑
-```
-go env
-#确认GOPATH为自定义的
-```
-go get 获取远程包
-```
-go get github.com/go-sql-driver/mysql
-```
+Windows环境变量里 [配置Go模块代理](https://goproxy.cn/)
 
 #### 安装VS Code
 [官网下载并安装]([https://code.visualstudio.com/](https://code.visualstudio.com/))
