@@ -8,12 +8,6 @@ Windows环境变量里 [配置Go模块代理](https://goproxy.cn/)
 
 #### 安装VS Code
 [官网下载并安装]([https://code.visualstudio.com/](https://code.visualstudio.com/))
-安装go扩展
-![](images/vscode_plugin.png)
-
-配置go插件代理
-```
-go env -w GOPROXY=https://goproxy.cn,direct
-```
+安装以下go扩展
+![](../images/微信图片_20201013153210.png)
 ctrl+shift+p，输入`Go:Install/Update Tools`，选择全部并安装
-![](images/go-test.png)
