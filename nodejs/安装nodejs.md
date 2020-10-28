@@ -8,7 +8,7 @@ vim /etc/profile
 export PATH=/usr/local/nodejs/bin:$PATH
 source /etc/profile
 
-nodejs -v
+node -v
 npm version
 npx -v
 ```
