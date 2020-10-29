@@ -20,7 +20,6 @@ chrome相关的几处：
 [ChromeOptions](https://github.com/php-webdriver/php-webdriver/wiki/ChromeOptions)
 ```
 <?php
-<?php
 require_once "vendor/autoload.php";
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
