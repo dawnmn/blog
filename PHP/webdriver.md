@@ -40,4 +40,6 @@ $driver->get("https://www.baidu.com/");
 
 $element = $driver->findElement(WebDriverBy::xpath("/html/body/div[1]/div[1]/div[5]/div/div/div[3]/div/a[1]/div"));
 echo $element->getText();
+
+$driver->quit();
 ```
