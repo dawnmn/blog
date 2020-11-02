@@ -13,7 +13,7 @@ protoc --version
 
 cp /root/go/bin/protoc-gen-go /usr/local/go/bin
 ```
-#### hello world
+#### 配置gRPC
 ```
 go get -u google.golang.org/grpc
 
