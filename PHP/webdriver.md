@@ -9,6 +9,9 @@ google-chrome -version
 unzip chromedriver_linux64.zip
 mv chromedriver /usr/bin
 chromedriver -version
+
+# 启动
+chromedriver --port=4444
 ```
 #### PHP 测试
 ```
