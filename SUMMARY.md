@@ -39,6 +39,7 @@
 * [Go](Go.md)
     * [安装Go、VScode 配置](Go/安装Go、VScode 配置.md)
     * [Gin安装](Go/Gin安装.md)
+    * [gRPC搭建](Go/gRPC搭建.md)
 * [jetbrains IDE 产品无限期试用方式](jetbrainsIDE产品无限期试用方式.md)
 * [nodejs](nodejs.md)
     * [安装nodejs](nodejs/安装nodejs.md)
