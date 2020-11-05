@@ -43,3 +43,5 @@
 * [jetbrains IDE 产品无限期试用方式](jetbrainsIDE产品无限期试用方式.md)
 * [nodejs](nodejs.md)
     * [安装nodejs](nodejs/安装nodejs.md)
+* [Python](Python.md)
+    * [安装](Python/安装.md)
