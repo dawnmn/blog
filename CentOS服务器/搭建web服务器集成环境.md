@@ -19,8 +19,8 @@ service nginx start
 #### **MySQL5.7**
 [参见MySQL](https://www.kancloud.cn/book/dawnmn/blog/preview/CentOS%E6%9C%8D%E5%8A%A1%E5%99%A8/MySQL5.7/%E5%AE%89%E8%A3%85mysql5.7.md)
 
-#### **PHP7.1**
-[官网下载](http://php.net/downloads.php)php7.1源码包，解压并进入目录
+#### **PHP7**
+[官网下载](http://php.net/downloads.php)php7源码包，解压并进入目录
 安装
 ```
 yum groupinstall -y Development tools
