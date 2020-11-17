@@ -14,7 +14,7 @@ vim /home/wwwroot/default/phpmyadmin/config.inc.php
 $cfg['Servers'][$i]['auth_type'] = 'config'; // 修改为config
 ...
 $cfg['Servers'][$i]['uer'] = 'root'; // 新增
-$cfg['Servers'][$i]['password'] = 'Jsdf234+'; // 新增
+$cfg['Servers'][$i]['password'] = 'yourpassword'; // 新增
 ```
 
 配置路径
