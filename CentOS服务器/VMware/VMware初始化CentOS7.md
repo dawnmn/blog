@@ -39,7 +39,5 @@ SELINUX=disabled
 #### **惯例配置**
 ```
 mkdir /var/download
-yum install wget
-yum install zip unzip
-yum install lrzsz
+yum install wget zip unzip lrzsz
 ```
