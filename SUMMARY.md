@@ -45,3 +45,5 @@
     * [安装nodejs](nodejs/安装nodejs.md)
 * [Python](Python.md)
     * [安装](Python/安装.md)
+* [windows10](windows10.md)
+    * [重装系统](windows10/重装系统.md)
