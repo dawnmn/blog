@@ -32,6 +32,7 @@ chkconfig iptables off
 
 yum install vim
 vim ~/.vimrc
+set nu
 vim  /etc/selinux/config
 SELINUX=disabled
 ```
