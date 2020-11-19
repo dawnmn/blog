@@ -31,6 +31,7 @@ service iptables stop
 chkconfig iptables off
 
 yum install vim
+vim ~/.vimrc
 vim  /etc/selinux/config
 SELINUX=disabled
 ```
