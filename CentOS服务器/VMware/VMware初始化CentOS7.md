@@ -39,5 +39,5 @@ SELINUX=disabled
 #### **惯例配置**
 ```
 mkdir /var/download
-yum install 
+yum install lrzsz zip unzip
 ```
