@@ -1,6 +1,6 @@
 [官网安装](https://docs.docker.com/engine/install/centos/)
 配置镜像源：
-参见[镜像加速器](https://github.com/yeasy/docker_practice/blob/master/install/mirror.md)
+参见[Docker Hub 源使用帮助](http://mirrors.ustc.edu.cn/help/dockerhub.html)
 ```
 vim /etc/docker/daemon.json
 {
