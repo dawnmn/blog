@@ -1,6 +1,7 @@
 * [CentOS服务器](服务器.md)
     * [VMware](CentOS服务器/VMware.md)
         * [VMware初始化CentOS7](CentOS服务器/VMware/VMware初始化CentOS7.md)
+        * [配置固定IP](CentOS服务器/VMware/配置固定IP.md)
     * [MySQL5.7](CentOS服务器/mysql5.7.md)
         * [安装](CentOS服务器/MySQL5.7/安装mysql5.7.md)
         * [实用技能](CentOS服务器/MySQL5.7/实用技能.md)
