@@ -26,8 +26,7 @@ make && make install
 ```
 phpize
 ./configure
-make all -j 5
-make install
+make && make install
 
 配置php.ini
 extension=rdkafka.so
