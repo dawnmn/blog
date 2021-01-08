@@ -23,6 +23,7 @@
     * [搭建小白](CentOS服务器/搭建小白.md)
     * [安装jdk8](CentOS服务器/安装jdk8.md)
     * [搭建kafka+php运行](CentOS服务器/搭建kafka+php运行.md)
+    * [搭建rabbitmq-server](CentOS服务器/搭建rabbitmq-server.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
