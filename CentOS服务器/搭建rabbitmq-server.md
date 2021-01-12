@@ -10,3 +10,9 @@ yum install xxx.rpm
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
 yum install rabbitmq-server
 ```
+
+#### PHP示例
+[参见github](https://github.com/php-amqplib/php-amqplib)，demo
+```
+composer require php-amqplib/php-amqplib
+```
