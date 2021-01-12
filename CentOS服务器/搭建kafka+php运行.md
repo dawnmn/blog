@@ -48,5 +48,6 @@ make && make install
 配置php.ini
 extension=rdkafka.so
 ```
-#### **测试**
+#### **php示例**
+[参见官方文档](https://arnaud.le-blanc.net/php-rdkafka-doc/phpdoc/rdkafka.examples.html)
 
