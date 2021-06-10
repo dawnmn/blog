@@ -11,6 +11,7 @@
         * [实用技能](CentOS服务器/Nginx/实用技能.md)
     * [性能测试](CentOS服务器/性能测试.md)
         * [sysbench](CentOS服务器/性能测试/sysbench.md)
+        * [Apache JMeter](CentOS服务器/性能测试/ApacheJMeter.md)
     * [指令语法](CentOS服务器/指令语法.md)
         * [实用技能](CentOS服务器/指令语法/实用技能.md)
     * [缓存服务器](CentOS服务器/缓存服务器.md)
