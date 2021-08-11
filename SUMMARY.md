@@ -43,6 +43,7 @@
     * [REST架构](架构、原理/REST架构.md)
     * [SOA架构](架构、原理/SOA架构.md)
     * [HTTP认证方案](架构、原理/HTTP认证方案.md)
+    * [凤凰架构](架构、原理/凤凰架构.md)
 * [目录](SUMMARY.md)
 * [Go](Go.md)
     * [安装Go、VScode 配置](Go/安装Go、VScode 配置.md)
