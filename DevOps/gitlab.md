@@ -8,3 +8,4 @@ gitlab-ctl reconfigure
 gitlab-ctl restart
 gitlab-ctl status
 ```
+浏览器访问`http://192.168.152.132`
