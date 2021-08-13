@@ -12,7 +12,14 @@
 配置ifcfg-ensxxx文件
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-ensxxx
+BOOTPROTO=static
 ONBOOT=yes
+IPADDR=192.168.152.128
+NETMASK=255.255.255.0
+GATEWAY=192.168.152.2
+DNS1=223.5.5.5
+DNS2=114.114.114.114
+
 ```
 重启虚拟机。
 
