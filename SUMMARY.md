@@ -23,7 +23,7 @@
     * [手动搭建web服务器集成环境](CentOS服务器/搭建web服务器集成环境.md)
     * [lnmp1.6一键安装包搭建web服务器集成环境](CentOS服务器/lnmp一键安装包搭建web服务器集成环境.md)
     * [搭建小白](CentOS服务器/搭建小白.md)
-    * [安装jdk8](CentOS服务器/安装jdk8.md)
+    * [安装java](CentOS服务器/安装java.md)
     * [消息队列](CentOS服务器/消息队列.md)
         * [kafka](CentOS服务器/消息队列/kafka.md)
             * [搭建kafka+php运行](CentOS服务器/消息队列/kafka/搭建kafka+php运行.md)
