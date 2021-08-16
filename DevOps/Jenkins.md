@@ -2,6 +2,7 @@
 [官网安装](https://www.jenkins.io/doc/book/installing/docker/)
 
 ```
+# docker images
 # netstat -tlunp
 # docker stop $(docker ps -aq)
 docker ps
