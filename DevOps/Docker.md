@@ -12,4 +12,7 @@ docker rm containerId
 docker stop $(docker ps -q)
 docker rm $(docker ps -aq)
 docker rmi -f $(docker images -qa)
+docker ps -a
+docker search filebeat
+docker exec -it elk /bin/bash
 ```
