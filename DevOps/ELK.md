@@ -23,5 +23,7 @@ filebeat.inputs:
   paths:
     # 这里改成你的目录
     - /var/download/logs/*.log
+
+service filebeat start
 ```
 
