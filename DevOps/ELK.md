@@ -26,4 +26,5 @@ filebeat.inputs:
 
 service filebeat start
 ```
+![](../images/elk成功.jpg)
 
