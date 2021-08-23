@@ -67,3 +67,4 @@
     * [mongodb](DevOps/mongodb.md)
     * [Prometheus](DevOps/Prometheus.md)
     * [JumpServer](DevOps/JumpServer.md)
+    * [zabbix](DevOps/zabbix.md)
