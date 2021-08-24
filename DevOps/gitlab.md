@@ -21,3 +21,7 @@ gitlab/gitlab-ce
 docker logs -f gitlab
 ```
 浏览器访问`http://192.168.152.132`
+
+登录账号：`root`
+登录密码获取方式如下：
+`docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password`
