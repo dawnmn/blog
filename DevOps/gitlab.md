@@ -1,11 +1,23 @@
 #### 安装
 [官网安装](https://about.gitlab.com/install/?version=ce#centos-7)，然后配置url
 ```
-vim /etc/gitlab/gitlab.rb
-external_url 'http://192.168.152.132'
+docker pull gitlab/gitlab-ce
 
-gitlab-ctl reconfigure
-gitlab-ctl restart
-gitlab-ctl status
+mkdir -p /var/gitlab/etc
+mkdir -p /var/gitlab/log
+mkdir -p /var/gitlab/data
+
+docker run --detach \
+--hostname 192.168.152.132 \
+--publish 443:443 --publish 80:80 --publish 2222:22 \
+--volume /var/gitlab/etc:/etc/gitlab \
+--volume /var/gitlab/log:/var/log/gitlab \
+--volume /var/gitlab/data:/var/opt/gitlab \
+--name gitlab \
+--restart always \
+--privileged=true \
+gitlab/gitlab-ce
+
+docker logs -f gitlab
 ```
 浏览器访问`http://192.168.152.132`
