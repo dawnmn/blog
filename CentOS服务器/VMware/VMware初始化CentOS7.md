@@ -23,13 +23,6 @@ DNS2=114.114.114.114
 ```
 重启虚拟机。
 
-**查看IP**
-```
-yum install net-tools
-
-ifconfig
-```
-
 #### **允许外网访问**
 ```
 systemctl stop firewalld.service
@@ -48,5 +41,5 @@ SELINUX=disabled
 #### **惯例配置**
 ```
 mkdir /var/download
-yum install lrzsz zip unzip wget
+yum install lrzsz zip unzip wget net-tools
 ```
