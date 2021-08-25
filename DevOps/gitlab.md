@@ -61,7 +61,7 @@ su www
 网页配置允许局域网钩子：`Admin->Settings->Network->Outbound requests` 勾选。
 
 网页配置webhooks：`Settings->Webhooks`
-URL：http://192.168.152.128:9901/webhook.php
+URL：http://192.168.152.128:9901/webhook.php （你的webhook脚本路径）
 Secret token：123123 （随便填，用处是在php验证是gitlab发出的）
 
 进入项目的web目录
