@@ -43,3 +43,23 @@ systemctl restart docker
 
 **HTTP克隆，配置Personal Access Tokens**
 点击`头像->settings->Access Tokens`，账号是gitlab账号，密码是生成的token。
+
+#### PHP自动拉取
+网页添加SSH，这里www为你的nginx用户名
+```
+sudo -Hu www ssh-keygen -t rsa -C "webhook"
+```
+```
+cat /etc/passwd | grep www
+vim /etc/passwd
+# 将www的shell改成/bin/bash
+
+su www
+```
+进入一个空的目录，克隆一下项目，目的是更新`/home/www/.ssh/known_hosts`
+允许局域网钩子：`Admin->Settings->Network->Outbound requests` 勾选。
+
+网页配置webhooks：`Settings->Webhooks`
+URL：http://192.168.152.128:9901/webhook.php
+Secret token：123123
+
