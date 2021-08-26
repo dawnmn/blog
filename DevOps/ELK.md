@@ -30,6 +30,12 @@ filebeat.inputs:
 setup.kibana:
   host: "192.168.152.133:5601"
 
+# ======================= Elasticsearch template setting =======================
+
+setup.template.name: "rrm-backend"
+setup.template.pattern: "rrm-backend-*"
+setup.template.overwrite: true
+
 
 # ---------------------------- Elasticsearch Output ----------------------------
 output.elasticsearch:
@@ -39,6 +45,9 @@ output.elasticsearch:
   password: "changeme"
 
   index: "rrm-backend-%{+yyyy.MM.dd}"
+
+# 最后一行
+setup.ilm.enabled: false
 
 filebeat setup
 service filebeat start
