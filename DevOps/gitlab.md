@@ -1,4 +1,4 @@
-#### 安装
+**安装**
 [官网安装](https://about.gitlab.com/install/?version=ce#centos-7)，然后配置url
 ```
 docker pull gitlab/gitlab-ce
@@ -26,7 +26,7 @@ docker logs -f gitlab
 登录密码获取方式如下：
 `docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password`
 
-#### 配置
+**配置**
 ```
 vim /var/gitlab/etc/gitlab.rb
 # 修改ssh clone时显示的端口
@@ -44,7 +44,7 @@ systemctl restart docker
 **HTTP克隆，配置Personal Access Tokens**
 点击`头像->settings->Access Tokens`，账号是gitlab账号，密码是生成的token。
 
-#### PHP自动拉取
+**PHP自动拉取**
 网页添加SSH，这里www为你的nginx用户名
 ```
 sudo -Hu www ssh-keygen -t rsa -C "webhook"
