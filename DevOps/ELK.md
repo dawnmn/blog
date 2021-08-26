@@ -25,6 +25,11 @@ filebeat.inputs:
   paths:
     - /home/wwwroot/rrm_back/backend/runtime/logs/*.log
 
+  multiline.type: pattern
+  multiline.pattern: ^\d{4}-\d{2}-\d{2}[\s]+\d{2}:\d{2}:\d{2}
+  multiline.negate: true
+  multiline.match: after
+
 # =================================== Kibana ===================================
 setup.kibana:
   host: "192.168.152.133:5601"
