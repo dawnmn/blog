@@ -40,6 +40,7 @@ output.elasticsearch:
 
   index: "rrm-backend-%{+yyyy.MM.dd}"
 
+filebeat setup
 service filebeat start
 ```
 ![](../images/elk成功.jpg)
