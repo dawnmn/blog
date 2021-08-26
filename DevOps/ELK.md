@@ -29,7 +29,6 @@ filebeat.inputs:
   multiline.pattern: ^\d{4}-\d{2}-\d{2}[\s]+\d{2}:\d{2}:\d{2}
   multiline.negate: true
   multiline.match: after
-
 # =================================== Kibana ===================================
 setup.kibana:
   host: "192.168.152.133:5601"
@@ -39,7 +38,6 @@ setup.kibana:
 setup.template.name: "rrm-backend"
 setup.template.pattern: "rrm-backend-*"
 setup.template.overwrite: true
-
 
 # ---------------------------- Elasticsearch Output ----------------------------
 output.elasticsearch:
