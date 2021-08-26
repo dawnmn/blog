@@ -58,4 +58,6 @@ service filebeat start
 # ./filebeat setup
 # ./filebeat -e
 ```
+成功示例
+![](../images/elk展示.jpg)
 
