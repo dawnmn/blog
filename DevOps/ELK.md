@@ -1,7 +1,6 @@
 #### 安装sebp/elk
 https://hub.docker.com/r/sebp/elk
 ```
-https://hub.docker.com/r/sebp/elk
 
 docker pull sebp/elk
 sysctl -a | grep vm.max_map_count
