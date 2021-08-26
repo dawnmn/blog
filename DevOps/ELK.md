@@ -55,5 +55,4 @@ service filebeat start
 # ./filebeat setup
 # ./filebeat -e
 ```
-![](../images/elk成功.jpg)
 
