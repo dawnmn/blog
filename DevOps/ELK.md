@@ -15,13 +15,30 @@ docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk
 ```
 vim /etc/filebeat/filebeat.yml
 
+# ============================== Filebeat inputs ===============================
+
 filebeat.inputs:
 
-- type: log 
+- type: log
   enabled: true
+
   paths:
-    # 这里改成你的目录
-    - /var/download/logs/*.log
+    - /home/wwwroot/rrm_back/backend/runtime/logs/*.log
+
+
+# =================================== Kibana ===================================
+setup.kibana:
+  host: "192.168.152.133:5601"
+
+
+# ---------------------------- Elasticsearch Output ----------------------------
+output.elasticsearch:
+  hosts: ["192.168.152.133:9200"]
+
+  username: "elastic"
+  password: "changeme"
+
+  index: "rrm-backend-%{+yyyy.MM.dd}"
 
 service filebeat start
 ```
