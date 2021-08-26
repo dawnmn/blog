@@ -10,8 +10,7 @@ docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk
 查看`http://192.168.152.132:9200/` `http://192.168.152.132:5601/`
 
 #### 安装filebeat
-进入`http://192.168.152.132:5601/app/kibana_overview#/`，点击`Add data`，点击`Nginx logs`，点击`RPM`，按照教程步骤执行：
-![](../images/filebeat安装.jpg)
+进入`http://192.168.152.132:5601/app/kibana_overview#/`，点击`Add data`，点击`Nginx logs`，点击`RPM`，按照教程步骤执行。或者[官网下载tar.gz包](https://www.elastic.co/cn/downloads/past-releases#filebeat)，解压完进入目录即可使用。
 
 #### 配置filebeat，以yii2日志为例
 `vim /etc/filebeat/filebeat.yml`
@@ -53,6 +52,8 @@ setup.dashboards.index: "rrm-backend-*"
 ```
 filebeat setup
 service filebeat start
+# ./filebeat setup
+# ./filebeat -e
 ```
 ![](../images/elk成功.jpg)
 
