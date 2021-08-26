@@ -48,6 +48,7 @@ output.elasticsearch:
 
 # 最后一行
 setup.ilm.enabled: false
+setup.dashboards.index: "rrm-backend-*"
 
 filebeat setup
 service filebeat start
