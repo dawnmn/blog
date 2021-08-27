@@ -14,7 +14,7 @@ docker run -d -v /var/www:/var/www/html -p 9000:9000 --name phpfpm73 php:7.3.30-
 # 检查是否成功
 netstat -tlunp|grep 9000
 ```
-**配置**
+**配置nginx连接php**
 ```
 mkdir /etc/nginx/conf/conf.d
 vim /etc/nginx/conf/conf.d/phpinfo.conf
@@ -53,4 +53,21 @@ phpinfo();
 
 # 访问 http://192.168.152.134:9601/phpinfo.php
 
+```
+**安装php扩展**
+以redis扩展为例
+[pecl下载](http://pecl.php.net/package/redis)，并解压
+```
+docker exec -it phpfpm73 /bin/bash
+mkdir -p /usr/src/php/ext
+exit
+
+# 将redis安装包复制进php容器
+docker cp ./redis /usr/src/php/ext
+docker exec -it phpfpm73 /bin/bash
+# 查看redis安装包是否成功复制进php容器
+cd /usr/src/php/ext/redis
+docker-php-ext-install redis
+
+php --ri redis
 ```
