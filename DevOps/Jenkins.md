@@ -1,5 +1,9 @@
 #### Docker安装
+```
 docker pull jenkins/jenkins:lts
+chown -R 1000:1000 /data/jenkins_home
+docker run -d --name jenkins -p 8081:8080 -v /data/jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+```
 
 ```
 
