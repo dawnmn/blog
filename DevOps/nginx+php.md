@@ -10,6 +10,47 @@ docker rm nginx
 **安装php**
 ```
 docker pull php:7.3.30-fpm
-
 docker run -d -v /var/www:/var/www/html -p 9000:9000 --name phpfpm73 php:7.3.30-fpm
+# 检查是否成功
+netstat -tlunp|grep 9000
+```
+**配置**
+```
+mkdir /etc/nginx/conf/conf.d
+vim /etc/nginx/conf/conf.d/phpinfo.conf
+server {
+    listen       80;
+    server_name  192.168.152.134;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.php  index.html index.htm;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass   php:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /var/www/html/$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
+
+# 启动nginx
+docker run -d -p 9601:80 \
+-v /var/www:/usr/share/nginx/html:ro \
+-v /etc/nginx/conf/conf.d:/etc/nginx/conf.d:ro \
+--link phpfpm73:php \
+--name nginx nginx
+
+vim /var/www/phpinfo.php
+<?php
+phpinfo();
+
+# 访问 http://192.168.152.134:9601/phpinfo.php
+
 ```
