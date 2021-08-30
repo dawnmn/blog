@@ -70,6 +70,17 @@ docker-php-ext-install redis
 
 php --ri redis
 ```
+
+**运行php脚本**
+```
+cd /var/www
+vim a.php
+<?php
+echo "success\n";
+
+docker exec `docker ps -a | grep '9000/tcp' |awk '{print $1}'` /usr/local/bin/php /var/www/html/a.php
+```
+
 **redis**
 ```
 mkdir -p /usr/local/redis/data/
