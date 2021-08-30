@@ -55,8 +55,7 @@ phpinfo();
 
 ```
 **安装php扩展**
-以redis扩展为例
-[pecl下载](http://pecl.php.net/package/redis)，并解压
+以redis扩展为例，[pecl下载](http://pecl.php.net/package/redis)，并解压
 ```
 docker exec -it phpfpm73 /bin/bash
 mkdir -p /usr/src/php/ext
@@ -70,4 +69,19 @@ cd /usr/src/php/ext/redis
 docker-php-ext-install redis
 
 php --ri redis
+```
+**redis**
+```
+mkdir -p /usr/local/redis/data/
+
+docker run -d \
+--privileged=true \
+-p 6379:6379 \
+-v /usr/local/redis/data/:/data \
+--name redis \
+redis redis-server \
+--appendonly yes \
+--requirepass "123456"
+
+docker exec -it redis redis-cli -a 123456
 ```
