@@ -1,4 +1,4 @@
-**安装php73**
+**yum安装php73**
 ```
 yum install epel-release
 yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
