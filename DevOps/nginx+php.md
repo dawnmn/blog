@@ -76,7 +76,7 @@ php --ri redis
 cd /var/www
 vim a.php
 <?php
-file_put_content('/var/www/html/a.log', 'success');
+file_put_contents('/var/www/html/a.log', 'success');
 
 docker exec `docker ps -a | grep '9000/tcp' |awk '{print $1}'` /usr/local/bin/php /var/www/html/a.php
 ```
