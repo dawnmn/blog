@@ -71,3 +71,4 @@
     * [nginx+php](DevOps/nginx+php.md)
     * [gocron](DevOps/gocron.md)
     * [php](DevOps/php.md)
+    * [云片](DevOps/云片.md)
