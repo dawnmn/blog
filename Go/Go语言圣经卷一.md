@@ -865,34 +865,6 @@ func main()  {
 ```
 
 ```
-// 当主函数返回时，所有的goroutine都会直接打断，程序退出。除了从主函数退出或者直接退出程序之外，没有其它的编程方法能够让一个goroutine来打断另一个的执行，但是我们之后可以看到，可以通过goroutine之间的通信来让一个goroutine请求请求其它的goroutine，并让其自己结束执行
-func main() {
-   listener, err := net.Listen("tcp", "localhost:8000")
-   if err != nil {
-      log.Fatal(err)
-   }
-   for {
-      conn, err := listener.Accept()
-      if err != nil {
-         log.Print(err)
-         continue
-      }
-      go handleConn(conn)
-   }
-}
-func handleConn(c net.Conn) {
-   defer c.Close()
-   for {
-      _, err := io.WriteString(c, time.Now().Format("15:04:05\n"))
-      if err != nil {
-         return
-      }
-      time.Sleep(1 * time.Second)
-   }
-}
-```
-
-```
 func main() {
    conn, err := net.Dial("tcp", "localhost:8000")
    if err != nil {
