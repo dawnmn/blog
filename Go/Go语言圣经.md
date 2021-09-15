@@ -1003,3 +1003,87 @@ func main() {
    fmt.Println()
 }
 ```
+~~~
+//当一个程序启动时，其主函数即在一个单独的goroutine中运行，我们叫它main goroutine。新的goroutine会用go语句来创建。
+//当主函数返回时，所有的goroutine都会直接打断，程序退出。除了从主函数退出或者直接退出程序之外，没有其它的编程方法能够让一个goroutine来打断另一个的执行，但是我们之后可以看到，可以通过goroutine之间的通信来让一个goroutine请求请求其它的goroutine，并让其自己结束执行。
+func main() { // server
+   listener, err := net.Listen("tcp", "192.168.152.1:8000")
+   if err != nil {
+      log.Fatal(err)
+   }
+   for {
+      conn, err := listener.Accept()
+      if err != nil {
+         log.Print(err)
+         continue
+      }
+      go handleConn(conn)
+   }
+}
+func handleConn(c net.Conn) {
+   defer c.Close()
+   for {
+      _, err := io.WriteString(c, time.Now().Format("15:04:05\n"))
+      if err != nil {
+         return
+      }
+      time.Sleep(1 * time.Second)
+   }
+}
+
+~~~
+
+~~~
+func main() { // client
+   conn, err := net.Dial("tcp", "localhost:8000")
+   if err != nil {
+      log.Fatal(err)
+   }
+   defer conn.Close()
+   mustCopy(os.Stdout, conn)
+}
+func mustCopy(dst io.Writer, src io.Reader) {
+   if _, err := io.Copy(dst, src); err != nil {
+      log.Fatal(err)
+   }
+}
+~~~
+~~~
+// Channel还支持close操作，用于关闭channel，随后对基于该channel的任何发送操作都将导致panic异常。对一个已经被close过的channel之行接收操作依然可以接受到之前已经成功发送的数据；如果channel中已经没有数据的话讲产生一个零值的数据。
+ch = make(chan int) // unbuffered channel
+ch = make(chan int, 0) // unbuffered channel
+ch = make(chan int, 3) // buffered channel with capacity 3
+~~~
+~~~
+func main() {
+   naturals := make(chan int)
+   squares := make(chan int)
+   go func() {
+      for x := 0; x<100 ; x++ {
+         naturals <- x
+      }
+      close(naturals)
+   }()
+   go func() {
+      for x := range naturals{
+         squares <- x * x
+      }
+      close(squares)
+   }()
+   for x := range squares{
+      fmt.Println(x)
+   }
+}
+~~~
+~~~
+// 类型chan<-int表示一个只发送int的channel，只能发送不能接收。相反，类型<-chan int表示一个只接收int的channel，只能接收不能发送。
+// 如果我们使用了无缓存的channel，那么两个慢的goroutines将会因为没有人接收而被永远卡住。这种情况，称为goroutines泄漏，这将是一个BUG。和垃圾变量不同，泄漏的goroutines并不会被自动回收，因此确保每个不再需要的goroutine能正常退出是重要的。
+func mirroredQuery() string {
+   responses := make(chan string, 3)
+   go func() { responses <- request("asia.gopl.io") }()
+   go func() { responses <- request("europe.gopl.io") }()
+   go func() { responses <- request("americas.gopl.io") }()
+   return <-responses // return the quickest response
+}
+func request(hostname string) (response string) { /* ... */ }
+~~~
