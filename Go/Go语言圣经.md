@@ -1087,3 +1087,30 @@ func mirroredQuery() string {
 }
 func request(hostname string) (response string) { /* ... */ }
 ~~~
+~~~
+func service1(ch chan string) {
+   time.Sleep(2 * time.Second)
+   ch <- "from service1"
+}
+func service2(ch chan string) {
+   time.Sleep(1 * time.Second)
+   ch <- "from service2"
+}
+func main() {
+   ch1 := make(chan string)
+   ch2 := make(chan string)
+   go service1(ch1)
+   go service2(ch2)
+
+   select {       // 会发送阻塞
+   case s1 := <-ch1:
+      fmt.Println(s1)
+   case s2 := <-ch2:
+      fmt.Println(s2)
+   }
+}
+~~~
+~~~
+// 不要使用共享数据来通信；使用通信来共享数据
+// 在以字符串作为参数传递给fmt.Println函数时，字符串的内容并没有被复制——传递的仅仅是字符串的地址和长度
+~~~
