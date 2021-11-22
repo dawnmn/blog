@@ -51,6 +51,7 @@
     * [gRPC搭建](Go/gRPC搭建.md)
     * [Go语言圣经](Go/Go语言圣经.md)
     * [windows安装gcc](Go/windows安装gcc.md)
+    * [Goland](Go/Goland.md)
 * [jetbrains IDE 产品无限期试用方式](jetbrainsIDE产品无限期试用方式.md)
 * [JS](JS.md)
     * [安装nodejs](JS/安装nodejs.md)
