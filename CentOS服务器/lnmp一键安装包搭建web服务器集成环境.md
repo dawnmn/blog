@@ -41,16 +41,16 @@ fastcgi_param PHP_ADMIN_VALUE $basedir if_not_empty;
 nginx配置新的服务
 ```
 #复制/usr/local/nginx/conf/nginx.conf里面的default配置，修改如下
-vim /usr/local/nginx/conf/vhost/xxx.com.conf
-新增
+vim /usr/local/nginx/conf/vhost/www.yourdomain.conf
+新增：
 set $basedir "open_basedir=/home/wwwroot/project_name/:/tmp/:/proc/";
-
 include enable-php-pathinfo.conf;
-
 location / {
 	try_files $uri $uri/ /index.php$is_args$args;
 }
-最终结果类似如下
+
+最终结果类似如下：
+
 server
 {
 	listen 80;
