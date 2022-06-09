@@ -82,3 +82,7 @@ cd lnmp1.6
 vim /usr/local/nginx/conf/vhost/xxx.conf
 include enable-php7.2.conf;
 ```
+安装PHP扩展
+```
+./configure --with-php-config=/usr/local/php/bin/php-config
+```
