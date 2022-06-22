@@ -30,6 +30,7 @@
         * [rabbitmq](CentOS服务器/消息队列/rabbitmq.md)
             * [搭建rabbitmq-server](CentOS服务器/消息队列/rabbitmq/搭建rabbitmq-server.md)
             * [go示例](CentOS服务器/消息队列/rabbitmq/go示例.md)
+    * [Xshell用ssh密钥登录](CentOS服务器/Xshell用ssh密钥登录.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
