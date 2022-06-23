@@ -1,4 +1,4 @@
-[官网安装](https://www.docker.com/get-started/) docker，启动Docker桌面
+[官网安装](https://www.docker.com/get-started/) Docker，启动Docker桌面
 
 ```
 docker pull centos:centos7
