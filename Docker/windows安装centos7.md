@@ -13,4 +13,4 @@ passwd
 
 systemctl start sshd
 ```
-xshell连接，ip是docker宿主机的ip，端口号是50022，这里与vmware是有区别的
+xshell连接，ip是docker宿主机的局域网ip，端口号是50022，这里与vmware是有区别的
