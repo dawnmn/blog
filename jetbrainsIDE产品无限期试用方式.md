@@ -10,6 +10,6 @@
 ```
 
 #### 方式2 插件破解
-步骤1 进入大神的网站 [jetbra.in](https://3.jetbra.in/)，点击第一个节点，下载`jetbra.zip`，列表中点击你想要激活的产品获取激活码。
-步骤2 打开scripts文件夹。如果你是 Linux/MacOS，运行 install.sh，如果你是 Windows，运行 install-all-users.vbs
-步骤3 打开 IDE，我们选择激活码的方式激活。
+步骤1 进入大神的网站 [jetbra.in](https://3.jetbra.in/)，点击第一个节点，下载`jetbra.zip`，页面中点击你想要激活的产品获取激活码。
+步骤2 解压jetbra.zip到一个全英文目录，打开scripts文件夹。如果你是 Linux/MacOS，运行 `install.sh`，如果你是 Windows，运行 `install-all-users.vbs`
+步骤3 打开 IDE，激活码的方式激活。
