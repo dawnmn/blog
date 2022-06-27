@@ -1,6 +1,3 @@
 #### 安装
-```
-yum clean all
-```
-先安装nodejs 12
-[官网安装](https://hellosean1025.github.io/yapi/devops/index.html)
+[官方Docker安装](https://github.com/jinfeijie/yapi)
+[官方其它安装方式](https://github.com/YMFE/yapi)
