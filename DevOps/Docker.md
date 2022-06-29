@@ -15,4 +15,5 @@ docker rmi -f $(docker images -qa)
 docker ps -a
 docker search filebeat
 docker exec -it elk /bin/bash
+docker logs -f containerId
 ```
