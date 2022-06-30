@@ -7,3 +7,7 @@
 docker exec -it docker-apisix-apisix-1 bash
 vi logs/access.log
 ```
+启动
+```
+docker-compose -p docker-apisix up -d
+```
