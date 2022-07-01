@@ -9,5 +9,5 @@ vi logs/access.log
 ```
 启动
 ```
-docker-compose -p docker-apisix up -d
+docker compose -p docker-apisix up -d
 ```
