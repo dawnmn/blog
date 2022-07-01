@@ -11,6 +11,8 @@ systemctl is-enabled docker.service
 systemctl enable docker.service
 #启动服务
 systemctl start docker.service
+#关闭开机启动
+systemctl disable docker.service
 ```
 
 **常用指令**
