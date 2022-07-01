@@ -1,5 +1,5 @@
 #### **安装kafka**
-[官网下载](http://kafka.apache.org/downloads)
+[官网下载](http://kafka.apache.org/downloads) 选择Binary downloads
 解压，移动到/usr/local，重命名kafka，注意需要java环境。
 
 ```
