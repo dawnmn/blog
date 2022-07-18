@@ -3,7 +3,10 @@
 ```
 protoc --version
 
-protoc --go_out=plugins=grpc:. *.proto
+# a.proto增加
+option go_package = "./";
+
+protoc --go_out=plugins=grpc:./ a.proto
 ```
 
 
