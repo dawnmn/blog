@@ -2,6 +2,8 @@
 [Github下载protobuf]([https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases))，选择protoc-xx.x-win64.zip，解压缩，将protoc.exe移动到go/bin目录下
 ```
 protoc --version
+
+protoc --go_out=plugins=grpc:. *.proto
 ```
 
 
