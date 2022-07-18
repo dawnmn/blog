@@ -24,7 +24,6 @@ cp /root/go/bin/protoc-gen-go /usr/local/go/bin
 ```
 go get -u google.golang.org/grpc
 
-go get -u github.com/golang/protobuf/protoc-gen-go
 
 # 在proto文件夹下执行
 protoc --go_out=plugins=grpc:. *.proto
