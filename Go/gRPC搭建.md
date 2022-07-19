@@ -25,7 +25,7 @@ protoc --version
 
 cp /root/go/bin/protoc-gen-go /usr/local/go/bin
 ```
-#### demo
+#### 示例
 user.proto
 ```
 syntax = "proto3";
