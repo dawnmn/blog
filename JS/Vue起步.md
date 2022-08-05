@@ -1,8 +1,17 @@
 ```
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-cnpm install vue-cli -g
+npm install -g @vue/cli
 
-vue init webpack helloworld
-cnpm install
-cnpm run dev
+vue --version
+
+# 克隆项目
+git clone https://github.com/PanJiaChen/vue-element-admin.git
+# 进入项目目录
+cd vue-element-admin
+# 建议不要用 cnpm 安装 会有各种诡异的bug 可以通过如下操作解决 npm 下载速度慢的问题
+npm install --registry=https://registry.npm.taobao.org
+# 本地开发 启动项目
+npm run dev --port=8080 // vue-element-admin
+# 构建项目（打包）
+npm run build:prod
 ```
+element-admin涉及到`vue` `element` `promise` `axios` `vuex` `vue-router`

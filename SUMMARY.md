@@ -56,7 +56,7 @@
 * [jetbrains IDE 产品无限期使用方式](jetbrainsIDE产品无限期试用方式.md)
 * [JS](JS.md)
     * [安装nodejs](JS/安装nodejs.md)
-    * [Vue起步](JS/Vue起步.md)
+    * [VueElementAdmin](JS/Vue起步.md)
 * [Python](Python.md)
     * [安装](Python/安装.md)
 * [windows10](windows10.md)
