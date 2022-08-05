@@ -15,3 +15,15 @@ npm run dev --port=8080 // vue-element-admin
 npm run build:prod
 ```
 element-admin涉及到`vue` `element` `promise` `axios` `vuex` `vue-router`
+开发时调后端需要配置代理，前端代理：
+```
+proxy: {
+      [process.env.VUE_APP_BASE_API]: {
+        target: 'http://192.168.126.128:9503',
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
+      }
+    }
+```
