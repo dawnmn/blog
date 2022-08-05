@@ -15,7 +15,7 @@ npm run dev --port=8080 // vue-element-admin
 npm run build:prod
 ```
 element-admin涉及到`vue` `element` `promise` `axios` `vuex` `vue-router`
-开发时调后端需要配置代理，前端代理，vue.config.js->devServer：
+开发时调后端需要配置代理，前端代理，vue.config.js的devServer增加：
 ```
 proxy: {
       [process.env.VUE_APP_BASE_API]: {
