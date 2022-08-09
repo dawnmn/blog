@@ -25,4 +25,9 @@ docker ps -a
 docker search filebeat
 docker exec -it elk /bin/bash
 docker logs -f containerId
+
+#导出与导入
+docker export 7691a814370e > ubuntu.tar
+cat ubuntu.tar | docker import - test/ubuntu:v1.0
+docker image ls
 ```
