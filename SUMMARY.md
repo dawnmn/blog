@@ -63,7 +63,6 @@
     * [重装系统](windows10/重装系统.md)
     * [windows安装gcc](windows10/windows安装gcc.md)
 * [DevOps](DevOps.md)
-    * [Docker](DevOps/Docker.md)
     * [gitlab](DevOps/gitlab.md)
     * [ELK](DevOps/ELK.md)
     * [PostgreSQL](DevOps/PostgreSQL.md)
