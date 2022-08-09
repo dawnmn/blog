@@ -83,3 +83,4 @@
 * [Docker](Docker.md)
     * [windows安装centos7](Docker/windows安装centos7.md)
     * [Dockerfile](Docker/Dockerfile.md)
+    * [Linux下的安装与常用指令](Docker/Linux下的安装与常用指令.md)
