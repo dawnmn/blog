@@ -79,5 +79,6 @@
     * [云片](DevOps/云片.md)
     * [Elasticsearch](DevOps/Elasticsearch.md)
     * [APISIX](DevOps/APISIX.md)
+    * [phpRedisAdmin](DevOps/phpRedisAdmin.md)
 * [Docker](Docker.md)
     * [windows安装centos7](Docker/windows安装centos7.md)
