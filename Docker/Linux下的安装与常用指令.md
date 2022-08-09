@@ -30,4 +30,8 @@ docker logs -f containerId
 docker export 7691a814370e > ubuntu.tar
 cat ubuntu.tar | docker import - test/ubuntu:v1.0
 docker image ls
+
+#Docker Hub中查询
+docker search centos
+
 ```
