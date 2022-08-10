@@ -40,7 +40,7 @@
         * [常用配置](PHP/PHPStorm/常用配置.md)
     * [webdriver爬虫](PHP/webdriver.md)
     * [总结(2022-07)](PHP/总结2022-07.md)
-* [Git安装配置](Git安装配置.md)
+* [Git安装配置 | 常用指令](Git安装配置.md)
 * [架构、原理](架构、原理.md)
     * [REST架构](架构、原理/REST架构.md)
     * [SOA架构](架构、原理/SOA架构.md)
