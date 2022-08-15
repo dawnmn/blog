@@ -79,6 +79,6 @@
 * [Docker](Docker.md)
     * [安装Docker](Docker/安装Docker.md)
     * [Dockerfile](Docker/Dockerfile.md)
-    * [Linux下的安装与常用指令](Docker/Linux下的安装与常用指令.md)
+    * [常用指令](Docker/常用指令.md)
     * [Docker从入门到实践](Docker/Docker从入门到实践.md)
     * [centos7容器](Docker/centos7容器.md)
