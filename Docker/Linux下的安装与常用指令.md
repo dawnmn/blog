@@ -21,10 +21,8 @@ docker pull imageName
 docker run imageName
 docker stop containerId
 docker rm containerId
-
 
 docker ps -a
-
 docker exec -it elk /bin/bash
 docker logs -f containerId
 
