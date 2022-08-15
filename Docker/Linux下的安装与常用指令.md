@@ -17,12 +17,14 @@ systemctl disable docker.service
 
 **常用指令**
 ```
+docker pull imageName
+docker run imageName
+docker stop containerId
 docker rm containerId
-docker stop $(docker ps -q)
-docker rm $(docker ps -aq)
-docker rmi -f $(docker images -qa)
+
+
 docker ps -a
-docker search filebeat
+
 docker exec -it elk /bin/bash
 docker logs -f containerId
 
