@@ -78,7 +78,7 @@
     * [phpRedisAdmin](DevOps/phpRedisAdmin.md)
 * [Docker](Docker.md)
     * [安装Docker](Docker/安装Docker.md)
-    * [Dockerfile](Docker/Dockerfile.md)
     * [常用指令](Docker/常用指令.md)
+    * [Dockerfile](Docker/Dockerfile.md)
     * [Docker从入门到实践](Docker/Docker从入门到实践.md)
     * [centos7容器](Docker/centos7容器.md)
