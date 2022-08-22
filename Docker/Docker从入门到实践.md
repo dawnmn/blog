@@ -29,6 +29,9 @@ Docker Compose
 单机，用于容器编排，使用docker-compose.yml模板文件。docker compose也是调用docker api
 Swarm
 Swarm是使用SwarmKit构建的 Docker 引擎内置（原生）的集群管理和编排工具，可以借助Docker Compose管理容器
+Kubernetes
+管理跨多个主机的容器，提供基本的部署，维护以及应用伸缩，主要实现语言为 Go 语言。
+
 
 
 
