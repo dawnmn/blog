@@ -13,6 +13,11 @@ npm install --registry=https://registry.npm.taobao.org
 npm run dev --port=8080 // vue-element-admin
 # 构建项目（打包）
 npm run build:prod
+
+# 重装
+删除 node_modules package-lock.json
+# 插件安装也要带上--registry，不然会报错
+npm install vuex-persistedstate --save --registry=https://registry.npm.taobao.org
 ```
 element-admin涉及到`vue` `element` `promise` `axios` `vuex` `vue-router`
 开发时调后端需要配置代理，前端代理，vue.config.js的devServer增加：
