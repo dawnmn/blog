@@ -32,7 +32,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
     composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 ```
 
-2 docker-compose.yml
+docker-compose.yml
 ```
 version: '1'
 

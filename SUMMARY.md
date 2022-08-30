@@ -82,5 +82,5 @@
     * [常用指令](Docker/常用指令.md)
     * [Dockerfile](Docker/Dockerfile.md)
     * [Docker从入门到实践](Docker/Docker从入门到实践.md)
-    * [centos7容器](Docker/centos7容器.md)
+    * [Docker搭建centos7容器](Docker/Docker搭建centos7容器.md)
     * [Docker搭建LNMP](Docker/Docker搭建LNMP.md)
