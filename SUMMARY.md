@@ -44,6 +44,7 @@
     * [Git安装配置 | 常用指令](版本控制/Git安装配置.md)
     * [gitlab](版本控制/gitlab.md)
     * [svn](版本控制/svn.md)
+    * [利用SwitchHosts加速Github](版本控制/利用SwitchHosts加速Github.md)
 * [目录](SUMMARY.md)
 * [Go](Go.md)
     * [安装Go、VScode 配置](Go/安装Go、VScode 配置.md)
