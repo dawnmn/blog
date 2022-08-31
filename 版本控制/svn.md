@@ -1,3 +1,5 @@
+TortoiseSVN官网下载安装，安装时选择command line client tools项->Will be installed...(第一条)
+
 创建本地版本库：
 进入新的空目录，TortoiseSVN->create repository here
 
