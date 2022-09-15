@@ -31,3 +31,10 @@ source /etc/profile
 go version
 
 ```
+
+## godoc文档
+```
+go get -v  golang.org/x/tools/cmd/godoc
+godoc -http=:6060 -play
+```
+浏览器访问localhost:6060
