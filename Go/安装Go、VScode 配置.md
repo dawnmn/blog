@@ -7,6 +7,13 @@ go env
 ```
 Windows环境变量里 [配置Go模块代理](https://goproxy.cn/)
 
+godoc文档
+```
+go get -v  golang.org/x/tools/cmd/godoc
+godoc -http=:6060 -play
+```
+浏览器访问localhost:6060
+
 #### 安装VS Code
 [官网下载并安装]([https://code.visualstudio.com/](https://code.visualstudio.com/))
 安装以下go扩展
@@ -31,10 +38,3 @@ source /etc/profile
 go version
 
 ```
-
-## godoc文档
-```
-go get -v  golang.org/x/tools/cmd/godoc
-godoc -http=:6060 -play
-```
-浏览器访问localhost:6060
