@@ -52,7 +52,7 @@
     * [Go语言圣经](Go/Go语言圣经.md)
     * [Goland](Go/Goland.md)
     * [http](http.md)
-    * [研习笔记](Go/研习笔记.md)
+    * [研习笔记(2022-9)](Go/研习笔记(2022-9).md)
 * [jetbrains IDE 产品无限期使用方式](jetbrainsIDE产品无限期试用方式.md)
 * [JS](JS.md)
     * [安装nodejs](JS/安装nodejs.md)
