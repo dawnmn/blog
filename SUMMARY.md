@@ -79,6 +79,7 @@
     * [Elasticsearch](DevOps/Elasticsearch.md)
     * [APISIX](DevOps/APISIX.md)
     * [phpRedisAdmin](DevOps/phpRedisAdmin.md)
+    * [xxl-job](DevOps/xxl-job.md)
 * [Docker](Docker.md)
     * [安装Docker](Docker/安装Docker.md)
     * [常用指令](Docker/常用指令.md)
