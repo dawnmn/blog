@@ -1,4 +1,13 @@
-#### 安装rabbitmq-server
+#### docker 安装
+参照[docker hub](https://hub.docker.com/_/rabbitmq)
+```
+docker pull rabbitmq:3.9-management
+
+docker run -p 15672:15672 -p 5672:5672 -d --hostname my-rabbit --name some-rabbit rabbitmq:3.9-management
+```
+浏览器访问
+http://192.168.126.128:15672/
+#### 文件安装rabbitmq-server
 参照[官网](https://www.rabbitmq.com/install-rpm.html)
 ```
 cd /var/download
