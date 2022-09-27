@@ -29,7 +29,7 @@ zookeeper.connect=192.168.1.1:2181,192.168.1.2:2181,192.168.1.3:2181
 分别拷贝/usr/local/kafka_2.11-0.11.0.0文件到192.168.1.2、192.168.1.3，并将broker.id设置为202、203即可
 
 
-#### **配置php扩展**
+#### **配置php/go扩展**
 1 安装librdkafka
 [github下载librdkafka](https://github.com/edenhill/librdkafka/releases)
 解压进入目录
@@ -48,6 +48,12 @@ make && make install
 
 配置php.ini
 extension=rdkafka.so
+```
+
+3 confluent-kafka-go
+windows需要安装 [TDM](https://jmeubank.github.io/tdm-gcc/articles/2021-05/10.3.0-release)
+```
+go get  github.com/confluentinc/confluent-kafka-go/kafka
 ```
 #### **php示例**
 [参见官方文档](https://arnaud.le-blanc.net/php-rdkafka-doc/phpdoc/rdkafka.examples.html)

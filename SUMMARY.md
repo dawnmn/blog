@@ -26,7 +26,7 @@
     * [安装java](CentOS服务器/安装java.md)
     * [消息队列](CentOS服务器/消息队列.md)
         * [kafka](CentOS服务器/消息队列/kafka.md)
-            * [搭建kafka+php运行](CentOS服务器/消息队列/kafka/搭建kafka+php运行.md)
+            * [搭建kafka+php/go运行](CentOS服务器/消息队列/kafka/搭建kafka+php/go运行.md)
         * [rabbitmq](CentOS服务器/消息队列/rabbitmq.md)
             * [搭建rabbitmq-server](CentOS服务器/消息队列/rabbitmq/搭建rabbitmq-server.md)
     * [Xshell用ssh密钥登录](CentOS服务器/Xshell用ssh密钥登录.md)
