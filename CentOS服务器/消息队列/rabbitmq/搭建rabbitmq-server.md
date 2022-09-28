@@ -7,8 +7,8 @@ docker run -p 15672:15672 -p 5672:5672 -d --hostname my-rabbit --name some-rabbi
 ```
 访问`http://ip:15672`，账号：`guest`密码：`guest`
 
-安装插件，以rabbitmq_delayed_message_exchange为例：
-[下载rabbitmq_delayed_message_exchange-3.10.0.ez](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases)，
+**安装插件**
+以rabbitmq_delayed_message_exchange为例，[下载rabbitmq_delayed_message_exchange-3.10.0.ez](https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases)，
 ```
 docker cp rabbitmq_delayed_message_exchange-3.10.0.ez af99480e815d:/plugins
 docker exec -it 容器id bin/bash
