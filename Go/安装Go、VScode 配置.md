@@ -38,3 +38,7 @@ source /etc/profile
 go version
 
 ```
+编译
+```
+go build -o /yourpath/hello hello.go
+```
