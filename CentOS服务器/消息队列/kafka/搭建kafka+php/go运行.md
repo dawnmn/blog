@@ -52,6 +52,7 @@ extension=rdkafka.so
 
 3 confluent-kafka-go
 windows需要安装 [TDM](https://jmeubank.github.io/tdm-gcc/articles/2021-05/10.3.0-release)
+在linux下编译时不用管cgo
 ```
 go get  github.com/confluentinc/confluent-kafka-go/kafka
 ```
