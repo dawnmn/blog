@@ -1,4 +1,4 @@
-#### docker 安装
+#### **docker 安装**
 参照[docker hub](https://hub.docker.com/_/rabbitmq)
 ```
 docker pull rabbitmq:3.9-management
@@ -20,7 +20,41 @@ docker restart 容器id
 ```
 访问`http://ip:15672` -> exchanges -> add a new exchange，查看是否存在。
 
-#### 文件安装rabbitmq-server
+#### **docker compose安装**
+Dockerfile
+```
+FROM rabbitmq:3.9-management
+
+RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list && rm -Rf /var/lib/apt/lists/* && \
+    apt-get update && apt-get install -y wget && \
+    wget https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/3.10.0/rabbitmq_delayed_message_exchange-3.10.0.ez && \
+    apt-get --purge remove -y wget && \
+    mv rabbitmq_delayed_message_exchange-3.10.0.ez /plugins && \
+    cd plugins && rabbitmq-plugins enable rabbitmq_delayed_message_exchange
+```
+docker-compose.yml
+```
+version: "3"
+
+services:
+  rabbitmq:
+    image: rabbitmq3.9
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    hostname: my-rabbit
+    volumes:
+      - /var/lib/rabbitmq/mnesia/rabbit@my-rabbit:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+    networks:
+      - job
+
+networks:
+  job:
+```
+
+#### **文件安装rabbitmq-server**
 参照[官网](https://www.rabbitmq.com/install-rpm.html)
 ```
 cd /var/download
