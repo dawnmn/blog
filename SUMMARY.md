@@ -87,5 +87,6 @@
     * [Docker从入门到实践](Docker/Docker从入门到实践.md)
     * [Docker搭建centos7容器](Docker/Docker搭建centos7容器.md)
     * [Docker搭建LNMP](Docker/Docker搭建LNMP.md)
+    * [Docker Swarm示例](Docker/DockerSwarm示例.md)
 * [应用](应用.md)
     * [分布式事务](应用/分布式事务.md)
