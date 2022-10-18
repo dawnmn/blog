@@ -34,7 +34,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
 
 docker-compose.yml
 ```
-version: "1"
+version: "3"
 
 services:
   nginx:
