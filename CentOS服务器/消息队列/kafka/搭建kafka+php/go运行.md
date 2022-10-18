@@ -1,4 +1,46 @@
-#### **安装kafka**
+#### **docker安装kafka**
+用bitnami/kafka镜像安装
+```
+version: "2"
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.8
+    user: root
+    container_name: zookeeper
+    restart: always
+    ports:
+      - "2181:2181"
+    volumes:
+      - /var/data/zookeeper_data:/bitnami
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - job
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.3
+    user: root
+    container_name: kafka
+    restart: always
+    ports:
+      - "9092:9092"
+    volumes:
+      - /var/data/kafka_data:/bitnami
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://192.168.126.128:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+    networks:
+      - job
+
+networks:
+  job:
+```
+
+#### **文件安装kafka**
 [官网下载](http://kafka.apache.org/downloads) 选择Binary downloads
 解压，移动到/usr/local，重命名kafka，注意需要java环境。
 
