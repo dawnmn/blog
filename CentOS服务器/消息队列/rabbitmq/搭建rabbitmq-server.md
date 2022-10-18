@@ -32,6 +32,8 @@ RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/source
     mv rabbitmq_delayed_message_exchange-3.10.0.ez /plugins && \
     cd plugins && rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 ```
+`docker build -t rabbitmq3.9 .`
+
 docker-compose.yml
 ```
 version: "3"
@@ -53,7 +55,7 @@ services:
 networks:
   job:
 ```
-
+`docker compose up -d`
 #### **文件安装rabbitmq-server**
 参照[官网](https://www.rabbitmq.com/install-rpm.html)
 ```
