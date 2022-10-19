@@ -1,81 +1,150 @@
+**1 创建Swarm集群**
+准备3个docker主机`192.168.126.129` `192.168.126.128` `192.168.126.1`
+```
+# 129
+docker swarm init --advertise-addr 192.168.126.129
+
+# 128 和 1
+docker swarm join --token SWMTKN-1-31kvr0ffntd0m22sx0srnpqcg1o8ctrmxftq9gyj6b2q7x3be7-8n5xvsy31jhcw0g2yi6o4blur 192.168.126.129:2377
+```
+
+**2 运行前准备**
+129 主机
+```
+cd yourpath/lnmp
+vim docker-compose.yml
+```
 ```
 version: "3"
 
 services:
   nginx:
     image: nginx:stable
-    container_name: nginx
-    restart: always
     ports:
-      - "9601:9601"
-      - "9602:9602"
+      - "80:80"
+      - "9610:9610"
     volumes:
-      - /var/log/nginx:/var/log/nginx
-      - /etc/nginx/conf.d:/etc/nginx/conf.d
-      - /var/www/html:/var/www/html
-    networks:
-      - my-lnmp
+      - nginx-html:/var/www/html
+      - nginx-conf:/etc/nginx/conf.d
+      - nginx-log:/var/log/nginx
+    deploy:
+      mode: replicated
+      replicas: 3
+
+  php:
+    image: dawnmn/php73
+    volumes:
+      - nginx-html:/var/www/html
     deploy:
       mode: replicated
       replicas: 3
 
   mysql:
     image: mysql:5.7
-    container_name: mysql
-    restart: always
     ports:
-      - "13306:3306"
+      - "3306:3306"
     volumes:
-      - /etc/mysql:/etc/mysql/mysql.conf.d
-      - /var/lib/mysql:/var/lib/mysql
-      - /var/log/mysql:/var/log
+      - mysql-db:/var/lib/mysql
+      - mysql-conf:/etc/mysql/mysql.conf.d
+      - mysql-log:/var/log
     environment:
       MYSQL_ROOT_PASSWORD: "mypass"
-    networks:
-      - my-lnmp
     deploy:
       placement:
-        constraints: [ node.role == manager ]
+        constraints: [node.role == manager]
 
   redis:
     image: redis:7.0
-    container_name: redis
-    restart: always
     ports:
-      - "16379:6379"
+      - "6379:6379"
     volumes:
-      - /usr/local/redis/data/:/data
-    networks:
-      - my-lnmp
+      - redis-db:/data
     deploy:
       placement:
         constraints: [ node.role == manager ]
-
-  php:
-    image: php73
-    container_name: php
-    restart: always
-    volumes:
-      - /var/www/html:/var/www/html
-    networks:
-      - my-lnmp
-    deploy:
-      mode: replicated
-      replicas: 3
 
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
-      - "18080:8080"
+      - 18080:8080
     stop_grace_period: 1m30s
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    networks:
-      - my-lnmp
+      - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       placement:
         constraints: [ node.role == manager ]
 
-networks:
-  my-lnmp:
+volumes:
+  nginx-html:
+  nginx-conf:
+  nginx-log:
+  mysql-db:
+  mysql-conf:
+  mysql-log:
+  redis-db:
 ```
+```
+docker volume create nginx-html
+docker volume create nginx-conf
+docker volume create nginx-log
+docker volume create mysql-db
+docker volume create mysql-conf
+docker volume create mysql-log
+docker volume create redis-db
+```
+**3 运行**
+```
+docker stack deploy -c docker-compose.yml new-lnmp
+
+cd /var/lib/docker/volumes/new-lnmp_nginx-conf/_data
+vim phpinfo.conf
+```
+```
+server {
+    listen       9610;
+    server_name  localhost;
+	index index.html index.htm index.php;
+	root  /var/www/html/hello;
+
+	if ($request_method = OPTIONS){
+		return 200;
+	}
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+	location ~ /\. {
+        deny all;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass   php:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        try_files $fastcgi_script_name =404;
+    }
+}
+```
+```
+cd /var/lib/docker/volumes/new-lnmp_nginx-html/_data
+mkdir hello
+cd hello
+vim phpinfo.php
+```
+```
+<?php
+phpinfo();
+```
+```
+docker service update new-lnmp_nginx
+```
+**4 访问**
+`http://192.168.126.129:18080/`
+`http://192.168.126.129:9610/phpinfo.php`
+`http://192.168.126.128:9610/phpinfo.php`
+`http://192.168.126.1:9610/phpinfo.php`
