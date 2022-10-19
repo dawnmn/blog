@@ -81,7 +81,7 @@ services:
       lnmp:
 
   php:
-    image: php73
+    image: dawnmn/php73
     container_name: php
     restart: always
     volumes:
