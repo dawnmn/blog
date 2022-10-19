@@ -30,7 +30,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
     php -r "unlink('composer-setup.php');" && \
     mv composer.phar /usr/local/bin/composer && \
     composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
-    apt-get --purge remove -y unzip git wget && apt-get clean && apt-get autoclean && \
+    apt-get --purge remove -y unzip wget && apt-get clean && apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ```
 
