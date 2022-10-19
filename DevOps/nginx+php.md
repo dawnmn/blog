@@ -19,24 +19,32 @@ netstat -tlunp|grep 9000
 mkdir /etc/nginx/conf/conf.d
 vim /etc/nginx/conf/conf.d/phpinfo.conf
 server {
-    listen       80;
-    server_name  192.168.152.134;
+    listen       9510;
+    server_name  192.168.2.64;
+	index index.html index.htm index.php;
+	root  /var/www/html/test;
+
+	if ($request_method = OPTIONS){
+		return 200;
+	}
 
     location / {
-        root   /usr/share/nginx/html;
-        index  index.php  index.html index.htm;
+        try_files $uri $uri/ /index.php$is_args$args;
     }
 
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
+	location ~ /\. {
+        deny all;
     }
 
     location ~ \.php$ {
+        include fastcgi_params;
         fastcgi_pass   php:9000;
         fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  /var/www/html/$fastcgi_script_name;
-        include        fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        try_files $fastcgi_script_name =404;
     }
 }
 
