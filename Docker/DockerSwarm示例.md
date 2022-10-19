@@ -83,15 +83,7 @@ volumes:
   mysql-log:
   redis-db:
 ```
-```
-docker volume create nginx-html
-docker volume create nginx-conf
-docker volume create nginx-log
-docker volume create mysql-db
-docker volume create mysql-conf
-docker volume create mysql-log
-docker volume create redis-db
-```
+
 **3 运行**
 ```
 docker stack deploy -c docker-compose.yml new-lnmp
