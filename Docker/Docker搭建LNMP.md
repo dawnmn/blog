@@ -3,19 +3,19 @@
 FROM php:7.3.33-fpm
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
-    sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list && rm -Rf /var/lib/apt/lists/* && \
-    apt-get update && apt-get install -y git wget libfreetype6-dev libjpeg62-turbo-dev libpng-dev zlib1g-dev libzip-dev imagemagick libmagickwand-dev && \
+    sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list && \
+    apt-get update && apt-get install -y unzip git wget libfreetype6-dev libjpeg62-turbo-dev libpng-dev zlib1g-dev libzip-dev imagemagick libmagickwand-dev && \
     tar -xf /usr/src/php.tar.xz && \
     mv php-7.3.33 /usr/src/php && \
     docker-php-ext-install gd bcmath pdo_mysql zip && \
     wget http://pecl.php.net/get/redis-5.3.6.tgz && \
     wget https://pecl.php.net/get/rdkafka-6.0.0.tgz && \
     wget http://pecl.php.net/get/imagick-3.7.0.tgz && \
-    wget https://github.com/edenhill/librdkafka/archive/refs/tags/v1.9.2.tar.gz && \
+    wget https://codeload.github.com/edenhill/librdkafka/zip/refs/tags/v1.9.2 && \
     tar -zxvf redis-5.3.6.tgz && \
     tar -zxvf rdkafka-6.0.0.tgz && \
     tar -zxvf imagick-3.7.0.tgz && \
-    tar -zxvf v1.9.2.tar.gz && \
+    unzip v1.9.2 && \
     mv redis-5.3.6 /usr/src/php/ext/redis && \
     mv rdkafka-6.0.0 /usr/src/php/ext/rdkafka && \
     mv imagick-3.7.0 /usr/src/php/ext/imagick && \
@@ -29,7 +29,9 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
     php composer-setup.php && \
     php -r "unlink('composer-setup.php');" && \
     mv composer.phar /usr/local/bin/composer && \
-    composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+    composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
+    apt-get --purge remove -y unzip git wget && apt-get clean && apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ```
 
 docker-compose.yml
