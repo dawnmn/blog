@@ -22,7 +22,7 @@ ctrl+shift+p，输入`Go:Install/Update Tools`，选择全部并安装
 
 ## linux
 ```
-wget https://studygolang.com/dl/golang/go1.13.1.linux-amd64.tar.gz
+wget https://golang.google.cn/dl/go1.18.7.linux-arm64.tar.gz
 tar -zxvf go1.13.1.linux-amd64.tar.gz
 mv go/ /usr/local/
 
