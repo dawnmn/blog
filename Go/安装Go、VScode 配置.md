@@ -21,7 +21,7 @@ godoc -http=:6060 -play
 ctrl+shift+p，输入`Go:Install/Update Tools`，选择全部并安装
 
 ## linux
-[官网下载bin文件](https://golang.google.cn/dl/)
+[官网下载](https://golang.google.cn/dl/)
 ```
 wget https://golang.google.cn/dl/go1.18.7.linux-arm64.tar.gz
 tar -zxvf go1.18.7.linux-arm64.tar.gz
