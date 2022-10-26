@@ -52,6 +52,7 @@ cat redis.txt|/usr/local/redis/bin/redis-cli --pipe
 ```
 
 #### **使用管道**
+批处理，提高速度。适用场景：当Redis的多次操作毫不相关时，即后一个指令不依赖于上一个指令的执行结果时。
 ```
 $redis = new \Redis();
 $redis->connect('192.168.37.132', 6379);
