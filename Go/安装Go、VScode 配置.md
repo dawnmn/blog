@@ -43,3 +43,4 @@ go version
 ```
 go build -o /yourpath/hello hello.go
 ```
+配置文件通过命令行参数利用flag包将配置文件路径传递进去。
