@@ -3,7 +3,7 @@
 ```
 SET resource-name token-string NX EX max-lock-time
 ```
-释放锁：先判断 token-string，再DEL
+释放锁：先判断 token-string(目的是确认是自己设置的锁)，再DEL
 
 #### **发布订阅**
 publish.php 发布消息脚本
