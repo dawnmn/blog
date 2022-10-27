@@ -1,4 +1,4 @@
-#### **实现锁机制**
+#### **分布式锁**
 加锁
 ```
 SET resource-name token-string NX EX max-lock-time
