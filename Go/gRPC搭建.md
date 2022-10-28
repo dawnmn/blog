@@ -52,6 +52,10 @@ message UserList{
   repeated User list = 1;
 }
 ```
+proto转换成go代码
+```
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative user/user.proto
+```
 server
 ```
 package main
@@ -61,39 +65,40 @@ import (
    "google.golang.org/grpc"
    "net"
    "strconv"
-   "test/user"
+   pb "test/user/user"
 )
 
 type Server struct {
-   userMap map[string]*user.User
+   pb.UnimplementedUserInfoServer
+   userMap map[string]*pb.User
 }
 
-func (s *Server) AddUser(ctx context.Context, u *user.User) (id *user.UserId, e error) {
-   if(s.userMap == nil){
-      s.userMap = map[string]*user.User{}
+func (s *Server) AddUser(ctx context.Context, u *pb.User) (id *pb.UserId, e error) {
+   if s.userMap == nil {
+      s.userMap = map[string]*pb.User{}
    }
 
    uid := strconv.Itoa(len(s.userMap))
    s.userMap[uid] = u
-   id = &user.UserId{}
+   id = &pb.UserId{}
    id.Value = uid
    return
 }
 
-func (s *Server) GetUser(ctx context.Context, id *user.UserId) (u *user.User, e error) {
-   if(s.userMap == nil){
-      s.userMap = map[string]*user.User{}
+func (s *Server) GetUser(ctx context.Context, id *pb.UserId) (u *pb.User, e error) {
+   if s.userMap == nil {
+      s.userMap = map[string]*pb.User{}
    }
    u = s.userMap[id.Value]
    return
 }
 
-func main()  {
-   address := "192.168.2.64:10010"
-   listener,_ := net.Listen("tcp", address)
+func main() {
+   address := ":10010"
+   listener, _ := net.Listen("tcp", address)
 
    s := grpc.NewServer()
-   user.RegisterUserInfoServer(s, &Server{})
+   pb.RegisterUserInfoServer(s, &Server{})
    s.Serve(listener)
 }
 ```
@@ -106,20 +111,20 @@ import (
    "fmt"
    "google.golang.org/grpc"
    "google.golang.org/grpc/credentials/insecure"
-   "test/user"
+   pb "test/user/user"
    "time"
 )
 
-func main()  {
-   address := "192.168.2.64:10010"
-   conn,_ := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
+func main() {
+   address := ":10010"
+   conn, _ := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
-   client := user.NewUserInfoClient(conn)
+   client := pb.NewUserInfoClient(conn)
    defer conn.Close()
 
    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
    defer cancel()
-   u := &user.User{Name: "jack", Description: "strong"}
+   u := &pb.User{Name: "jack", Description: "strong"}
    userId, _ := client.AddUser(ctx, u)
    uu, _ := client.GetUser(ctx, userId)
    fmt.Println(uu)
