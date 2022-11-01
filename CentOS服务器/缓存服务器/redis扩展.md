@@ -11,7 +11,7 @@ redis-cli
 module list
 ```
 
-**RedisSearch 搜索数据库**
+**RedisSearch 搜索型数据库**
 ```
 FT.CREATE idx:movie ON hash PREFIX 1 "movie:" SCHEMA title TEXT SORTABLE release_year NUMERIC SORTABLE rating NUMERIC SORTABLE genre TAG SORTABLE
 FT._LIST
@@ -23,9 +23,16 @@ FT.SEARCH idx:movie "@genre:{动作}"
 FT.SEARCH idx:movie "@release_year:[1900 2010]"
 ```
 
-**RedisTimeSeries 时序数据库**
+**RedisTimeSeries 时序型数据库**
 ```
 TS.CREATE sensor1
 TS.ADD sensor1 1667293236094 160
+```
+
+**RedisBloom 布隆过滤器**
+```
+BF.ADD newFilter foo
+BF.EXISTS newFilter foo
+BF.EXISTS newFilter bar
 ```
 
