@@ -22,3 +22,9 @@ FT.SEARCH idx:movie "功夫"
 FT.SEARCH idx:movie "@genre:{动作}"
 FT.SEARCH idx:movie "@release_year:[1900 2010]"
 ```
+
+**RedisTimeSeries**
+```
+TS.CREATE sensor1
+TS.ADD sensor1 1667293236094 160
+```
