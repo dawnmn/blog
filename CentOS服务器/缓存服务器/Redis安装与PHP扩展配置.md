@@ -1,4 +1,5 @@
 [官网下载](https://redis.io/download)，解压并进入目录
+[官方开发文档](https://developer.redis.com/)
 ```
 make PREFIX=/usr/local/redis install
 
