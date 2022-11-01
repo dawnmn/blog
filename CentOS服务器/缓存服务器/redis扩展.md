@@ -5,6 +5,10 @@ docker run -d --name redis-stack \
    -p 8001:8001 \
    -v /usr/local/redis/data:/data \
    redis/redis-stack:latest
+
+docker exec -it containerId exec
+redis-cli
+module list
 ```
 
 **RedisSearch**
