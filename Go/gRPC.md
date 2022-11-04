@@ -131,3 +131,4 @@ func main() {
    fmt.Println(uu)
 }
 ```
+单个连接的client可以支持最大到9w的qps，通过使用自建连接池，经测qps可以达到40w左右。

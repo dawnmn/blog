@@ -51,7 +51,7 @@
 * [目录](SUMMARY.md)
 * [Go](Go.md)
     * [安装Go、VScode 配置](Go/安装Go、VScode 配置.md)
-    * [gRPC搭建](Go/gRPC搭建.md)
+    * [gRPC](Go/gRPC.md)
     * [Go语言圣经](Go/Go语言圣经.md)
     * [Goland](Go/Goland.md)
     * [http](http.md)
