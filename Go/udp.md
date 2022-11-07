@@ -78,6 +78,7 @@ func main() {
 }
 ```
 client
+```
 package main
 
 import (
@@ -123,3 +124,4 @@ func main() {
    }
    wg.Wait()
 }
+```
