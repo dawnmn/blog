@@ -1,4 +1,4 @@
-`udp `+` redis` + `https` 实现服务器与海量设备的通信，其中，upd用于心跳检测和服务器下发消息，redis缓存交互数据，https传输数据。
+`udp `+` redis` + `https` 实现服务器与海量设备的通信，其中，upd用于心跳检测和服务器下发消息（通知设备请求https接口），redis缓存交互数据，https传输数据。
 **带心跳检测的udp通信**
 server
 ```
