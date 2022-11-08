@@ -59,6 +59,7 @@
     * [udp](Go/udp.md)
     * [https](Go/https.md)
     * [tcp](Go/tcp.md)
+    * [实用技能](Go/实用技能.md)
 * [jetbrains IDE 产品无限期使用方式](jetbrainsIDE产品无限期试用方式.md)
 * [JS](JS.md)
     * [安装nodejs](JS/安装nodejs.md)
