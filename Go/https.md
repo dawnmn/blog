@@ -112,6 +112,8 @@ func main() {
    log.Fatal(err)
 }
 ```
+浏览器查看 `https://test:4000`
+
 **http客户端**
 ```
 package main
