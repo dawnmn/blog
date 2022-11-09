@@ -1,4 +1,4 @@
-## windows
+**windows**
 #### 安装Go
 [官网下载并安装](https://golang.org/dl/)
 ```
@@ -20,7 +20,7 @@ godoc -http=:6060 -play
 ![](../images/微信图片_20201013153210.png)
 ctrl+shift+p，输入`Go:Install/Update Tools`，选择全部并安装
 
-## linux
+**linux**
 [官网下载](https://golang.google.cn/dl/)
 ```
 wget https://golang.google.cn/dl/go1.18.7.linux-arm64.tar.gz
@@ -39,7 +39,7 @@ source /etc/profile
 go version
 
 ```
-编译
+**编译**
 ```
 go build -o /yourpath/hello hello.go
 
@@ -47,3 +47,5 @@ go build -o /yourpath/hello hello.go
 CGO_ENABLED=0 go build -o /yourpath/hello hello.go
 ```
 配置文件通过命令行参数利用flag包将配置文件路径传递进去。
+**docker运行**
+`docker run -v /var/data/tcp-udp/client:/client --name 1mclient_1 -d alpine /client -conn=1000 -ip=192.168.2.70`
