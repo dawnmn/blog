@@ -33,7 +33,7 @@ client最大tcp连接数：tcp端口的数据类型是unsigned short，因此本
 server最大tcp连接数：理论上是客户端ip数×客户端port数，在unix/linux下限制连接数的主要因素是内存和允许的文件描述符个数。
 服务器端最多可以拥有65535个Bind的Socket，最多可以开65535个服务器进程，但是你要知道这个能够连接客户端的数量没有任何关系。
 
-server
+server net包示例
 ```
 package main
 
@@ -80,6 +80,57 @@ func main() {
    }
 }
 ```
+server gnet2.0示例
+```
+package main
+
+import (
+   "flag"
+   "fmt"
+   "github.com/panjf2000/gnet/v2"
+   "github.com/panjf2000/gnet/v2/pkg/pool/goroutine"
+   "log"
+)
+
+type echoServer struct {
+   gnet.BuiltinEventEngine
+
+   eng       gnet.Engine
+   addr      string
+   multicore bool
+   pool      *goroutine.Pool
+}
+
+func (es *echoServer) OnBoot(eng gnet.Engine) gnet.Action {
+   es.eng = eng
+   log.Printf("echo server with multi-core=%t is listening on %s\n", es.multicore, es.addr)
+   return gnet.None
+}
+
+func (es *echoServer) OnTraffic(c gnet.Conn) gnet.Action {
+   buf, _ := c.Next(-1)
+   es.pool.Submit(func() {
+      c.AsyncWrite(buf, func(c gnet.Conn) error {
+         return nil
+      })
+   })
+   return gnet.None
+}
+
+func main() {
+   var port int
+   var multicore bool
+
+   // Example command: go run echo.go --port 9000 --multicore=true
+   flag.IntVar(&port, "port", 9000, "--port 9000")
+   flag.BoolVar(&multicore, "multicore", false, "--multicore true")
+   flag.Parse()
+   echo := &echoServer{addr: fmt.Sprintf("tcp://:%d", port), multicore: multicore, pool: goroutine.Default()}
+   log.Fatal(gnet.Run(echo, echo.addr, gnet.WithMulticore(multicore)))
+}
+```
+
+
 client
 ```
 package main
