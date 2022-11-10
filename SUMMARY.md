@@ -54,7 +54,6 @@
     * [gRPC](Go/gRPC.md)
     * [Go语言圣经](Go/Go语言圣经.md)
     * [Goland](Go/Goland.md)
-    * [http](Go/http.md)
     * [研习笔记(2022-11)](Go/研习笔记(2022-11).md)
     * [udp](Go/udp.md)
     * [https](Go/https.md)
