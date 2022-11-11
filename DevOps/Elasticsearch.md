@@ -13,4 +13,7 @@ elasticsearch-setup-passwords auto
 # 记住自动生成的密码
 
 ```
+```
+docker cp es:/usr/share/elasticsearch/config/certs/http_ca.crt .
+```
 浏览器访问`https://192.168.126.128:9200/`
