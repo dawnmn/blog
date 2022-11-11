@@ -12,4 +12,4 @@ docker exec -it es bash
 elasticsearch-setup-passwords auto
 
 ```
-浏览器访问http://192.168.126.128:9200/
+浏览器访问`http://192.168.126.128:9200/`
