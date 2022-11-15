@@ -1,4 +1,4 @@
-#### centos 官网安装
+`centos 官网安装`
 [官网](https://nodejs.org/zh-cn/download/)选择`Linux 二进制文件 (x64)` 下载
 ```
 tar -xJvf node-x-x.tar.xz
@@ -14,7 +14,7 @@ npm version
 npx -v
 ```
 
-#### yum安装
+`yum安装`
 ```
 curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash
 yum install nodejs
