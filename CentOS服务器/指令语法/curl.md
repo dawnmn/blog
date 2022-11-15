@@ -49,7 +49,9 @@
 
 上面命令设置用户名为bob，密码为12345，然后将其转为 HTTP 标头Authorization: Basic Ym9iOjEyMzQ1。
 
+      
 <br/>
+
 `-X`参数指定 HTTP 请求的方法。
 `curl -X POST https://www.example.com`
 <br/>
