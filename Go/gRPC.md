@@ -2,6 +2,7 @@ GRPC的两个特性：`多路复用`（一个客户端连接可以在多个客�
 单个连接的client可以支持最大到9w的qps，通过使用自建连接池，经测qps可以达到40w左右。
 *****
 参考[grpc官网](https://grpc.io/docs/languages/go/basics/)，[Go示例](https://github.com/grpc/grpc-go)
+*****
 **windows安装protobuf**
 [Github下载protobuf]([https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases))，选择protoc-xx.x-win64.zip，解压缩，将protoc.exe移动到go/bin目录下
 ```
