@@ -55,6 +55,6 @@
 <br/>
 
 
-`--connect-timeout`参数指定 HTTP 请求连接超时时间
-`-m`参数指定 HTTP 请求数据传输的最大允许时间
+`--connect-timeout`参数指定 HTTP 请求连接超时时间。
+`-m`参数指定 HTTP 请求数据传输的最大允许时间。
 `curl --connect-timeout 10 -m 20 "http://XXXXXXX"`
