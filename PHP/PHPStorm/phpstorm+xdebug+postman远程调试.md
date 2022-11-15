@@ -1,4 +1,4 @@
-#### **安装xdebug扩展**
+**安装xdebug扩展**
 [官网下载](https://xdebug.org/download#releases)，解压进入目录
 ```
 phpize
@@ -21,7 +21,7 @@ xdebug.remote_log = /tmp/xdebug.log
 #验证
 php -m |  grep xdebug
 ```
-#### **phpstorm配置**
+**phpstorm配置**
 ![](../../images/1.png)
 ![](../../images/2.png)
 ![](../../images/3.png)
@@ -35,7 +35,7 @@ php -m |  grep xdebug
 ![](../../images/11.png)
 ![](../../images/13.png)
 
-#### **调试配置**
+**调试配置**
 代码打上断点进行调试，延长调试时间：
 ```
 #php.ini
