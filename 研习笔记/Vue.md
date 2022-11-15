@@ -1,9 +1,4 @@
-初始化
-```
-npm install -g @vue/cli
-vue create my-project
-npm run serve -- --port 8090
-```
+
 常用生命周期钩子函数：created、mounted、updated、beforeDestroy
 生命周期四大阶段：
 1.初始化阶段:
