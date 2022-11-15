@@ -64,6 +64,7 @@
 * [JS](JS.md)
     * [安装nodejs](JS/安装nodejs.md)
     * [VueElementAdmin](JS/Vue起步.md)
+    * [Vue](JS/Vue.md)
 * [Python](Python.md)
     * [安装](Python/安装.md)
 * [windows10](windows10.md)
