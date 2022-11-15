@@ -24,7 +24,8 @@ Text、Keyword 字符串。Keyword的意思是字符串的内容不会被分词�
 * Boolean 布尔类型
 * Geo_point、Geo_shape 特殊类型
 
-* shard（分片）
+
+shard（分片）
 ES可以把一个完整的索引分成多个分片, 分布到不同的节点上，每个分片都是一个Lucene实例，单个Lucene中极限存储2147483519（21亿）个文档。
 replica（副本）
 分片有Primary Shard(主分片)、Replica Shard(副本分片), 建立索引时, 系统会先将索引存储在主分片中, 然后再将主分片中的索引复制到不同的副本中。
