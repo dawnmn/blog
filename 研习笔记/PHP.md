@@ -46,19 +46,19 @@ fpm可以同时监听多个端口，每个端口对应一个worker pool。
 static: 这种方式比较简单，在启动时master按照pm.max_children配置fork出相应数量的worker进程，即worker进程数是固定不变的
 dynamic: 动态进程管理，首先在fpm启动时按照pm.start_servers初始化一定数量的worker，运行期间如果master发现空闲worker数低于pm.min_spare_servers配置数(表示请求比较多，worker处理不过来了)则会fork worker进程，但总的worker数不能超过pm.max_children，如果master发现空闲worker数超过了pm.max_spare_servers(表示闲着的worker太多了)则会杀掉一些worker，避免占用过多资源，master通过这4个值来控制worker数
 
-TS指Thread Safety，即线程安全，针对多线程
-NTS 非线程安全，php-fpm是多进程单线程，因此适用
+TS指Thread Safety，即线程安全，针对多线程。
+NTS 非线程安全，php-fpm是多进程单线程，因此适用。
 
 命名空间：解决类、函数、常量、接口名字冲突。
-类的自动加载：spl_autoload_register，可以支持任意数量的加载器，直到类成功注册为止，里面还是用的是require。常用框架比如yii2（有一套自己的autoload）也是借用composer+PSR规范实现框架外部类的自动加载，通过引入/vendor/autoload.php
+类的自动加载：`spl_autoload_register`，可以支持任意数量的加载器，直到类成功注册为止，里面还是用的是require。常用框架比如yii2（有一套自己的autoload）也是借用composer+PSR规范实现框架外部类的自动加载，通过引入/vendor/autoload.php。
 composer是php包管理器，也是自动加载的关键，它实现了类与文件的映射关系，并且使用spl_autoload_register在需要时载入内存。
-psr4：命名空间必须对应一个目录，类名必须与php文件名相同，大小写敏感
+psr4：命名空间必须对应一个目录，类名必须与php文件名相同，大小写敏感。
 
 获取客户端真实IP：HTTP_X_ORIGINAL_FORWARDED_FOR HTTP_X_FORWARDED_FOR HTTP_CLIENT_IP REMOTE_ADDR
 服务器真实IP：SERVER_ADDR
 
 重定向：header函数（location） + die
-BOM头是一串隐藏的字符,用于让记事本等编辑器识别这个文件是否以UTF-8编码，PHP不能识别，会把BOM作为文件开头正文的一部分
+BOM头是一串隐藏的字符,用于让记事本等编辑器识别这个文件是否以UTF-8编码，PHP不能识别，会把BOM作为文件开头正文的一部分。
 if (substr($t, 0, 3) == '\xef\xbb\xbf') {
 	$t = substr($t, 3);
 }
@@ -68,4 +68,4 @@ __construct() __destruct() __set() __get() __isset() __isget() __sleep() __wakeu
 
 YII2 优点：结构清晰，组件齐全，能快速开发项目，特点：配置强大，自定义修改请求、响应、日志等，yii队列也很好用。依赖注入（Denpdency Injection, DI）和服务定位器（Service Locator）两种模式。
 
-PHP7 性能提升的原因：程序运作时搬动的内存位数，存储变量的结构体变小、字符串结构体的改变、数组结构的改变
+PHP7 性能提升的原因：程序运作时搬动的内存位数，存储变量的结构体变小、字符串结构体的改变、数组结构的改变。
