@@ -1,7 +1,7 @@
-#### windows
+**windows**
 [官网安装](https://www.docker.com/get-started/) Docker，启动Docker桌面
 
-#### linux
+**linux**
 ```
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 
