@@ -1,5 +1,7 @@
+GRPC的两个特性：`多路复用`（一个客户端连接可以在多个客户端函数中使用）和`超时重连`。
+单个连接的client可以支持最大到9w的qps，通过使用自建连接池，经测qps可以达到40w左右。
 参考[grpc官网](https://grpc.io/docs/languages/go/basics/)，[go示例](https://github.com/grpc/grpc-go)
-#### windows安装protobuf
+**windows安装protobuf**
 [Github下载protobuf]([https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases))，选择protoc-xx.x-win64.zip，解压缩，将protoc.exe移动到go/bin目录下
 ```
 protoc --version
@@ -9,9 +11,7 @@ option go_package = "./";
 
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative a.proto
 ```
-
-
-#### linux安装protobuf
+**linux安装protobuf**
 [Github下载protobuf]([https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases))，选择protobuf-all-xxx.tar.gz
 ```
 tar -zxvf protobuf-all-xxx.tar.gz
@@ -26,7 +26,7 @@ protoc --version
 
 cp /root/go/bin/protoc-gen-go /usr/local/go/bin
 ```
-#### 示例
+**示例**
 user.proto
 ```
 syntax = "proto3";
@@ -131,5 +131,3 @@ func main() {
    fmt.Println(uu)
 }
 ```
-GRPC的两个特性：多路复用（一个客户端连接可以在多个客户端函数中使用）、超时重连。
-单个连接的client可以支持最大到9w的qps，通过使用自建连接池，经测qps可以达到40w左右。
