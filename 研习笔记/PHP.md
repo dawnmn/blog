@@ -1,4 +1,4 @@
-数据类型：int float bool string    object callable array    resource null
+数据类型：`int` `float` `bool` `string` `object` `callable` `array ` `resource` `null`
 false: '' 0 0.0 [] '0' null
 进制表达前缀：0x 0 0b
 整数溢出转化为float，5/3结果为1.666...
