@@ -46,7 +46,7 @@
         * [常用配置](PHP/PHPStorm/常用配置.md)
     * [webdriver爬虫](PHP/webdriver.md)
 * [版本控制](版本控制.md)
-    * [Git安装配置 | 常用指令](版本控制/Git安装配置.md)
+    * [Git常用指令与密码保存](版本控制/Git常用指令与密码保存.md)
     * [gitlab](版本控制/gitlab.md)
     * [svn](版本控制/svn.md)
     * [利用SwitchHosts加速Github](版本控制/利用SwitchHosts加速Github.md)
