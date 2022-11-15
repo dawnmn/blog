@@ -1,11 +1,11 @@
-#### **分布式锁**
+**分布式锁**
 加锁
 ```
 SET resource-name token-string NX EX max-lock-time
 ```
 释放锁：先判断 token-string(目的是确认是自己设置的锁)，再DEL
 
-#### **发布订阅**
+**发布订阅**
 publish.php 发布消息脚本
 ```
 $redis = new \Redis();
@@ -27,13 +27,13 @@ $redis->subscribe(['mytopic'], function($redis, $channel, $message){
     echo "2 $channel:$message";
 });
 ```
-#### **调优**
+**调优**
 ```
 sysctl vm.overcommit_memory=1
 vim /etc/sysctl.conf
 vm.overcommit_memory = 1
 ```
-#### **从文件中批量插入数据**
+**从文件中批量插入数据**
 
 ```
 yum install unix2dos
@@ -51,7 +51,7 @@ unix2dos redis.txt #必须转码
 cat redis.txt|/usr/local/redis/bin/redis-cli --pipe
 ```
 
-#### **使用管道**
+**使用管道**
 批处理，提高速度。适用场景：当Redis的多次操作毫不相关时，即后一个指令不依赖于上一个指令的执行结果时。
 ```
 $redis = new \Redis();
@@ -65,7 +65,7 @@ $result = $pipe->exec();
 echo $redis->get('pipe');
 ```
 
-#### **异常**
+**异常**
 ```
 #ERROR
 /var/run/redis_6379.pid exists, process is already running or crashed
