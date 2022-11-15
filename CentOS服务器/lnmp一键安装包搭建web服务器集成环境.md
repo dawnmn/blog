@@ -1,4 +1,4 @@
-#### **lnmp1.6**
+**lnmp1.6**
 [官网安装](https://lnmp.org/install.html)
 ```
 yum install screen
