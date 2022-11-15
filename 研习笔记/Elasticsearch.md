@@ -19,12 +19,12 @@ mapping（映射）
 定义字段的数据类型，例如：布尔、字符串、数字、日期
 字段倒排索引的设置
 Text、Keyword 字符串。Keyword的意思是字符串的内容不会被分词处理。Text类型ES会自动的添加一个Keyword类型的子字段。
-Date 日期类型
-Integer、Float、Long 数字类型
-Boolean 布尔类型
-Geo_point、Geo_shape 特殊类型
+* Date 日期类型
+* Integer、Float、Long 数字类型
+* Boolean 布尔类型
+* Geo_point、Geo_shape 特殊类型
 
-shard（分片）
+* shard（分片）
 ES可以把一个完整的索引分成多个分片, 分布到不同的节点上，每个分片都是一个Lucene实例，单个Lucene中极限存储2147483519（21亿）个文档。
 replica（副本）
 分片有Primary Shard(主分片)、Replica Shard(副本分片), 建立索引时, 系统会先将索引存储在主分片中, 然后再将主分片中的索引复制到不同的副本中。
@@ -38,9 +38,9 @@ Tokenizer：按照规则进行分词，在英文中按照空格分词
 Token Filter：去掉 stop、world（停顿词，a、an、the、is、are等），然后转换小写
 
 内置分词器
-Standard Analyzer 默认的分词器，按词切分，小写处理
-Simple Analyzer 按照非字母切分（符号、数字被过滤），小写处理
-Stop Analyzer 小写处理，停用词过滤(the, a, this)
-Whitespace Analyzer 按照空格切分，不转小写
-Keyword Analyzer 不分词，直接将输入当做输出
-Pattern Analyzer 正则表达式，默认是\W+(非字符串分隔)
+* Standard Analyzer 默认的分词器，按词切分，小写处理
+* Simple Analyzer 按照非字母切分（符号、数字被过滤），小写处理
+* Stop Analyzer 小写处理，停用词过滤(the, a, this)
+* Whitespace Analyzer 按照空格切分，不转小写
+* Keyword Analyzer 不分词，直接将输入当做输出
+* Pattern Analyzer 正则表达式，默认是\W+(非字符串分隔)
