@@ -83,3 +83,8 @@ service rabbitmq-server restart
 ```
 composer require php-amqplib/php-amqplib
 ```
+**Go示例**
+```
+go get github.com/rabbitmq/amqp091-go
+```
+
