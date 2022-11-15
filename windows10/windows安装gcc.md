@@ -1,7 +1,9 @@
-**安装**
+**MinGW安装**
 科学上网并[下载](https://sourceforge.net/projects/mingw/)，安装
 
 配置环境变量
 将`C:\MinGW\bin`加入`PATH` 　　
 将`C:\MinGW\include`加入`INCLUDE`
 将`C:\MinGW\lib`加入`LIB`
+
+**TDM安装**
