@@ -699,6 +699,7 @@ func main() {
 }
 ```
 go语言的exec包提供了执行外部命令的封装。
+```
 func main() {
 	// 通过exec.Command函数执行命令或者shell
 	// 第一个参数是命令路径，当然如果PATH路径可以搜索到命令，可以不用输入完整的路径
@@ -714,6 +715,7 @@ func main() {
 	fmt.Println(string(output))
 
 }
+```
 
 golang语言net/url包，提供了url解析，url参数处理的函数。
 
