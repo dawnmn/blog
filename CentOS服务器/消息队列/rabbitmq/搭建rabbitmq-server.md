@@ -1,4 +1,4 @@
-#### **docker 安装**
+**docker 安装**
 参照[docker hub](https://hub.docker.com/_/rabbitmq)
 ```
 docker pull rabbitmq:3.9-management
@@ -20,7 +20,7 @@ docker restart 容器id
 ```
 访问`http://ip:15672` -> exchanges -> add a new exchange，查看是否存在。
 
-#### **docker compose安装**
+**docker compose安装**
 Dockerfile
 ```
 FROM rabbitmq:3.9-management
@@ -56,7 +56,7 @@ networks:
   job:
 ```
 `docker compose up -d`
-#### **文件安装rabbitmq-server**
+**文件安装rabbitmq-server**
 参照[官网](https://www.rabbitmq.com/install-rpm.html)
 ```
 cd /var/download
@@ -78,7 +78,7 @@ rabbitmqctl stop
 service rabbitmq-server restart
 ```
 访问`http://ip:15672`，账号：`guest`密码：`guest`
-#### PHP示例
+**PHP示例**
 [参见github](https://github.com/php-amqplib/php-amqplib)，demo
 ```
 composer require php-amqplib/php-amqplib
