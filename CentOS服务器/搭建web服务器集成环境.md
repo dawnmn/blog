@@ -1,4 +1,4 @@
-#### **Nginx**
+**Nginx**
 [官网安装](http://nginx.org/en/linux_packages.html#RHEL-CentOS)
 允许外网访问
 ```
@@ -16,10 +16,10 @@ SELINUX=disabled
 service nginx start
 ```
 
-#### **MySQL5.7**
+**MySQL5.7**
 [参见MySQL](https://www.kancloud.cn/book/dawnmn/blog/preview/CentOS%E6%9C%8D%E5%8A%A1%E5%99%A8/MySQL5.7/%E5%AE%89%E8%A3%85mysql5.7.md)
 
-#### **PHP7**
+**PHP7**
 [官网下载](http://php.net/downloads.php)php7源码包，解压并进入目录
 安装
 ```
@@ -54,7 +54,7 @@ group = nginx
 service php-fpm start
 ```
 
-#### **Redis**
+**Redis**
 [官网下载](https://redis.io/download)，解压并进入目录
 ```
 make PREFIX=/usr/local/redis install
@@ -70,7 +70,7 @@ vim /usr/local/php/lib/php.ini
 extension=redis.so
 ```
 
-#### **Supervisor**
+**Supervisor**
 [官方文档](http://supervisord.org/)
 安装
 ```
@@ -191,11 +191,3 @@ autostart = true
 autoresart = true
 stderr_logfile = /var/log/supervisor/php-task.stderr.log
 ```
-
-
-
-
-
-
-
-
