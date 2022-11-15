@@ -7,3 +7,4 @@
 将`C:\MinGW\lib`加入`LIB`
 
 **TDM安装**
+官网下载 [TDM](https://jmeubank.github.io/tdm-gcc/articles/2021-05/10.3.0-release)
