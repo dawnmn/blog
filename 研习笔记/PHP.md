@@ -1,5 +1,5 @@
 数据类型：`int` `float` `bool` `string` `object` `callable` `array ` `resource` `null`
-false: '' 0 0.0 [] '0' null
+值为false的情况: '' 0 0.0 [] '0' null
 进制表达前缀：0x 0 0b
 整数溢出转化为float，5/3结果为1.666...
 浮点数转整数，向下取整
