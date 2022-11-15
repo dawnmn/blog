@@ -1,9 +1,9 @@
-#### 安装chrome
+**安装chrome**
 ```
 yum install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 google-chrome -version
 ```
-#### 安装chromedriver
+安装chromedriver
 [官网下载](https://chromedriver.chromium.org/downloads)，注意选择与chrome对应的版本（可能需要翻墙）
 ```
 unzip chromedriver_linux64.zip
@@ -13,7 +13,7 @@ chromedriver -version
 # 启动
 chromedriver --port=4444
 ```
-#### PHP 测试
+**PHP 测试**
 ```
 composer require php-webdriver/webdriver
 ```
