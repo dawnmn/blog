@@ -96,7 +96,7 @@ extension=rdkafka.so
 windows需要安装 [TDM](https://jmeubank.github.io/tdm-gcc/articles/2021-05/10.3.0-release)
 在linux下编译时不用管cgo
 ```
-go get  github.com/confluentinc/confluent-kafka-go/kafka
+go get github.com/confluentinc/confluent-kafka-go/kafka
 ```
 #### **php示例**
 [参见官方文档](https://arnaud.le-blanc.net/php-rdkafka-doc/phpdoc/rdkafka.examples.html)
