@@ -1,7 +1,7 @@
-#### Windows 
+**Windows **
 xshell->工具->新建密钥生成导向->下一步->下一步->密码置空->下一步->保存为文件(保存公钥)->完成->导出(保存私钥)
 
-#### CentOS
+CentOS
 ```
 cd
 mkdir .ssh
@@ -15,5 +15,5 @@ PubkeyAuthentication yes
 
 service sshd restart
 ```
-#### 登录
+**登录**
 xshell用户名`root `，SSH用户身份验证选择Public Key->浏览->文件(选择私钥)
