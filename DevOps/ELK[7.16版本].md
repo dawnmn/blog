@@ -11,9 +11,7 @@ docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk:7.16.0
 
 **安装filebeat，配置filebeat（以yii2日志为例）**
 [官网下载filebeat-7.16.0-linux-x86_64.tar.gz](https://www.elastic.co/cn/downloads/past-releases#filebeat)，解压完进入目录。
-```
-vim filebeat.yml
-```
+`vim filebeat.yml`
 ```
 # ============================== Filebeat inputs ===============================
 
@@ -57,7 +55,7 @@ output.elasticsearch:
 # elasticsearch查看rrm-backend-*索引是否生效
 curl -X GET "192.168.126.129:9200/_cat/indices?pretty"
 ```
-kibana创建查询索引：kibana -> create index pattern -> `rrm-backend*` `@timestamp`
+kibana创建查询索引：`http://192.168.126.129:5601/app/management`->`kibana`->`Index patterns` -> `rrm-backend*` `@timestamp`
 
 成功示例
 ![](../images/elk展示.jpg)
