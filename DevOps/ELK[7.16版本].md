@@ -49,10 +49,8 @@ output.elasticsearch:
   index: "rrm-backend-%{+yyyy.MM.dd}"
 ```
 ```
-filebeat setup
-service filebeat start
-# ./filebeat setup
-# ./filebeat -e
+./filebeat setup
+./filebeat -e
 ```
 成功示例
 ![](../images/elk展示.jpg)
