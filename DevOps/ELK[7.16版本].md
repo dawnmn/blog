@@ -57,11 +57,8 @@ output.elasticsearch:
 # elasticsearch查看rrm-backend-\*索引是否生效
 curl -X GET "192.168.126.129:9200/\_cat/indices?pretty"
 ```
-kibana创建查询索引：kibana -> create index pattern -> rrm-backend\* @timestamp
-查看索引是否生效
-```
+kibana创建查询索引：kibana -> create index pattern -> `rrm-backend*` `@timestamp`
 
-```
 成功示例
 ![](../images/elk展示.jpg)
 
