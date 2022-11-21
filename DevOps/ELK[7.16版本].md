@@ -18,13 +18,10 @@ vim filebeat.yml
 # ============================== Filebeat inputs ===============================
 
 filebeat.inputs:
-
 - type: log
   enabled: true
-
   paths:
-    - /home/wwwroot/rrm_back/backend/runtime/logs/*.log
-
+    - /home/wwwroot/auth/backend/runtime/logs/*.log
   multiline.type: pattern
   multiline.pattern: ^\d{4}-\d{2}-\d{2}[\s]+\d{2}:\d{2}:\d{2}
   multiline.negate: true
@@ -35,11 +32,14 @@ setup.kibana:
 
 # ======================= Elasticsearch template setting =======================
 
-setup.template.name: "rrm-backend"
-setup.template.pattern: "rrm-backend-*"
+setup.template.name: "auth-backend"
+setup.template.pattern: "auth-backend-*"
 setup.template.overwrite: true
+setup.template.enabled: false
 
-# ---------------------------- Elasticsearch Output ----------------------------
+setup.ilm.enabled: false
+
+# ================================== Outputs ===================================
 output.elasticsearch:
   hosts: ["192.168.152.133:9200"]
 
@@ -47,10 +47,6 @@ output.elasticsearch:
   password: "changeme"
 
   index: "rrm-backend-%{+yyyy.MM.dd}"
-
-# 最后一行
-setup.ilm.enabled: false
-setup.dashboards.index: "rrm-backend-*"
 ```
 ```
 filebeat setup
