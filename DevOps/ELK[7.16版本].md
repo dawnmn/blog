@@ -55,7 +55,7 @@ output.elasticsearch:
 ./filebeat -e
 
 # elasticsearch查看rrm-backend-\*索引是否生效
-curl -X GET "192.168.126.129:9200/\_cat/indices?pretty"
+curl -X GET "192.168.126.129:9200/_cat/indices?pretty"
 ```
 kibana创建查询索引：kibana -> create index pattern -> `rrm-backend*` `@timestamp`
 
