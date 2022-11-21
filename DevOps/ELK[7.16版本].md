@@ -10,7 +10,7 @@ docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk:7.16.0
 查看`http://192.168.152.132:9200/` `http://192.168.152.132:5601/`
 
 **安装filebeat**
-[官网下载tar.gz包](https://www.elastic.co/cn/downloads/past-releases#filebeat)，解压完进入目录即可使用。
+[官网下载filebeat-7.16.0-linux-x86_64.tar.gz](https://www.elastic.co/cn/downloads/past-releases#filebeat)，解压完进入目录即可使用。
 
 **配置filebeat，以yii2日志为例**
 `vim /etc/filebeat/filebeat.yml`
