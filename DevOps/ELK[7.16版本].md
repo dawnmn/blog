@@ -11,7 +11,9 @@ docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk:7.16.0
 
 **安装filebeat，配置filebeat（以yii2日志为例）**
 [官网下载filebeat-7.16.0-linux-x86_64.tar.gz](https://www.elastic.co/cn/downloads/past-releases#filebeat)，解压完进入目录。
-`vim /etc/filebeat/filebeat.yml`
+```
+vim filebeat.yml
+```
 ```
 # ============================== Filebeat inputs ===============================
 
