@@ -41,6 +41,10 @@ git branch --no-merged
 
 # origin git服务器名称
 git remote show origin
+
+# 克隆分支
+git clone -b branchName https://xxx/xxx.git
+
 # 将本地分支的更改推送到远程分支
 git push origin master
 # 与远程仓库同步数据
