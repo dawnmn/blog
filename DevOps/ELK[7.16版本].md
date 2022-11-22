@@ -8,7 +8,7 @@ sysctl -w vm.max_map_count=262144
 docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk sebp/elk:7.16.0
 ```
 查看`http://192.168.126.129:9200/` `http://192.168.126.129:5601/`
-[sebp/elk镜像安装文档](https://elk-docker.readthedocs.io/)
+docker详细配置参考 [sebp/elk镜像安装文档](https://elk-docker.readthedocs.io/)。
 **安装filebeat，配置filebeat（以yii2日志为例）**
 [官网下载filebeat-7.16.0-linux-x86_64.tar.gz](https://www.elastic.co/cn/downloads/past-releases#filebeat)，解压完进入目录。
 `vim filebeat.yml`
