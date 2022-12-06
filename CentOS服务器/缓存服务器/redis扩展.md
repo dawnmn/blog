@@ -30,6 +30,7 @@ TS.ADD sensor1 1667293236094 160
 ```
 
 **RedisBloom 布隆过滤器**
+布隆过滤器针对单个字段使用。
 ```
 BF.ADD newFilter foo
 BF.EXISTS newFilter foo
