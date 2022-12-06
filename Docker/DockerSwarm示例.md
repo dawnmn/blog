@@ -140,3 +140,18 @@ docker service update new-lnmp_nginx
 `http://192.168.126.129:9610/phpinfo.php`
 `http://192.168.126.128:9610/phpinfo.php`
 `http://192.168.126.1:9610/phpinfo.php`
+**集中配置文件示例**
+```
+# 进入包含index.html、site.conf的目录
+cd /yourpath
+# 创建配置
+docker config create homepage index.html
+docker config create nginx_config site.conf
+# 应用配置
+docker service create \
+     --name nginx \
+     --config source=nginx_config,target=/etc/nginx/conf.d/site.conf \
+     --config source=homepage,target=/usr/share/nginx/html/index.html \
+     --publish published=3000,target=80 \
+     nginx
+```
