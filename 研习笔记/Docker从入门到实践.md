@@ -26,16 +26,14 @@ docker容器支持导入导出
 .dockerignore文件使用方式与.gitignore相似
 
 Docker Compose
-单机，用于容器编排，使用docker-compose.yml模板文件。docker compose也是调用docker api
+用于单机容器编排，默认bridge网络（桥接网络）。使用docker-compose.yml模板文件。docker compose也是调用docker api。
 Swarm
-Swarm是使用SwarmKit构建的 Docker 引擎内置（原生）的集群管理和编排工具，可以借助Docker Compose管理容器
+可以在多个服务器或主机上创建容器集群服务。
+Swarm 集群由 Manager 节点（管理者角色，管理成员和委托任务）和 Worker 节点（工作者角色，运行 Swarm 服务）组成。这些 Docker 主机有些是 Manager 节点，有些是 Worker 节点，或者同时扮演这两种角色。
+支持节点的弹性扩容和缩容的功能。Swarm 集群模式下默认使用的是 Overlay 网络（覆盖网络）。
+支持config，集中管理配置文件。
+如果你需要搭建一个非常大的集群（1000+ 节点），管理节点需要更多资源，但是对于中小型集群来说，管理节点需要的资源可以忽略不计。
+Swarm集群的网络通信（服务发现，负载均衡以及容器间通信）非常可靠。当你开启一个服务的端口之后，在Swarm集群中的任何一个节点都可以访问它。
 Kubernetes
 管理跨多个主机的容器，提供基本的部署，维护以及应用伸缩，主要实现语言为 Go 语言。
-
-
-
-
-
-
-
 
