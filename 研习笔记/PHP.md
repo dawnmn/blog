@@ -69,3 +69,23 @@ __construct() __destruct() __set() __get() __isset() __isget() __sleep() __wakeu
 YII2 优点：结构清晰，组件齐全，能快速开发项目，特点：配置强大，自定义修改请求、响应、日志等，yii队列也很好用。依赖注入（Denpdency Injection, DI）和服务定位器（Service Locator）两种模式。
 
 PHP7 性能提升的原因：程序运作时搬动的内存位数，存储变量的结构体变小、字符串结构体的改变、数组结构的改变。
+opcache:
+将 PHP 编译产生的字节码（opcode）以及数据（Interned String：变量名称、类名、方法名、字符串、注释等）缓存到共享内存中。
+代码重载：提供一个接口，运行opcache_reset()函数，代码更新后，调用这个函数。不要在业务高峰期操作，会造成反复新建缓存。
+将如下配置覆盖到php.ini,重载php-fpm进程即可生效：
+```
+#允许在 web 环境使用
+opcache.enable=1
+#允许在 cli 环境使用
+opcache.enable_cli=1
+#OPcache 的共享内存大小，以兆字节为单位。可以使用 opcache_get_status 函数来查看Opcahce消耗了多少内存,是否根据需要增加内存
+opcache.memory_consumption=128
+#用来存储预留字符串的内存大小，以兆字节为单位
+opcache.interned_strings_buffer=8    
+#OPcache 哈希表中可存储的PHP文件数量上限，find . -type f -print | grep php | wc -l 获取项目的php文件数目
+opcache.max_accelerated_files=4000 
+#检查脚本时间戳是否有更新的周期，以秒为单位。 设置为 0 会导致针对每个请求， OPcache 都会检查脚本更新。如果 opcache.validate_timestamps 配置指令设置为禁用，那么此设置项将会被忽略。
+# 检查文件时间戳,来确定是否需要重新生成PHP脚本编译缓存，设置0表示不检查
+opcache.validate_timestamps = 0
+```
+
