@@ -45,7 +45,7 @@ Kafka 是不能保证全局消息顺序的，只能保证单个 Partition 下的
 producer 的 ack配置：
 0：表示 producer 不需要等待 broker的消息确认。这个选项时延最小但同时风险最大。
 1：表示 producer 只需要获得 kafka 集群中的 leader 节点确认即可。
--1：需要 ISR 中所有的 Replica 给予接收确认，速度最慢，安全性最高，但是由于 ISR 可能会缩小到仅包含一个 Replica，所以设置参数为 all 并不能一定避免数据丢失。
+-1(all)：需要 ISR 中所有的 Replica 给予接收确认，速度最慢，安全性最高，但是由于 ISR 可能会缩小到仅包含一个 Replica，所以设置参数为 all 并不能一定避免数据丢失。
 ![](../images/HW.jpeg)
 High Watermark（HW）高水位，标识Partition中的哪些消息是可以被Consumer消费的。已commited（Leader 收到了 ISR 中的所有 Replica 的 ACK）的消息。
 LEO（Log End Offset）则表示副本写入下一条消息的Offset。
