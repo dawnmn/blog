@@ -15,8 +15,7 @@ Producer 发送到 Broker
 Broker 保存消息(持久化)
 Consumer 消费消息
 
-Consumer 端丢失数据主要体现在 Consumer 端要消费的消息不见了。
-出现该情况的唯一原因就是：Consumer 没有正确消费消息，就把位移提交了，导致 Kafka 认为该消息已经被消费了，从而导致消息丢失。
+Consumer 端丢失数据主要体现在 Consumer 端要消费的消息不见了。出现该情况的唯一原因就是：Consumer 没有正确消费消息，就把位移提交了，导致 Kafka 认为该消息已经被消费了，从而导致消息丢失。
 
 常见的承诺有以下三种：
 
