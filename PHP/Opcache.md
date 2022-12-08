@@ -14,8 +14,7 @@ php -m
 ```
 ;允许在 web 环境使用
 opcache.enable=1
-;允许在 cli 环境使用
-opcache.enable_cli=1
+
 ;OPcache 的共享内存大小，以兆字节为单位。使用 opcache_get_status()['memory_usage'] Opcahce内存使用情况
 opcache.memory_consumption=128
 ;用来存储预留字符串的内存大小，以兆字节为单位
