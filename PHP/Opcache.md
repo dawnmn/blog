@@ -26,7 +26,8 @@ opcache.validate_timestamps = 0
 提供一个接口，运行`opcache_reset()`函数，代码更新后，调用这个接口。不要在业务高峰期操作，会造成反复新建缓存。
 
 重启php-fpm
-phpinfo()查看配置是否生效
+phpinfo()查看配置是否生效，ini_get("opcache.enable")也可查看配置。
+
 
 
 
