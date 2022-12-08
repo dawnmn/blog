@@ -57,7 +57,7 @@ psr4：命名空间必须对应一个目录，类名必须与php文件名相同�
 获取客户端真实IP：HTTP_X_ORIGINAL_FORWARDED_FOR HTTP_X_FORWARDED_FOR HTTP_CLIENT_IP REMOTE_ADDR
 服务器真实IP：SERVER_ADDR
 
-重定向：header函数（location） + die
+重定向：header函数（location） + exit()
 BOM头是一串隐藏的字符,用于让记事本等编辑器识别这个文件是否以UTF-8编码，PHP不能识别，会把BOM作为文件开头正文的一部分。
 if (substr($t, 0, 3) == '\xef\xbb\xbf') {
 	$t = substr($t, 3);
