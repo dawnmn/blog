@@ -25,10 +25,11 @@ opcache.max_accelerated_files=10000
 ; 检查文件时间戳,来确定是否需要重新生成PHP脚本编译缓存，设置0表示不检查
 opcache.validate_timestamps = 0
 ```
+提供一个接口，运行`opcache_reset()`函数，代码更新后，调用这个接口。不要在业务高峰期操作，会造成反复新建缓存。
 
 重启php-fpm
 phpinfo()查看配置是否生效
 
-提供一个接口，运行`opcache_reset()`函数，代码更新后，调用这个接口。不要在业务高峰期操作，会造成反复新建缓存。
+
 
 通过jmeter接口简单测试，响应时间缩短了8倍，性能提升明显。
