@@ -42,7 +42,7 @@ php三大组成部分：
 
 php不像go语言一样实现了http网络库，而是通过php-fpm实现FastCGI协议，与web服务器配合来实现对http请求的处理。
 php-fpm的实现就是创建一个master进程，在master进程中创建并监听socket，然后fork出多个子进程，这些子进程各自accept请求（请求不经过master），子进程的处理非常简单，它在启动后阻塞在accept上，有请求到达后开始读取请求数据，读取完成后开始处理然后再返回，在这期间是不会接收其它请求的，也就是说fpm的子进程同时只能响应一个请求，响应超时返回504。没有可用的worker时，master返回502。master负责控制worker数量（启动、关闭worker）、接收外部信号，master与worker通过共享内存获取worker 进程当前状态、已处理请求数等。
-PHP-FPM 启动后，master 进程会陷入 event_loop(0) 中来管理维持 worker 进程，而 fork 出的 worker 进程会回到主函数开始循环接收、处理请求。一次请求可以总结为 请求接收、请求处理、请求结束 三个阶段。
+PHP-FPM 启动后，master 进程会陷入 event_loop(0) 中来管理维持 worker 进程，而 fork 出的 worker 进程会回到主函数开始循环接收、处理请求。一次请求可以总结为 请求接收、请求处理、请求结束 三个阶段。操作系统调度分配请求到worker。
 
 php-fpm可以同时监听多个端口，每个端口对应一个worker pool。
 static: 这种方式比较简单，在启动时master按照pm.max_children配置fork出相应数量的worker进程，即worker进程数是固定不变的
