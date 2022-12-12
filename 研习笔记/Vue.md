@@ -7,11 +7,11 @@ created：vue实例data、methods、props属性已经初始化完成，可以做
 
 2.实例挂载阶段
 beforeMount：挂载前模板编译完成，此时el还没有挂载，可以在当前阶段进行更改数据，不会造成重渲染。
-mounted：真实的Dom挂载完毕，数据完成双向绑定
+mounted：真实的Dom挂载完毕，数据完成双向绑定。
 
 3.数据更新阶段
 beforeUpdate： 数据更新时执行,data数据此时已经是最新的数据,UI界面还是旧的
-updated：数据更新完成后,界面和data里的数据此时都是最新的
+updated：数据更新完成后,界面和data里的数据此时都是最新的。
 
 4.销毁阶段
 beforeDestroy： 销毁前，实例准备销毁,此时data和methods方法都能用，可以在这时进行善后收尾工作
@@ -37,3 +37,7 @@ Prop:所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑
 状态库：Vuex
 promise
 axios
+
+vue与jquery区别：
+jquery是使用选择器选取DOM对象，对其进行赋值、取值、事件绑定等操作。
+vue则是利用组件进行双向数据绑定操作数据，利用组件的函数处理事件。
