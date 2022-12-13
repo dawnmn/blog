@@ -1,5 +1,7 @@
 **常用指令**
 ```
+# 查看配置
+
 git config --list --show-origin
 
 git config --global user.name "John Doe"
