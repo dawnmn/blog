@@ -61,7 +61,7 @@ copy(a, b)
 
 **哈希** 字典 映射 MAP 键值对
 读写性能好O(1)，哈希函数的选择在很大程度上能够决定哈希表的读写性能。
-Go语言的map中所有的key都有相同的类型，所以的value也有着相同的类型。
+Go语言的map中所有的key都有相同的类型，所有的value也有着相同的类型。
 哈希冲突：
 开放地址法：数组
 拉链法：链表
@@ -81,7 +81,7 @@ type hmap struct {
 }
 对map进行range循环时，其迭代顺序是不确定的，因为map在扩容迁移后键值对的位置就发生了变化。
 slice、map性能对比：
-* 查找 Slice 中的一个元素 vs 查找 Map 中的一个元素：map快
+* 查找 Slice 中的一个元素 vs 查找 Map 中的一个元素：map快(键值都是元素值，空间换时间)
 * 给定索引，查找元素：slice快
 * 遍历 Slice vs 遍历 Map：slice快
 使用内置的delete函数删除map元素，即使这些元素不在map中也不会报错：delete(ages, "alice")
