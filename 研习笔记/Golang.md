@@ -231,14 +231,16 @@ w = Wheel{Circle{Point{8, 8}, 5}, 20}
 **指针** 一个指针的值是另一个变量在内存种的存储地址。不同类型的指针不能互相转化，指针变量不能进行运算。
 make：初始化切片、哈希表和 Channel
 new：根据传入的类型分配一片内存空间并返回指向这片内存空间的指针。表达式new(T)将创建一个T类型的匿名变量，其值为零值。
+```
 p := new(int) // p, *int 类型, 指向匿名的 int 变量
 fmt.Println(*p) // "0"
 *p = 2 // 设置 int 匿名变量的值为 2
 fmt.Println(*p) // "2"
+```
 
 赋值语句是显式的赋值形式，但是程序中还有很多地方会发生隐式的赋值行为。
-Go 语言选择了传值的方式，无论是传递基本类型、结构体还是指针，都会对传递的参数进行拷贝。如果实参包括引用类型，如指针，slice(切片)、map、function、channel等类型，实参可能会由于函数的简介引用被修改。
-在Go中，函数被看作第一类值：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。对函数值（function value）的调用类似函数调用。
+Go 语言函数参数选择了传值的方式，无论是传递基本类型、结构体还是指针，都会对传递的参数进行拷贝。如果实参包括引用类型，如指针，slice(切片)、map、function、channel等类型，实参可能会由于函数的简介引用被修改。
+在Go中，函数被看作第一类值：函数像其他值一样，拥有类型，可以被赋值给其他变量，传递给函数，从函数返回。
 如果两个函数形式参数列表和返回值列表中的变量类型一一对应，那么这两个函数被认为有相同的类型和标识符。形参和返回值的变量名不影响函数标识符。
 匿名函数捕获迭代变量的陷阱：函数值中记录z的是循环变量的内存地址，而不是循环变量某一时刻的值。
 ```
@@ -260,8 +262,8 @@ sum(values...)
 ```
 可变参数函数和以切片作为参数的函数是不同的。
 
-panic:
-panic 能够改变程序的控制流，调用 panic 后会立刻停止执行当前函数的剩余代码，并在当前 Goroutine 中递归执行调用方的 defer。
+
+**panic** 能够改变程序的控制流，调用 panic 后会立刻停止执行当前函数的剩余代码，并在当前 Goroutine 中递归执行调用方的 defer。
 panic 只会触发当前 Goroutine 的 defer。
 recover 可以中止 panic 造成的程序崩溃。它是一个只能在 defer 中发挥作用的函数，在其他作用域中调用不会发挥作用。
 直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，不论包含defer语句的函数是通过return正常结束，还是由于panic导致的异常结束。你可以在一个函数中执行多条defer语句，它们的执行顺序与声明顺序相反（入栈与出栈）。
@@ -269,6 +271,7 @@ recover 可以中止 panic 造成的程序崩溃。它是一个只能在 defer �
 导致panic异常的函数栈（包扩recover的函数）不会继续运行，但能正常返回零值。
 遇到panic时，遍历本协程的defer链表，并执行defer。在执行defer过程中:遇到recover则停止向上层函数传递panic。如果没有遇到recover，遍历完本协程的defer链表后，向stderr抛出panic信息。
 程序多次调用 panic （defer中产生panic）也不会影响 defer 函数代码的运行，只有最后一个panic可以被revover捕获：
+```
 func main() {
 	defer fmt.Println("in main")
 	defer func() {
@@ -293,8 +296,10 @@ func main() {
 
 	panic("panic once")
 }
+```
 
 在压栈function1的时候，预计算参数，需要连同函数地址、函数形参一同进栈：
+```
 func function(index int, value int) int {
 
     fmt.Println(index)
@@ -306,18 +311,21 @@ func main() {
     defer function(2, function(4, 0))
 }
 // 输出 3 4 2 1
+```
 
 不要通过共享内存来通信，而应通过通信来共享内存。
-Channel是协程之间的通信机制，先入先出FIFO的有锁管道。
+**Channel** 是协程之间的通信机制，先入先出FIFO的有锁管道。
 类型 chan<- int 表示一个只发送int的channel，类型 <-chan int 表示一个只接收int的channel
 Channel还支持close操作，用于关闭channel，随后对基于该channel的任何发送操作都将导致panic异常。对一个已经被close过的channel之行接收操作依然可以接受到之前已经成功发送的数据；如果channel中已经没有数据的话讲产生一个零值的数据（每次获取都是零值）。
-x, ok := <-ch // 通过ok判断管道是否关闭
+`x, ok := <-ch // 通过ok判断管道是否关闭`
 不管一个channel是否被关闭，当它没有被引用时将会被Go语言的垃圾自动回收器回收。关闭一个channels还会触发一个广播机制。
 一个基于无缓存Channels的发送操作将导致发送者goroutine阻塞，直到另一个goroutine在相同的Channels上执行接收操作。反之，如果接收操作先发生，那么接收者goroutine也将阻塞，直到有另一个goroutine在相同的Channels上执行发送操作。
 同步Channels：基于无缓存Channels的发送和接收操作将导致两个goroutine做一次同步操作。
 串联Channels（管道pipeline）：Channels也可以用于将多个goroutine串联在一起，一个Channels的输出作为下一个Channels的输入。
 可以使用range的数据结构：数组 slice map chan
-for x := range ch { } // 不会返回零值
+```
+for x := range ch { } // 不会返回零值，这与switch case不同
+```
 如果发送一直快于接收，或者接收一直快于发送，那么额外的缓存并没有任何好处。
 
 在for range遍历切片时增加、删除元素不会改变循环的执行次数。对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，又通过 len 关键字预先获取了切片的长度。
