@@ -84,6 +84,7 @@ slice、map性能对比：
 * 查找 Slice 中的一个元素 vs 查找 Map 中的一个元素：map快(键值都是元素值，空间换时间)
 * 给定索引，查找元素：slice快
 * 遍历 Slice vs 遍历 Map：slice快
+
 使用内置的delete函数删除map元素，即使这些元素不在map中也不会报错：delete(ages, "alice")
 禁止对map元素取址的原因是map可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效。
 slice、map、chan、指针类型的零值是nil（因为是引用类型）。和slice一样，map之间也不能进行相等比较
