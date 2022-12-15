@@ -145,7 +145,7 @@ b.Write(d []byte)	//将切片d写入Buffer数据
 b.WriteString(s string)	//将字符串s写入Buffer尾部
 b.WriteByte(c byte)	//将字符c写入Buffer尾部
 b.WriteRune(r rune)	//将一个rune类型的数据放到缓冲器的尾部
-b.WriteTo(w io.Writer)	//将Buffer中的内容输出到实现了io.Writer接口的可写入对象中
+b.WriteTo(w io.Writer)	//将Buffer中的内容输出到实现了io.Writer接口的可写入对象中，输出
 ```
 ```
 c := make([]byte, 8)
@@ -155,7 +155,7 @@ b.ReadByte()	//读取第一个byte，b的第一个byte被拿掉，赋值给 a =>
 b.ReadRune()	//读取第一个rune，b的第一个rune被拿掉，赋值给 r => r, _ := b.ReadRune()
 b.ReadBytes(delimiter byte)	//需要一个byte作为分隔符，读的时候从缓冲器里找第一个出现的分隔符（delim），找到后，把从缓冲器头部开始到分隔符之间的所有byte进行返回，作为byte类型的slice，返回后，缓冲器也会空掉一部分
 b.ReadString(delimiter byte)	//需要一个byte作为分隔符，读的时候从缓冲器里找第一个出现的分隔符（delim），找到后，把从缓冲器头部开始到分隔符之间的所有byte进行返回，作为字符串返回，返回后，缓冲器也会空掉一部分
-b.ReadFrom(i io.Reader)	//从一个实现io.Reader接口的r，把r里的内容读到缓冲器里，n返回读的数量
+b.ReadFrom(i io.Reader)	//从一个实现io.Reader接口的r，把r里的内容读到缓冲器里，n返回读的数量，输入
 ```
 
 strconv:
