@@ -469,6 +469,8 @@ func main() {
 ```
 
 **sync.Mutex**
+内存同步：如果是多个goroutine都需要访问的变量，使用互斥条件来访问。
+
 ```
 type Mutex struct {
 	state int32
@@ -545,8 +547,6 @@ func CompareAndSwapT(addr *T, old, new T) (swapped bool) //原子性的比较*ad
 ```
 **sync.RWMutex**、 **sync.Map**、 **sync.WaitGroup**
 ```
-
-
 var mu2 sync.RWMutex
 mu2.RLock()
 mu2.RUnlock()
@@ -557,9 +557,9 @@ sync.Map
 sync.WaitGroup Add() Done() Wait()
 ```
 
-内存同步：如果是多个goroutine都需要访问的变量，使用互斥条件来访问。
 
-sync.Once初始化，一个once的Do(func)只会执行一次，即使func变化。可以实现单例模式。
+
+**sync.Once** 初始化，一个once的Do(func)只会执行一次，即使func变化。可以实现单例模式。
 
 runtime
 Gosched() // 让当前线程让出cpu以让其它线程运行，它不会挂起当前线程，因此当前线程未来会继续执行。
