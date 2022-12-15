@@ -477,6 +477,7 @@ type Mutex struct {
 	sema  uint32
 }
 ```
+![](../images/2020-01-23-15797104328010-golang-mutex-state.png)
 state 表示当前互斥锁的状态，而 sema 是用于控制锁状态的信号量。
 公平锁
 锁有两种模式：正常模式和饥饿模式。
@@ -590,7 +591,7 @@ func load(key string) (string, error) {
 }
 ```
 
-sync.Pool是sync包下的一个组件，可以作为保存临时取还对象的一个“池子”，可以缓存暂时不用的对象，下次需要时直接使用（无需重新分配），减轻 GC 的压力。New、Get()、Put()  Reset()
+**sync.Pool** 可以作为保存临时取还对象的一个“池子”，可以缓存暂时不用的对象，下次需要时直接使用（无需重新分配），减轻 GC 的压力。New、Get()、Put()  Reset()
 Get是随机的，Put归还对象时，将对象“清空”。只进行 Get 操作的话，就相当于一直在生成新的对象。使用时，先put合适数量的对象。
 ```
 package main
@@ -629,7 +630,7 @@ func main() {
 }
 ```
 
-反射：在运行时更新变量和检查它们的值、调用它们的方法和它们支持的内在操作，但是在编译时并不知道这些变量的具体类型。
+**反射**：在运行时更新变量和检查它们的值、调用它们的方法和它们支持的内在操作，但是在编译时并不知道这些变量的具体类型。
 反射主要作用：减少代码，在很多框架中用到，缺点：代码不好理解、性能差一两个数量级。
 反射包两个重要的类型：reflect.Type 和 reflect.Value
 反射包两个重要的函数：reflect.TypeOf(i interface{}) 获取reflect.Type、reflect.ValueOf(i interface{})获取reflect.Value
@@ -645,12 +646,14 @@ func main() {
 	反射对象转换成接口类型；
 	通过显式类型转换变成原始类型；
 由于 Go 语言的函数调用都是值传递的，所以要先获取指针对应的 reflect.Value，再通过 reflect.Value.Elem 方法得到可以被设置的变量：
+```
 func main() {
 	i := 1
 	v := reflect.ValueOf(&i)
 	v.Elem().SetInt(10)
 	fmt.Println(i)
 }
+```
 调用 reflect.ValueOf 获取变量指针；
 调用 reflect.Value.Elem 获取指针指向的变量；
 调用 reflect.Value.SetInt 更新变量的值；
@@ -663,23 +666,26 @@ reflect.Value.NumField()、reflect.Type.Field(i).Name
 
 线程由 CPU 调度抢占式，协程是用户态协作式，一个 goroutine 最多占用 CPU 10ms。
 Go的调度器通过使用与 CPU 数量相等的线程减少线程频繁切换的内存开销和锁竞争，在每一个线程上执行内存消耗更低、上下文切换耗时更低的 Goroutine 来提升性能。
-运行时 G-M-P 模型中引入的处理器 P 是线程和 Goroutine 的中间层，我们从它的结构体中就能看到处理器与 M 和 G 的关系：
+**GMP** 运行时 G-M-P 模型中引入的处理器 P 是线程和 Goroutine 的中间层，我们从它的结构体中就能看到处理器与 M 和 G 的关系：
 G — 表示 Goroutine，它是一个待执行的任务；
 M — 表示操作系统的线程，它由操作系统的调度器调度和管理；
 P — 表示处理器，它可以被看做运行在线程上的本地调度器；
 Goroutine 在 Go 语言运行时使用runtime.g结构体 runtime.g 表示，这个结构体非常复杂。
 每一个线程都对应一个运行时中的 runtime.m 结构体：
+```
 type m struct {
 	g0   *g
 	curg *g
 	...
 }
+```
 g0 是持有调度栈的 Goroutine，curg 是在当前线程上运行的用户 Goroutine，这也是操作系统线程唯一关心的两个 Goroutine。
 g0主要负责Goroutine 的创建、大内存分配和 CGO 函数的执行。
 M0 是启动程序后的编号为 0 的主线程，这个 M 对应的实例会在全局变量 runtime.m0 中，不需要在 heap 上分配，M0 负责执行初始化操作和启动第一个 G， 在之后 M0 就和其他的 M 一样了。
 调度器最多可以创建 10000 个线程，但是其中大多数的线程都不会执行用户代码（可能陷入系统调用），最多只会有 GOMAXPROCS 个活跃线程能够正常运行。
 在默认情况下，运行时会将 GOMAXPROCS 设置成当前机器的核数，也就是会创建GOMAXPROCS个调度器P。
 runtime.p 是处理器的运行时表示。
+```
 type p struct {
 	m           muintptr
 
@@ -689,6 +695,7 @@ type p struct {
 	runnext guintptr // 下一个任务
 	...
 }
+```
 通过处理器 P 的调度，每一个内核线程都能够执行多个 Goroutine，它能在 Goroutine 进行一些 I/O 操作时及时让出计算资源，提高线程的利用率。
 Go 语言有两个运行队列，其中一个是处理器本地的运行队列（容纳256个任务），另一个是调度器持有的全局运行队列，只有在本地运行队列没有剩余空间时才会使用全局队列。
 线程想运行任务就得获取 P，从 P 的本地队列获取 G，P 队列为空时，M 也会尝试从全局队列拿一批 G 放到 P 的本地队列，或从其他 P 的本地队列偷一半放到自己 P 的本地队列。M 运行 G，G 执行之后，M 会从 P 获取下一个 G，不断重复下去。
@@ -702,7 +709,7 @@ Goroutine有三种状态: 等待、可运行、运行中。
 多线程并发，开发设计复杂，锁、竞争冲突等。
 并发意味着“不按顺序”执行。
 并行：多核时并行才有可能。
-----
+
 
 
 
