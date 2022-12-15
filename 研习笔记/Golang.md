@@ -158,8 +158,7 @@ b.ReadString(delimiter byte)	//需要一个byte作为分隔符，读的时候从
 b.ReadFrom(i io.Reader)	//从一个实现io.Reader接口的r，把r里的内容读到缓冲器里，n返回读的数量，输入
 ```
 
-strconv:
-atoi、itoa、format系列、parse系列
+strconv：atoi、itoa、format系列、parse系列
 ```
 x := 123 
 y := fmt.Sprintf("%d", x)
