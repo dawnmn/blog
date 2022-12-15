@@ -5,7 +5,7 @@ publisher->publish->exchange->router->queue->consumes->consumer
 
 发布者（publisher）消息属性 消息确认（确认回执）当一个消息无法被成功路由时，消息或许会被返回给发布者并被丢弃。
 队列、交换机和绑定统称为AMQP实体
-交换机可以有两个状态：持久（durable）、暂存（transient）。持久化的交换机会在消息代理（broker）重启后依旧存在，而暂存的交换机则不会
+交换机可以有两个状态：持久（durable）、暂存（transient）。持久化的交换机会在消息代理（broker）重启后依旧存在，而暂存的交换机则不会。队列也有持久（durable）、暂存（transient）。
 消息的负载均衡是发生在消费者（consumer）之间的，而不是队列（queue）之间。
 消息是没有超时这个概念的；当工作者与它断开连的时候，RabbitMQ会重新发送消息。
 
