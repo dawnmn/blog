@@ -133,10 +133,12 @@ utf8.RuneCountInString(string) int
 ```
 bytes：实现了与strings相对应的函数，buffer
 方法	说明
-var b bytes.Buffer	直接定义一个Buffer变量，不用初始化，可以直接使用
-b := new(bytes.Buffer)	使用New返回Buffer变量
-b := bytes.NewBuffer(s []byte)	从一个[]byte切片，构造一个Buffer
-b := bytes.NewBufferString(s string)	从一个string变量，构造一个Buffer
+```
+var b bytes.Buffer	//直接定义一个Buffer变量，不用初始化，可以直接使用
+b := new(bytes.Buffer)	//使用New返回Buffer变量
+b := bytes.NewBuffer(s []byte)	 //从一个[]byte切片，构造一个Buffer
+b := bytes.NewBufferString(s string)	//从一个string变量，构造一个Buffer
+```
 方法	说明
 b.Write(d []byte)	将切片d写入Buffer数据
 b.WriteString(s string)	将字符串s写入Buffer尾部
