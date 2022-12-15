@@ -76,7 +76,8 @@ type hmap struct {
 	B         uint8
 	noverflow uint16
 	hash0     uint32
-        buckets    unsafe.Pointer
+
+	buckets    unsafe.Pointer
 	oldbuckets unsafe.Pointer
 	nevacuate  uintptr
 
