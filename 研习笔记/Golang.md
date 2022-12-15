@@ -561,13 +561,12 @@ sync.WaitGroup Add() Done() Wait()
 
 **sync.Once** 初始化，一个once的Do(func)只会执行一次，即使func变化。可以实现单例模式。
 
-runtime
-Gosched() // 让当前线程让出cpu以让其它线程运行，它不会挂起当前线程，因此当前线程未来会继续执行。
+
 Goexit()：退出当前 goroutine（但是defer语句会照常执行）。
 
-防缓存穿透利器Singleflight，Do(key,func())同一时间只能执行一个函数。
+**singleflight.Group** 防缓存穿透利器，Do(key,func())同一时间只能执行一个函数。
 ```
-g            singleflight.Group
+
 
 func load(key string) (string, error) {
    data, err := loadFromCache(key)
@@ -895,4 +894,8 @@ type Author struct {
 
 静态库和动态库的优缺点也比较明显；只依赖静态库并且通过静态链接生成的二进制文件因为包含了全部的依赖，所以能够独立执行，但是编译的结果也比较大；而动态库可以在多个可执行文件之间共享，可以减少内存的占用，其链接的过程往往也都是在装载或者运行期间触发的，所以可以包含一些可以热插拔的模块并降低内存的占用。
 守护进程是在后台运行的计算机程序，不由用户直接操作。
+
+runtime
+Gosched() // 让当前线程让出cpu以让其它线程运行，它不会挂起当前线程，因此当前线程未来会继续执行。
+
 
