@@ -182,22 +182,28 @@ Go 语言中接口的实现都是隐式的。
 当我们使用指针实现接口时，只有指针类型的变量才会实现该接口；当我们使用结构体实现接口时，指针类型和结构体类型都会实现该接口。
 Go 语言使用 runtime.iface 表示第一种接口，使用 runtime.eface 表示第二种不包含任何方法的接口（空接口） interface{}。interface{} 类型不是任意类型，赋值时其它类型会转化成interface{}类型。
 空接口runtime.eface数据结构：
+```
 type eface struct { // 16 字节
 	_type *_type
 	data  unsafe.Pointer
 }
+```
 接口runtime.iface数据类型：
+```
 type iface struct { // 16 字节
 	tab  *itab
 	data unsafe.Pointer
 }
-结构体和指针实现接口：结构体类型和指针类型是不同的，就像我们不能向一个接受指针的函数传递结构体一样，在实现接口时这两种类型也不能划等号。
+```
+
 动态派发：
+```
 func main() {
 	var c Duck = &Cat{Name: "draven"}
 	c.Quack()
 	c.(*Cat).Quack()
 }
+```
 结构体是一种聚合的数据类型，可以对成员取地址，然后通过指针访问。
 Go的结构体用组合的方式实现继承的效果。
 Go语言的封装：通过属性和方法首字母大小写实现。
