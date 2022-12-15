@@ -539,6 +539,9 @@ func listen(c *sync.Cond) {
 ```
 
 **sync.atomic**
+原子操作是 CPU 的能力，与操作系统无关。原子操作不会被打断。
+atomic原子操作主要用于并发环境下，无须加锁对整数进行安全的加减、比较、读取操作。
+
 ```
 func AddT(addr *T, delta T)(new T)
 func LoadT(addr *T) (val T)
@@ -666,7 +669,9 @@ reflect.Value.NumField()、reflect.Type.Field(i).Name
 
 线程由 CPU 调度抢占式，协程是用户态协作式，一个 goroutine 最多占用 CPU 10ms。
 Go的调度器通过使用与 CPU 数量相等的线程减少线程频繁切换的内存开销和锁竞争，在每一个线程上执行内存消耗更低、上下文切换耗时更低的 Goroutine 来提升性能。
-**GMP** 运行时 G-M-P 模型中引入的处理器 P 是线程和 Goroutine 的中间层，我们从它的结构体中就能看到处理器与 M 和 G 的关系：
+**GMP** 运行时 G-M-P 模型中引入的处理器 P 是线程和 Goroutine 的中间层，
+Go 调度本质是把大量的 goroutine 分配到少量线程上去执行，并利用多核并行，实现更强大的并发。
+我们从它的结构体中就能看到处理器与 M 和 G 的关系：
 G — 表示 Goroutine，它是一个待执行的任务；
 M — 表示操作系统的线程，它由操作系统的调度器调度和管理；
 P — 表示处理器，它可以被看做运行在线程上的本地调度器；
@@ -717,13 +722,11 @@ Goroutine有三种状态: 等待、可运行、运行中。
 
 
 
+
+
 GC 的工作是确定哪些内存碎片可供释放，通过扫描内存寻找内存分配的指针。如果没有指向已分配内存的指针，就可以这块已分配的内存就可以被释放。扫描的内存越多，所需的时间也就越多。
 Go内存管理器知道每个分配的内存是什么类型的数据，并且会标记处不包含指针的内存以便GC在扫描时忽略。
-string，slice，time 全都包含了指针。大堆有问题时，可能是下面原因：
-很多 string
-使用 time.Time 的对象
-值包含切片的 map
-键包含字符串的 map
+
 指针是有开销的，合理的使用指针。使用值拷贝比指针要快 6 ~ 7 倍。
 
 除了 unmarshaling 之外对引用类型使用指针语义都要三思。
@@ -733,23 +736,11 @@ string，slice，time 全都包含了指针。大堆有问题时，可能是下�
 
 最难搞的 bug 是你的思维就有问题，所以根本看不到问题。
 
-原子操作是 CPU 的能力，与操作系统无关。原子操作不会被打断。
-atomic原子操作主要用于并发环境下，无须加锁对整数进行安全的加减、比较、读取操作。
-var val int32
-newval := atomic.AddInt32(&val, delta)
-
-等价于
-
-var val int32
-var mutex sync.Mutex
-
-mutex.Lock()
-val += delta
-newval = val
-mutex.Unlock()
 
 
-Go 调度本质是把大量的 goroutine 分配到少量线程上去执行，并利用多核并行，实现更强大的并发。
+
+
+
 
 
 在考虑并发的时候，有两种很重要的工作负载：
@@ -766,6 +757,9 @@ C和C++没有垃圾回收机制，由工程师自行处理。Go 以及 Java 等�
 >固态硬盘
 >机械硬盘
 >网络/网盘
+
+**IO操作**
+
 
 bufio.NewScanner Scan() Text()方式有每行最大缓存65535的问题，用NewReader的ReadString('\n')，io.EOF的时候读取最后一行。
 Go内置库中io.Reader/Writer是比较常用的接口。围绕io.Reader/Writer，Go语言中有几个常用的实现：
@@ -836,7 +830,7 @@ func TempFile(dir, pattern string) (f *os.File, err error)
 func TempDir(dir, pattern string) (name string, err error)
 ```
 
-net/http
+**net/http**
 如果你的请求pattern是以/结尾，那么所有以该url为前缀的url都会被这条规则匹配。只会匹配中最精确的那个一。
 golang语言net/url包，提供了url解析，url参数处理的函数。
 Go 语言的 net/http 中同时包好了 HTTP 客户端和服务端的实现。
@@ -856,7 +850,10 @@ fmt.Printf("名字：%s 年龄：%d 是否就业：%t, %#v, %d, %d ", name, age,
 
 
 error接口：type error interface { Error() string }
+**trace**
 
+
+```
 func main() {
 
 	//创建trace文件
@@ -877,11 +874,15 @@ func main() {
 	//main
 	fmt.Println("Hello World")
 }
+```
 
 go run trace.go
 go tool trace trace.out
+**pprof**
+
 
 go 语言提供了 runtime/pprof 和 net/http/pprof 两个库，查看cpu、内存、阻塞、互斥锁的情况
+```
 func main() {
 	go func() {
 		log.Println(http.ListenAndServe(":6060", nil))
@@ -892,21 +893,26 @@ func main() {
 	})
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
+```
 
 http://127.0.0.1:6060/debug/pprof/
 点击 profile，等待30s下载
 go tool pprof -http=:8090 profile
+**JSON**
+
 
 序列化和反序列化的开销完全不同，JSON 反序列化的开销是序列化开销的好几倍。通过反射获取结构体或者数组中的值并以树形的结构递归地进行编码。Go 语言 JSON 标准库编码和解码的过程大量地运用了反射这一特性。
+```
 type Author struct {
     Name string `json:"name,omitempty"`
     Age  int32  `json:"age,string,omitempty"`
 }
+```
 
 静态库和动态库的优缺点也比较明显；只依赖静态库并且通过静态链接生成的二进制文件因为包含了全部的依赖，所以能够独立执行，但是编译的结果也比较大；而动态库可以在多个可执行文件之间共享，可以减少内存的占用，其链接的过程往往也都是在装载或者运行期间触发的，所以可以包含一些可以热插拔的模块并降低内存的占用。
 守护进程是在后台运行的计算机程序，不由用户直接操作。
 
-runtime
+**runtime**
 Gosched() // 让当前线程让出cpu以让其它线程运行，它不会挂起当前线程，因此当前线程未来会继续执行。
 
 
