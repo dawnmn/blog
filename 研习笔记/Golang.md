@@ -322,14 +322,15 @@ Channel还支持close操作，用于关闭channel，随后对基于该channel的
 一个基于无缓存Channels的发送操作将导致发送者goroutine阻塞，直到另一个goroutine在相同的Channels上执行接收操作。反之，如果接收操作先发生，那么接收者goroutine也将阻塞，直到有另一个goroutine在相同的Channels上执行发送操作。
 同步Channels：基于无缓存Channels的发送和接收操作将导致两个goroutine做一次同步操作。
 串联Channels（管道pipeline）：Channels也可以用于将多个goroutine串联在一起，一个Channels的输出作为下一个Channels的输入。
-可以使用range的数据结构：数组 slice map chan
+
 ```
 for x := range ch { } // 不会返回零值，这与switch case不同
 ```
 如果发送一直快于接收，或者接收一直快于发送，那么额外的缓存并没有任何好处。
 
-在for range遍历切片时增加、删除元素不会改变循环的执行次数。对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，又通过 len 关键字预先获取了切片的长度。
+**for** 在for range遍历切片时增加、删除元素不会改变循环的执行次数。对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，又通过 len 关键字预先获取了切片的长度。
 在for range循环中获取返回变量的地址都完全相同：
+```
 func main() {
 	arr := []int{1, 2, 3}
 	newArr := []*int{}
@@ -340,9 +341,10 @@ func main() {
 		fmt.Println(*v)
 	}
 }
+```
 支持遍历的数据结构：数组、切片、string、map、chan
 
-基于select的多路复用：每一个case代表一个通信操作(在某个channel上进行发送或者接收)，当条件满足时，select才会去通信并执行case之后的语句。
+**select** 基于select的多路复用：每一个case代表一个通信操作(在某个channel上进行发送或者接收)，当条件满足时，select才会去通信并执行case之后的语句。
 ```
 select {
 case <-ch2:
