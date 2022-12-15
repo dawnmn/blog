@@ -10,10 +10,8 @@ Go语言将数据类型分为四类：基础类型、复合类型、引用类型
 内建常量: true false iota nil
 内建类型: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64 bool byte rune string error
 内建函数: make len cap new append copy close delete complex real imag panic recover
-类型断言
-```
-number,ok :=x.(int)
-```
+类型断言 `number,ok :=x.(int)`
+
 类型开关，断言与switch的配合：
 ```
 switch v.(type) {
@@ -27,35 +25,40 @@ Go程序初始化顺序：
 
 **数组** 是由相同类型元素的集合组成的数据结构，计算机会为数组分配一块连续的内存来保存其中的元素。表示数组的方法就是一个指向数组开头的指针、数组中元素的数量以及数组中元素类型占的空间大小。数组在初始化时已经确定内存大小。
 数组2种初始化方式：
+```
 arr1 := [3]int{1, 2, 3}
 arr2 := [...]int{1, 2, 3}
+```
 
 
 
 **切片** 用形如s[m:n]的形式来获取到一个slice的子集，包括m元素，但不包括n元素，包含n-m个元素。
 切片在运行时的结构：
+```
 type SliceHeader struct {
 	Data uintptr
 	Len  int
 	Cap  int
 }
+```
 Data 是指向数组的指针。
 Len 是当前切片的长度。
 Cap 是当前切片的容量，即 Data 数组的大小。
 可以将切片理解成一片连续的内存空间加上长度与容量的标识。
 当切片底层的数组长度不足时就会触发扩容，切片指向的数组可能会发生变化，不过在上层看来切片是没有变化的。
 切片3种初始化方式：
+```
 arr := [3]int{1, 2, 3}
 slice := arr[0:1]
 slice := []int{1, 2, 3}
 slice := make([]int, 10)
+```
 append自我赋值不用担心性能问题，Go已经做了优化。
 切片扩容策略：
 如果期望容量（append之后的容量）大于当前容量的两倍就会使用期望容量；
 如果当前切片的长度小于 1024 就会将容量翻倍；
 如果当前切片的长度大于 1024 就会每次增加 25% 的容量，直到新容量大于期望容量；
-拷贝切片：
-copy(a, b)
+拷贝切片：`copy(a, b)`
 在遇到大切片扩容或者拷贝时可能会发生大规模的内存拷贝，从而影响性能。
 一个slice可以用来模拟一个stack。
 
@@ -66,19 +69,20 @@ Go语言的map中所有的key都有相同的类型，所有的value也有着相�
 开放地址法：数组
 拉链法：链表
 哈希在运行时的数据结构：
+```
 type hmap struct {
 	count     int
 	flags     uint8
 	B         uint8
 	noverflow uint16
 	hash0     uint32
-
-	buckets    unsafe.Pointer
+        buckets    unsafe.Pointer
 	oldbuckets unsafe.Pointer
 	nevacuate  uintptr
 
 	extra *mapextra
 }
+```
 对map进行range循环时，其迭代顺序是不确定的，因为map在扩容迁移后键值对的位置就发生了变化。
 slice、map性能对比：
 * 查找 Slice 中的一个元素 vs 查找 Map 中的一个元素：map快(键值都是元素值，空间换时间)
