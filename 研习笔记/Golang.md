@@ -430,15 +430,14 @@ func main() {
 ```
 // 全部都会打印，底层采用chan关闭时的广播通知。
 ctx.Done()返回一个只读的channel，没有地方向这个 channel 里面写数据，在ctx.Cancel()时会关闭这个channel，select会立即读出零值。
-context.Background() 和 context.TODO() 也只是互为别名，没有太大的差别，只是在使用和语义上稍有不同，每次调用都会返回新的context。
+context.Background() 和 context.TODO() 也只是互为别名，没有太大的差别，只是在使用和语义上稍有不同，每次调用都会返回新的context，永远不会被cancel。
 父子之间传递cancel也是通过select done，真正的cancel函数包含锁、channel
 Context有两个主要的功能：
 1 通知子协程退出（正常退出，超时退出等）。context.WithCancel context.WithTimeout context.WithDeadline。当一个Context对象被取消时，继承自它的所有Context都会被取消。
 2 传递必要的参数。context.WithValue
 以Context作为参数的函数方法，应该把Context作为第一个参数，放在第一位。Context是线程安全的。
 Context 不应该被存储在结构体类型中，而是传参给需要它的方法。
-Done() 返回一个只读channel
-background 通常用在 main 函数中，作为所有 context 的根节点。todo 通常用在并不知道传递什么 context的情形。这实际上是空的context，永远不会被cancel。
+
 goroutine的创建是树状结构的，context也是一个树状结构。
 
 ```
@@ -469,11 +468,13 @@ func main() {
 }
 ```
 
-sync.Mutex
+**sync.Mutex**
+```
 type Mutex struct {
 	state int32
 	sema  uint32
 }
+```
 state 表示当前互斥锁的状态，而 sema 是用于控制锁状态的信号量。
 公平锁
 锁有两种模式：正常模式和饥饿模式。
@@ -496,11 +497,12 @@ sync.Mutex.Lock()函数内部是个for循环不断轮询获取锁。
 自旋是一种多线程同步机制，当前的线程在进入自旋的过程中会一直保持 CPU 的占用。
 
 
-sync.Cond
+**sync.Cond**
 可以让一组的 Goroutine 都在满足特定条件时被唤醒。
 sync.Cond.Signal 方法会唤醒队列最前面、等待最久的 Goroutine；
 sync.Cond.Broadcast 方法会唤醒队列中全部的 Goroutine；
 
+```
 var status int64
 
 func main() {
@@ -531,17 +533,19 @@ func listen(c *sync.Cond) {
 	fmt.Println("listen")
 	c.L.Unlock()
 }
+```
 
-sync.atomic
+**sync.atomic**
+```
 func AddT(addr *T, delta T)(new T)
 func LoadT(addr *T) (val T)
 func StoreT(addr *T, val T)
-func SwapT(addr *T, new T) (old T) 原子性的将new的值保存到*addr并返回旧值
-func CompareAndSwapT(addr *T, old, new T) (swapped bool) 原子性的比较*addr和old，如果相同则将new赋值给*addr并返回true
+func SwapT(addr *T, new T) (old T) //原子性的将new的值保存到*addr并返回旧值
+func CompareAndSwapT(addr *T, old, new T) (swapped bool) //原子性的比较*addr和old，如果相同则将new赋值给*addr并返回true
 ```
-var mu sync.Mutex
-mu.Lock()
-mu.Unlock()
+**sync.RWMutex**、 **sync.Map**、 **sync.WaitGroup**
+```
+
 
 var mu2 sync.RWMutex
 mu2.RLock()
