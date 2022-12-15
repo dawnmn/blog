@@ -367,6 +367,7 @@ select{} 永远阻塞
 如果多个case同时就绪时，select会随机地选择一个执行，这样来保证每一个channel都有平等的被 select的机会。
 
 
+**协程** 可以看成用户态线程。
 协程池：创建固定数目的协程（或者根据并发量逐渐增加协程数目直到上限），消费channel里的数据。
 我们使用了一个buffered channel作为一个计数信号量，来保证最多只有20个goroutine会同时执行HTTP请求。同理，我们可以用一个容量只有1的channel来保证最多只有一个goroutine在同一时刻访问一个共享变量。
 当父协程是main协程时，父协程退出，父协程下的所有子协程也会跟着退出。当父协程不是main协程时，父协程退出，父协程下的所有子协程并不会跟着退出。
@@ -383,7 +384,7 @@ Go并发协程退出方式（核心：关闭channel会发送广播）：
 为每个子协程传递相同的上下文ctx即可，调用cancel()函数后该Context控制的所有子协程都会退出。
 通过协程和管道可以实现生产者/消费者、发布/订阅。
 
-context.Context 是 Go 语言在 1.7 版本中引入标准库的接口1，该接口定义了四个需要实现的方法，其中包括：
+**上下文** context.Context 是 Go 语言在 1.7 版本中引入标准库的接口1，该接口定义了四个需要实现的方法，其中包括：
 Deadline — 返回 context.Context 被取消的时间，也就是完成工作的截止日期；
 Done — 返回一个 Channel，这个 Channel 会在当前工作完成或者上下文被取消后关闭，多次调用 Done 方法会返回同一个 Channel；
 Err — 返回 context.Context 结束的原因，它只会在 Done 方法对应的 Channel 关闭时返回非空的值；
@@ -392,6 +393,7 @@ Err — 返回 context.Context 结束的原因，它只会在 Done 方法对应�
 Value — 从 context.Context 中获取键对应的值，对于同一个上下文来说，多次调用 Value 并传入相同的 Key 会返回相同的结果，该方法可以用来传递请求特定的数据；
 Go Server 服务的每一个请求都是通过单独的 Goroutine 处理的2，HTTP/RPC 请求的处理器会启动新的 Goroutine 访问数据库和其他服务。
 当最上层的 Goroutine 因为某些原因执行失败时，正确地使用 context.Context，就可以在下层及时停掉无用的工作以减少额外资源的消耗。
+```
 func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
@@ -425,11 +427,12 @@ func main() {
 		fmt.Println("dd")
 	}
 }
+```
 // 全部都会打印，底层采用chan关闭时的广播通知。
 ctx.Done()返回一个只读的channel，没有地方向这个 channel 里面写数据，在ctx.Cancel()时会关闭这个channel，select会立即读出零值。
 context.Background() 和 context.TODO() 也只是互为别名，没有太大的差别，只是在使用和语义上稍有不同，每次调用都会返回新的context。
 父子之间传递cancel也是通过select done，真正的cancel函数包含锁、channel
-在Go1.7发布时，标准库增加了一个context包，Context有两个主要的功能：
+Context有两个主要的功能：
 1 通知子协程退出（正常退出，超时退出等）。context.WithCancel context.WithTimeout context.WithDeadline。当一个Context对象被取消时，继承自它的所有Context都会被取消。
 2 传递必要的参数。context.WithValue
 以Context作为参数的函数方法，应该把Context作为第一个参数，放在第一位。Context是线程安全的。
