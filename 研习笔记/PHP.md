@@ -12,7 +12,29 @@ array是列表、散列表（哈希表）、队列、栈、集合、树形结构
 引用是用不同的名字访问同一个变量的内容，引用不是指针，不是内存地址，而是符号表别名，可以看作是linux的硬连接。
 unset一个引用只是断开变量名与内容的联系，参考linux的硬连接。
 
-`password_hash` `password_verify`
+php三大组成部分：
+* sapi是php的接入层，将用户的输入引导至php脚本，包含cli、php-fpm。
+* zend引擎，编译器（将php代码编译成可执行的opcodes），执行器（执行opcodes）
+* 扩展
+
+php不像go语言一样实现了http网络库，而是通过php-fpm实现FastCGI协议，与web服务器配合来实现对http请求的处理。
+php-fpm的实现就是创建一个master进程，在master进程中创建并监听socket，然后fork出多个子进程，这些子进程各自accept请求（请求不经过master），子进程的处理非常简单，它在启动后阻塞在accept上，有请求到达后开始读取请求数据，读取完成后开始处理然后再返回，在这期间是不会接收其它请求的，也就是说fpm的子进程同时只能响应一个请求，响应超时返回504。没有可用的worker时，master返回502。master负责控制worker数量（启动、关闭worker）、接收外部信号，master与worker通过共享内存获取worker 进程当前状态、已处理请求数等。
+PHP-FPM 启动后，master 进程会陷入 event_loop(0) 中来管理维持 worker 进程，而 fork 出的 worker 进程会回到主函数开始循环接收、处理请求。一次请求可以总结为 请求接收、请求处理、请求结束 三个阶段。操作系统调度分配请求到worker。
+
+php-fpm可以同时监听多个端口，每个端口对应一个worker pool。
+static: 这种方式比较简单，在启动时master按照pm.max_children配置fork出相应数量的worker进程，即worker进程数是固定不变的
+dynamic: 动态进程管理，首先在fpm启动时按照pm.start_servers初始化一定数量的worker，运行期间如果master发现空闲worker数低于pm.min_spare_servers配置数(表示请求比较多，worker处理不过来了)则会fork worker进程，但总的worker数不能超过pm.max_children，如果master发现空闲worker数超过了pm.max_spare_servers(表示闲着的worker太多了)则会杀掉一些worker，避免占用过多资源，master通过这4个值来控制worker数
+
+**垃圾回收机制**（引用计数+四色法）：
+PHP变量的内存管理，即引用计数机制，当变量赋值、传递时并不会直接硬拷贝，而是增加value的引用数，unset、return等释放变量时再减掉引用数，减掉后如果发现refcount变为0则直接释放value，这是变量的基本gc过程，PHP正是通过这个机制实现的自动垃圾回收，但是有一种情况是这个机制无法解决的，从而因变量无法回收导致内存始终得不到释放，这种情况就是循环引用，简单的描述就是变量的内部成员引用了变量自身，比如数组中的某个元素指向了数组，这样数组的引用计数中就有一个来自自身成员，试图释放数组时因为其refcount仍然大于0而得不到释放，而实际上已经没有任何外部引用了，这种变量不可能再被使用，所以PHP引入了另外一个机制用来处理变量循环引用的问题。
+1 如果一个变量value的refcount减少到0， 那么此value可以被释放掉，不属于垃圾。
+2 如果一个变量value的refcount减少之后大于0，那么此zval还不能被释放，此zval可能成为一个垃圾。
+对于第2种情况GC会将变量收集起来，目前垃圾只会出现在array、object两种类型中。object的情况则是成员属性引用对象本身导致的。
+当变量的refcount减少后大于0，会被加入垃圾缓存区，变量会被标记为紫色（疑似垃圾）。垃圾缓存区是一个双向链表，等到缓存区满了（10000个可能根）以后则启动垃圾检查过程：
+1 从buffer链表的roots开始遍历，把当前value标为灰色(zend_refcounted_h.gc_info置为GC_GREY)，然后对当前value的成员进行深度优先遍历，把成员value的refcount减1，并且也标为灰色
+2 重复遍历buffer链表，检查当前value引用是否为0，为0则表示确实是垃圾，把它标为白色(GC_WHITE)，如果不为0则排除了引用全部来自自身成员的可能，表示还有外部的引用，并不是垃圾，这时候因为步骤(1)对成员进行了refcount减1操作，需要再还原回去，对所有成员进行深度遍历，把成员refcount加1，同时标为黑色。
+3 再次遍历buffer链表，将非GC_WHITE的节点从roots链表中删除，最终roots链表中全部为真正的垃圾，最后将这些垃圾清除。
+PHP的GC采用引用计数的方式，不需要暂停整个程序，没有STW问题。
 
 php的变量保存在zval结构体中，一个zval包含变量的类型和zend_value结构体（用于存放变量实际的value）、is_ref（区分普通变量和引用变量）、refcount（指向这个变量容器的变量个数）。
 变量内存管理通过引用计数（变量赋值、传递时并不会直接硬拷贝）+写时复制。
@@ -30,23 +52,8 @@ php的变量保存在zval结构体中，一个zval包含变量的类型和zend_v
 |resource        |      Y     |
 |reference       |      Y     |
 写时复制：当一个变量试图更改value时候，会复制value并更改，断开旧的指向（针对string、array）。
-变量回收：主动销毁（unset）、自动销毁（gc）。
-目前垃圾只会出现在array、object两种类型中，所以只会针对这两种情况作特殊处理：当销毁一个变量时，如果发现减掉refcount后仍然大于0，且类型是IS_ARRAY、IS_OBJECT则将此value放入gc可能垃圾双向链表中，等这个缓冲buffer（zend_value的zend_refcounted_h结构体）达到一定数量后启动检查程序将所有变量检查一遍，如果确定是垃圾则销毁释放（深度优先遍历，把成员value的refcount减1，如果refcount为0，则清除）灰白黑。
 
 xdebug_debug_zval('变量名')
-
-php三大组成部分：
-* sapi是php的接入层，将用户的输入引导至php脚本，包含cli、php-fpm。
-* zend引擎，编译器（将php代码编译成可执行的opcodes），执行器（执行opcodes）
-* 扩展
-
-php不像go语言一样实现了http网络库，而是通过php-fpm实现FastCGI协议，与web服务器配合来实现对http请求的处理。
-php-fpm的实现就是创建一个master进程，在master进程中创建并监听socket，然后fork出多个子进程，这些子进程各自accept请求（请求不经过master），子进程的处理非常简单，它在启动后阻塞在accept上，有请求到达后开始读取请求数据，读取完成后开始处理然后再返回，在这期间是不会接收其它请求的，也就是说fpm的子进程同时只能响应一个请求，响应超时返回504。没有可用的worker时，master返回502。master负责控制worker数量（启动、关闭worker）、接收外部信号，master与worker通过共享内存获取worker 进程当前状态、已处理请求数等。
-PHP-FPM 启动后，master 进程会陷入 event_loop(0) 中来管理维持 worker 进程，而 fork 出的 worker 进程会回到主函数开始循环接收、处理请求。一次请求可以总结为 请求接收、请求处理、请求结束 三个阶段。操作系统调度分配请求到worker。
-
-php-fpm可以同时监听多个端口，每个端口对应一个worker pool。
-static: 这种方式比较简单，在启动时master按照pm.max_children配置fork出相应数量的worker进程，即worker进程数是固定不变的
-dynamic: 动态进程管理，首先在fpm启动时按照pm.start_servers初始化一定数量的worker，运行期间如果master发现空闲worker数低于pm.min_spare_servers配置数(表示请求比较多，worker处理不过来了)则会fork worker进程，但总的worker数不能超过pm.max_children，如果master发现空闲worker数超过了pm.max_spare_servers(表示闲着的worker太多了)则会杀掉一些worker，避免占用过多资源，master通过这4个值来控制worker数
 
 TS指Thread Safety，即线程安全，针对多线程。
 NTS 非线程安全，php-fpm是多进程单线程，因此适用。
@@ -72,4 +79,4 @@ YII2 优点：结构清晰，组件齐全，能快速开发项目，特点：配
 
 PHP7 性能提升的原因：程序运作时搬动的内存位数，存储变量的结构体变小、字符串结构体的改变、数组结构的改变。
 
-
+`password_hash` `password_verify`
