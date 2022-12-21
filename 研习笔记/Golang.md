@@ -371,7 +371,7 @@ select{} 永远阻塞
 协程池：创建固定数目的协程（或者根据并发量逐渐增加协程数目直到上限），消费channel里的数据。
 我们使用了一个buffered channel作为一个计数信号量，来保证最多只有20个goroutine会同时执行HTTP请求。同理，我们可以用一个容量只有1的channel来保证最多只有一个goroutine在同一时刻访问一个共享变量。
 当父协程是main协程时，父协程退出，父协程下的所有子协程也会跟着退出。当父协程不是main协程时，父协程退出，父协程下的所有子协程并不会跟着退出。
-goroutines泄漏：无缓存的channel容易造成goroutines泄漏，泄漏的goroutines并不会被自动回收。
+goroutines泄漏：channel没有接收者，无缓存的channel容易造成goroutines泄漏，泄漏的goroutines并不会被自动回收。
 Go并发协程退出方式（核心：关闭channel会发送广播）：
 1 使用for-range
 通过关闭channel的方式，range能够感知channel的关闭，适用于协程只从1个channel读取数据时。
