@@ -291,7 +291,7 @@ recover 可以中止 panic 造成的程序崩溃。它是一个只能在 defer �
 defer 被延迟执行的匿名函数甚至可以修改函数返回给调用者的返回值，前提是命名返回值。
 导致panic异常的函数栈（包扩recover的函数）不会继续运行，但能正常返回零值。
 遇到panic时，遍历本协程的defer链表，并执行defer。在执行defer过程中:遇到recover则停止向上层函数传递panic。如果没有遇到recover，遍历完本协程的defer链表后，向stderr抛出panic信息。
-recover()只有在defer里面才有效。
+
 runtime.Goexit()：退出当前 goroutine，defer语句会照常执行。
 os.Exit() 终止进程，不会执行defer语句。
 程序多次调用 panic （defer中产生panic）也不会影响 defer 函数代码的运行，只有最后一个panic可以被revover捕获：
