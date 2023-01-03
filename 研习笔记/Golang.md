@@ -410,8 +410,7 @@ import (
 	_ "math" // 初始化：无法引用，触发包的init()函数
 )
 ```
-内部包：导入路径包含internal关键字的包，只允许internal的父级目录及父级目录的子包导入，其它包无法导入。
-这里main.go不能访问cpu.go、mem.go:
+内部包：导入路径包含internal关键字的包，只允许internal的父级目录及父级目录的子包导入，其它包无法导入。这里main.go不能访问cpu.go、mem.go:
 ```
 |-- resources
 |   |-- internal
