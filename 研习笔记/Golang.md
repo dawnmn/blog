@@ -608,9 +608,11 @@ func listen(c *sync.Cond) {
 atomic原子操作主要用于并发环境下，无须加锁对整数进行安全的加减、比较、读取操作。
 
 ```
+
+func StoreT(addr *T, val T) // 原子性的存储
 func AddT(addr *T, delta T)(new T) // 原子性的相加，并返回新值
 func LoadT(addr *T) (val T) // 原子性的获取
-func StoreT(addr *T, val T) // 原子性的存储
+
 func SwapT(addr *T, new T) (old T) //原子性的存储并返回旧值
 func CompareAndSwapT(addr *T, old, new T) (swapped bool) //原子性的比较*addr和old，如果相同则将new赋值给*addr并返回true
 ```
@@ -622,7 +624,7 @@ mu2.RUnlock()
 mu2.WLock()
 mu2.WUnlock()
 
-sync.Map 
+sync.Map Store() Load() Delete() Range()
 sync.WaitGroup Add() Done() Wait()
 ```
 
