@@ -631,6 +631,22 @@ sync.WaitGroup Add() Done() Wait()
 
 
 **sync.Once** 初始化，一个once的Do(func)只会执行一次，即使func变化。可以实现单例模式。
+```
+func main() {
+   o := &sync.Once{}
+   o.Do(do)
+
+   go func() {
+      o.Do(do)
+   }()
+   time.Sleep(time.Second)
+}
+
+func do() {
+   fmt.Println("only once")
+}
+```
+
 
 **singleflight.Group** 防缓存穿透利器，Do(key,func())同一时间只能执行一个函数。
 ```
