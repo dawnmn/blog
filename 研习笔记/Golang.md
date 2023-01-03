@@ -624,7 +624,7 @@ mu2.RUnlock()
 mu2.WLock()
 mu2.WUnlock()
 
-sync.Map Store() Load() Delete() Range()
+sync.Map Store() Load() Delete() Range() // 不能用for range
 sync.WaitGroup Add() Done() Wait()
 ```
 
