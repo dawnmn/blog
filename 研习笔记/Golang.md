@@ -497,7 +497,7 @@ context.Background() 和 context.TODO() 也只是互为别名，没有太大的�
 Context有两个主要的功能：
 1 通知子协程退出（正常退出，超时退出等）。context.WithCancel context.WithTimeout context.WithDeadline。当一个Context对象被取消时，继承自它的所有Context都会被取消。
 2 传递必要的参数。context.WithValue
-以Context作为参数的函数方法，应该把Context作为第一个参数，放在第一位。Context是线程安全的。
+以Context作为参数的函数方法，应该把Context作为第一个参数，放在第一位。Context是协程安全的。
 Context 不应该被存储在结构体类型中，而是传参给需要它的方法。
 
 goroutine的创建是树状结构的，context也是一个树状结构。
