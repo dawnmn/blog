@@ -650,8 +650,7 @@ func do() {
 
 **singleflight.Group** 防缓存穿透利器，Do(key,func())同一时间只能执行一个函数。
 ```
-
-
+var g singleflight.Group
 func load(key string) (string, error) {
    data, err := loadFromCache(key)
    if err != nil && err == ErrCacheMiss {
