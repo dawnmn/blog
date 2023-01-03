@@ -260,6 +260,7 @@ sum(values...) // 有机会改变values切片值
 可变参数函数和以切片作为参数的函数形式上略有不同。
 
 匿名函数可实现静态局部变量：
+```
 func test() func() []int {
 	s := make([]int, 0)
 	return func() []int {
@@ -276,6 +277,7 @@ func main() {
 	f()
 	f()
 }
+```
 
 error接口：type error interface { Error() string }
 errors.New("") 创建错误对象。
