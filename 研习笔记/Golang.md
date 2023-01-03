@@ -10,7 +10,33 @@ Go语言将数据类型分为四类：基础类型、复合类型、引用类型
 内建常量: true false iota nil
 内建类型: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64 bool byte rune string error
 内建函数: make len cap new append copy close delete complex real imag panic recover
-类型断言 `number,ok :=x.(int)`
+类型断言 `number,ok :=x.(int)`
+
+类型别名转换
+```
+type X int
+type Y = int
+
+func main() {
+	var m X = 100
+	var n Y = 200
+	a := int(m)
+	a = Y
+	fmt.Println(a)
+}
+```
+
+sizeof总是在编译期求值。
+unsafe.Sizeof(string) 永远都是 16
+unsafe.Sizeof(slice)   永远都是 24
+unsafe.Sizeof(map)   永远都是 8
+unsafe.Sizeof(chan)   永远都是 8
+unsafe.Sizeof(pointer)   永远都是 8
+unsafe.Sizeof(interface)   永远都是 10
+arr := [...]int{1,2,3,4,5}
+fmt.Println(unsafe.Sizeof(arr)) //40，由数组长度决定
+
+多变量赋值，先计算出全部右值，再依次赋值。
 
 类型开关，断言与switch的配合：
 ```
@@ -21,16 +47,12 @@ switch v.(type) {
 Go程序初始化顺序：
 导入包，当一个包被导入时，如果它还导入了其它的包，则先将其它的包包含进来，然后创建和初始化这个包的常量和变量。然后就是调用包里的init函数，如果一个包有多个init函数的话，实现可能是以文件名的顺序调用，同一个文件内的多个init则是以出现的顺序依次调用（init不是普通函数，可以定义有多个，所以不能被其它函数调用）。最终，在main包的所有包常量、包变量被创建和初始化，并且init函数被执行后，才会进入main.main函数，程序开始正常执行。
 
-
-
-**数组** 是由相同类型元素的集合组成的数据结构，计算机会为数组分配一块连续的内存来保存其中的元素。表示数组的方法就是一个指向数组开头的指针、数组中元素的数量以及数组中元素类型占的空间大小。数组在初始化时已经确定内存大小。
+**数组** 是由相同类型元素的集合组成的数据结构，数组初始化分配一块连续且固定的内存来保存其中的元素，默认为元素类型的零值。
 数组2种初始化方式：
 ```
 arr1 := [3]int{1, 2, 3}
 arr2 := [...]int{1, 2, 3}
 ```
-
-
 
 **切片** 用形如s[m:n]的形式来获取到一个slice的子集，遵循左开右闭，包括m元素，但不包括n元素，包含n-m个元素。
 切片在运行时的结构：
@@ -50,19 +72,22 @@ Cap 是当前切片的容量，即 Data 数组的大小。
 ```
 arr := [3]int{1, 2, 3}
 slice := arr[0:1]
-slice := []int{1, 2, 3}
-slice := make([]int, 10)
+slice := []int{1, 2, 3} // []int{}
+slice := make([]int, 10) // make([]int, 0)
 ```
 append自我赋值不用担心性能问题，Go已经做了优化。
 切片扩容策略：
 如果期望容量（append之后的容量）大于当前容量的两倍就会使用期望容量；
 如果当前切片的长度小于 1024 就会将容量翻倍；
 如果当前切片的长度大于 1024 就会每次增加 25% 的容量，直到新容量大于期望容量；
-拷贝切片：`copy(a, b)`
+拷贝切片：`copy(a, b)`
 在遇到大切片扩容或者拷贝时可能会发生大规模的内存拷贝，从而影响性能。
-一个slice可以用来模拟一个stack。
+切片可以实现栈、队列、环(取模)。
 
 **哈希** 字典 映射 MAP 键值对
+map两种初始化方式：
+m := map[int]string{}
+m := make([int]string, 0)
 读写性能好O(1)，哈希函数的选择在很大程度上能够决定哈希表的读写性能。
 Go语言的map中所有的key都有相同的类型，所有的value也有着相同的类型。
 哈希冲突：
@@ -94,8 +119,8 @@ slice、map性能对比：
 禁止对map元素取址的原因是map可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效。
 slice、map、chan、指针作为引用类型的零值是nil（因为是引用类型）。slice、map、chan、指针作为引用类型不能进行相等比较。
 
-
-**字符串** 是一片连续的内存空间，是一个只读的字节切片类型。
+**字符串** 是一片连续的内存空间，是一个只读的字节切片类型，编码UTF-8，无\0结尾。
+string可与[]rune或[]byte相互转换。
 字符串运行时数据结构：
 ```
 type StringHeader struct {
@@ -204,7 +229,12 @@ func main() {
 	c.(*Cat).Quack()
 }
 ```
+赋值给接口时，会复制目标对象。
+
+
 **结构体** 是一种聚合的数据类型，可以对成员取地址，然后通过指针访问。
+struct{}为可忽略值类型，不占内存，可用于map、chan、array，值无关紧要的场景。
+Go结构体的标签，用于反射。
 Go的结构体用组合的方式实现继承的效果。
 Go语言的封装：通过属性和方法首字母大小写实现。
 ```
@@ -228,7 +258,18 @@ w = Wheel{Circle{Point{8, 8}, 5}, 20}
 ```
 不管你的method的receiver是指针类型还是非指针类型，都是可以通过指针/非指针类型进行调用的，编译器会帮你做类型转换。
 
-**指针** 一个指针的值是另一个变量在内存种的存储地址。不同类型的指针不能互相转化，指针变量不能进行运算。
+除接口、指针，其它的数据结构都能定义方法。
+
+**指针** 指针是保存变量内存地址的整型变量。不同类型的指针不能互相转化，指针变量不能进行运算。支持二级指针，也就是C中指向指针的指针。
+var a int = 100
+var b int = 200
+var p *int = &a
+var pp **int = &p
+*pp = &b
+
+fmt.Printf("%#v\n", *p) // 200
+fmt.Printf("%#v\n", **pp) // 200
+内存地址是内存中每个字节单元的唯一编号，而指针是变量，需要分配内存空间。
 make：初始化切片、哈希表和 Channel
 new：根据传入的类型分配一片内存空间并返回指向这片内存空间的指针。表达式new(T)将创建一个T类型的匿名变量，其值为零值。
 ```
@@ -237,6 +278,7 @@ fmt.Println(*p) // "0"
 *p = 2 // 设置 int 匿名变量的值为 2
 fmt.Println(*p) // "2"
 ```
+map中的元素不能取地址。
 
 赋值语句是显式的赋值形式，但是程序中还有很多地方会发生隐式的赋值行为。
 Go 语言函数参数选择了传值的方式，无论是传递基本类型、结构体还是指针，都会对传递的参数进行拷贝。如果实参包括引用类型，如指针，slice(切片)、map、function、channel等类型，实参可能会由于函数的简介引用被修改。
@@ -258,18 +300,43 @@ sum()
 sum(1)
 sum(1,2,3,4)
 values := []int{1,2,3,4,5}
-sum(values...)
+sum(values...) // 有机会改变values切片值
 ```
-可变参数函数和以切片作为参数的函数是不同的。
+可变参数函数和以切片作为参数的函数形式上略有不同。
 
+匿名函数可实现静态局部变量：
+func test() func() []int {
+	s := make([]int, 0)
+	return func() []int {
+		if len(s) == 0 {
+			s = []int{1, 2, 3}
+			fmt.Println("---")
+		}
+		return s
+	}
+}
+
+func main() {
+	f := test()
+	f()
+	f()
+}
+
+error接口：type error interface { Error() string }
+errors.New("") 创建错误对象。
+fmt.Errorf("xxx:%w", err) 格式化生成新的错误对象，构建错误链。
+函数返回error为nil时，应当直接返回nil。因为接口类型和值都为nil，即(nil, nil)时才等于nil（var test interface{} = nil）。
 
 **panic** 能够改变程序的控制流，调用 panic 后会立刻停止执行当前函数的剩余代码，并在当前 Goroutine 中递归执行调用方的 defer。
 panic 只会触发当前 Goroutine 的 defer。
 recover 可以中止 panic 造成的程序崩溃。它是一个只能在 defer 中发挥作用的函数，在其他作用域中调用不会发挥作用。
-直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，不论包含defer语句的函数是通过return正常结束，还是由于panic导致的异常结束。你可以在一个函数中执行多条defer语句，它们的执行顺序与声明顺序相反（入栈与出栈）。
-被延迟执行的匿名函数甚至可以修改函数返回给调用者的返回值。
+直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，不论包含defer语句的函数是通过return正常结束，还是由于panic导致的异常结束。你可以在一个函数中执行多条defer语句，它们的执行顺序与声明顺序相反（FILO）。
+defer 被延迟执行的匿名函数甚至可以修改函数返回给调用者的返回值，前提是命名返回值。
 导致panic异常的函数栈（包扩recover的函数）不会继续运行，但能正常返回零值。
 遇到panic时，遍历本协程的defer链表，并执行defer。在执行defer过程中:遇到recover则停止向上层函数传递panic。如果没有遇到recover，遍历完本协程的defer链表后，向stderr抛出panic信息。
+recover()只有在defer里面才有效。
+runtime.Goexit()：退出当前 goroutine，defer语句会照常执行。
+os.Exit() 终止进程，不会执行defer语句。
 程序多次调用 panic （defer中产生panic）也不会影响 defer 函数代码的运行，只有最后一个panic可以被revover捕获：
 ```
 func main() {
@@ -318,15 +385,22 @@ func main() {
 类型 chan<- int 表示一个只发送int的channel，类型 <-chan int 表示一个只接收int的channel
 Channel还支持close操作，用于关闭channel，随后对基于该channel的任何发送操作都将导致panic异常。对一个已经被close过的channel之行接收操作依然可以接受到之前已经成功发送的数据；如果channel中已经没有数据的话讲产生一个零值的数据（每次获取都是零值）。
 `x, ok := <-ch // 通过ok判断管道是否关闭`
-不管一个channel是否被关闭，当它没有被引用时将会被Go语言的垃圾自动回收器回收。关闭一个channels还会触发一个广播机制。
+不管一个channel是否被关闭，当它没有被引用时将会被Go语言的垃圾自动回收器回收。关闭一个channels还会触发一个广播机制，广播发送零值。
 一个基于无缓存Channels的发送操作将导致发送者goroutine阻塞，直到另一个goroutine在相同的Channels上执行接收操作。反之，如果接收操作先发生，那么接收者goroutine也将阻塞，直到有另一个goroutine在相同的Channels上执行发送操作。
 同步Channels：基于无缓存Channels的发送和接收操作将导致两个goroutine做一次同步操作。
 串联Channels（管道pipeline）：Channels也可以用于将多个goroutine串联在一起，一个Channels的输出作为下一个Channels的输入。
 
 ```
-for x := range ch { } // 不会返回零值，这与switch case不同
+x := <-ch // ch关闭时，x获取零值
+for x := range ch { } // ch关闭时，不会进入循环体内部，这与switch case不同
 ```
+可以通过chan数组+协程数组实现任务按次序运行。
 如果发送一直快于接收，或者接收一直快于发送，那么额外的缓存并没有任何好处。
+只能通道赋值来初始化单向通道：
+ch := make(chan int)
+var send chan<-int = ch
+var recv <-chan int = ch
+通道并非用来取代锁。
 
 **for** 在for range遍历切片时增加、删除元素不会改变循环的执行次数。对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，又通过 len 关键字预先获取了切片的长度。
 在for range循环中获取返回变量的地址都完全相同：
@@ -365,6 +439,27 @@ for i := 0; i < 10; i++ {
 ```
 select{} 永远阻塞
 如果多个case同时就绪时，select会随机地选择一个执行，这样来保证每一个channel都有平等的被 select的机会。
+
+内部包：导入路径包含internal关键字的包，只允许internal的父级目录及父级目录的子包导入，其它包无法导入。
+这里main.go不能访问cpu.go、mem.go:
+|-- resources
+|   |-- internal
+|   |   |-- cpu
+|   |   |   |-- cpu.go
+|   |   |-- mem
+|   |       |-- mem.go
+|   |-- input
+|   |   |-- input.go
+|   |-- board.go
+|-- main.go
+
+导入：
+import (
+	"math" // 默认：math.Sin()
+	m "math" // 别名：m.Sin()
+	. "math" // 简便：Sin()
+	_ "math" // 初始化：无法引用，触发包的init()函数
+)
 
 
 **协程** 可以看成用户态线程。
@@ -564,9 +659,6 @@ sync.WaitGroup Add() Done() Wait()
 
 
 **sync.Once** 初始化，一个once的Do(func)只会执行一次，即使func变化。可以实现单例模式。
-
-
-Goexit()：退出当前 goroutine（但是defer语句会照常执行）。
 
 **singleflight.Group** 防缓存穿透利器，Do(key,func())同一时间只能执行一个函数。
 ```
@@ -798,7 +890,13 @@ Go 内存管理的一般思想是使用不同的内存结构为不同大小的�
 
 **经验与理论**
 
-
+竟态条件：多线程同时读写共享资源。
+临界区：读写共享资源的代码片段。
+互斥锁：同一时刻，只有一个线程能进入临界区。
+读写锁：写独占临界区，读共享。
+信号量：允许指定数目的线程进入临界区。
+悲观锁：互斥锁
+乐观锁：无锁，会有失败的情况：select num as num_1 from user where id =1;update user set name='zhangsan',num=(num+1) where id=1 and num=num_1;
 
 
 
@@ -929,56 +1027,6 @@ fmt.Printf("名字：%s 年龄：%d 是否就业：%t, %#v, %d, %d ", name, age,
 // go run main.go -name=小明 -age=12 -work=false money=0
 ```
 
-
-error接口：type error interface { Error() string }
-**trace**
-
-
-```
-func main() {
-
-	//创建trace文件
-	f, err := os.Create("trace.out")
-	if err != nil {
-		panic(err)
-	}
-
-	defer f.Close()
-
-	//启动trace goroutine
-	err = trace.Start(f)
-	if err != nil {
-		panic(err)
-	}
-	defer trace.Stop()
-
-	//main
-	fmt.Println("Hello World")
-}
-```
-
-go run trace.go
-go tool trace trace.out
-**pprof**
-
-
-go 语言提供了 runtime/pprof 和 net/http/pprof 两个库，查看cpu、内存、阻塞、互斥锁的情况
-```
-func main() {
-	go func() {
-		log.Println(http.ListenAndServe(":6060", nil))
-	}()
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
-	})
-	log.Fatal(http.ListenAndServe("localhost:8000", nil))
-}
-```
-
-http://127.0.0.1:6060/debug/pprof/
-点击 profile，等待30s下载
-go tool pprof -http=:8090 profile
 **JSON**
 
 
