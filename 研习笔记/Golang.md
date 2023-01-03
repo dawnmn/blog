@@ -453,7 +453,7 @@ Err — 返回 context.Context 结束的原因，它只会在 Done 方法对应�
 如果 context.Context 被取消，会返回 Canceled 错误；
 如果 context.Context 超时，会返回 DeadlineExceeded 错误；
 Value — 从 context.Context 中获取键对应的值，对于同一个上下文来说，多次调用 Value 并传入相同的 Key 会返回相同的结果，该方法可以用来传递请求特定的数据；
-Go Server 服务的每一个请求都是通过单独的 Goroutine 处理的2，HTTP/RPC 请求的处理器会启动新的 Goroutine 访问数据库和其他服务。
+Go Server 服务的每一个请求都是通过单独的 Goroutine 处理的，HTTP/RPC 请求的处理器会启动新的 Goroutine 访问数据库和其他服务。
 当最上层的 Goroutine 因为某些原因执行失败时，正确地使用 context.Context，就可以在下层及时停掉无用的工作以减少额外资源的消耗。
 ```
 func main() {
