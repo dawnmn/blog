@@ -336,29 +336,8 @@ func main() {
 // 输出 3 4 2 1
 ```
 
-不要通过共享内存来通信，而应通过通信来共享内存。
-**Channel** 是协程之间的通信机制，先入先出FIFO的有锁管道。
-类型 chan<- int 表示一个只发送int的channel，类型 <-chan int 表示一个只接收int的channel
-Channel还支持close操作，用于关闭channel，随后对基于该channel的任何发送操作都将导致panic异常。对一个已经被close过的channel之行接收操作依然可以接受到之前已经成功发送的数据；如果channel中已经没有数据的话讲产生一个零值的数据（每次获取都是零值）。
-`x, ok := <-ch // 通过ok判断管道是否关闭`
-不管一个channel是否被关闭，当它没有被引用时将会被Go语言的垃圾自动回收器回收。关闭一个channels还会触发一个广播机制，广播发送零值。
-一个基于无缓存Channels的发送操作将导致发送者goroutine阻塞，直到另一个goroutine在相同的Channels上执行接收操作。反之，如果接收操作先发生，那么接收者goroutine也将阻塞，直到有另一个goroutine在相同的Channels上执行发送操作。
-同步Channels：基于无缓存Channels的发送和接收操作将导致两个goroutine做一次同步操作。
-串联Channels（管道pipeline）：Channels也可以用于将多个goroutine串联在一起，一个Channels的输出作为下一个Channels的输入。
 
-```
-x := <-ch // ch关闭时，x获取零值
-for x := range ch { } // ch关闭时，不会进入循环体内部，这与switch case不同
-```
-可以通过chan数组+协程数组实现任务按次序运行。
-如果发送一直快于接收，或者接收一直快于发送，那么额外的缓存并没有任何好处。
-只能通道赋值来初始化单向通道：
-```
-ch := make(chan int)
-var send chan<-int = ch
-var recv <-chan int = ch
-```
-通道并非用来取代锁。
+
 
 **for** 在for range遍历切片时增加、删除元素不会改变循环的执行次数。对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，又通过 len 关键字预先获取了切片的长度。
 在for range循环中获取返回变量的地址都完全相同：
@@ -424,7 +403,30 @@ import (
 |-- main.go
 ```
 
+**Channel** 是协程之间的通信机制，先入先出FIFO的有锁管道。
+不要通过共享内存来通信，而应通过通信来共享内存。
 
+类型 chan<- int 表示一个只发送int的channel，类型 <-chan int 表示一个只接收int的channel
+Channel还支持close操作，用于关闭channel，随后对基于该channel的任何发送操作都将导致panic异常。对一个已经被close过的channel之行接收操作依然可以接受到之前已经成功发送的数据；如果channel中已经没有数据的话讲产生一个零值的数据（每次获取都是零值）。
+`x, ok := <-ch // 通过ok判断管道是否关闭`
+不管一个channel是否被关闭，当它没有被引用时将会被Go语言的垃圾自动回收器回收。关闭一个channels还会触发一个广播机制，广播发送零值。
+一个基于无缓存Channels的发送操作将导致发送者goroutine阻塞，直到另一个goroutine在相同的Channels上执行接收操作。反之，如果接收操作先发生，那么接收者goroutine也将阻塞，直到有另一个goroutine在相同的Channels上执行发送操作。
+同步Channels：基于无缓存Channels的发送和接收操作将导致两个goroutine做一次同步操作。
+串联Channels（管道pipeline）：Channels也可以用于将多个goroutine串联在一起，一个Channels的输出作为下一个Channels的输入。
+
+```
+x := <-ch // ch关闭时，x获取零值
+for x := range ch { } // ch关闭时，不会进入循环体内部，这与switch case不同
+```
+可以通过chan数组+协程数组实现任务按次序运行。
+如果发送一直快于接收，或者接收一直快于发送，那么额外的缓存并没有任何好处。
+只能通道赋值来初始化单向通道：
+```
+ch := make(chan int)
+var send chan<-int = ch
+var recv <-chan int = ch
+```
+通道并非用来取代锁。
 
 
 **协程** 可以看成用户态线程。
