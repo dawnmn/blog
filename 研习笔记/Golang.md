@@ -630,7 +630,7 @@ sync.WaitGroup Add() Done() Wait()
 
 
 
-**sync.Once** 初始化，一个once的Do(func)只会执行一次，即使func变化。可以实现单例模式。
+**sync.Once** 初始化，一个once的Do(func)只会执行一次（与协程无关），即使func变化。可以实现单例模式。
 ```
 func main() {
    o := &sync.Once{}
