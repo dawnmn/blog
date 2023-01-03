@@ -564,7 +564,7 @@ sync.Mutex.Lock()函数内部是个for循环不断轮询获取锁。
 
 **sync.Cond**
 可以让一组的 Goroutine 都在满足特定条件时被唤醒。
-c.L.Lock() 、c.L.Unlock()、c.Wait()、c.Broadcast()、c.Signal()
+使用方法：c.L.Lock() 、c.L.Unlock()、c.Wait()、c.Broadcast()、c.Signal()
 
 sync.Cond.Signal 方法会唤醒队列最前面、等待最久的 Goroutine；
 sync.Cond.Broadcast 方法会唤醒队列中全部的 Goroutine；
