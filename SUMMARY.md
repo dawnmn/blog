@@ -61,6 +61,7 @@
     * [https](Go/https.md)
     * [tcp](Go/tcp.md)
     * [IO相关](Go/IO相关.md)
+    * [字符串相关](Go/字符串相关.md)
 * [jetbrains IDE 产品无限期使用方式](jetbrainsIDE产品无限期试用方式.md)
 * [JS](JS.md)
     * [安装nodejs](JS/安装nodejs.md)
