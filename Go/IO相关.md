@@ -263,3 +263,9 @@ func (b *Writer) WriteString(s string) (int, error)
 func (b *Writer) WriteByte(c byte) error
 func (b *Writer) WriteRune(r rune) (size int, err error)
 ```
+
+**mysql**
+DB
+调用sql.Open()返回的DB是一个能操作的数据库对象，它并不代表一个到数据库的具体连接，而是在内部通过连接池来管理（不用关心连接的建立和断开），可以被多个 goroutine 并发使用，因此一个应用只需初始化一个全局的DB。
+连接池
+当调用一个函数，需要访问数据库时，该函数会请求从连接池中获取一个连接，如果连接池中存在一个空闲连接，它会将该空闲连接给该函数；否则，会打开一个新的连接。当该函数结束时，该连接要么返回给连接池，要么传递给某个需要该连接的对象，知道该对象完成时，连接才会返回给连接池。
