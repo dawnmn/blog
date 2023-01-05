@@ -189,11 +189,12 @@ b.ReadFrom(r io.Reader) (n int64, err error)
 //将 Buffer 中的内容输出到实现了 io.Writer 接口的可写入对象中，成功返回写入的字节数，失败返回错误
 b.WriteTo(w io.Writer) (n int64, err error)
 ```
-**path**
+**path/filepath**
+path 包中提供的函数，filepath 都有提供，一般应该总是使用 filepath 包，而不是 path 包。
 ```
-path.Dir("/a/b.txt")
-path.Base("/a/b.txt")
-path.Ext("/a/b.txt")
+filepath.Dir("/a/b.txt")
+filepath.Base("/a/b.txt")
+filepath.Ext("/a/b.txt")
 // 遍历目录，包括文件
 filepath.Walk("/a/b", func(path string, info fs.FileInfo, err error) error {
    fmt.Println(path)
