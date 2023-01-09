@@ -17,7 +17,7 @@ import (
    "os"
    "time"
 )
-
+// 参数是web服务器域名数组
 func generate(dnsNames []string) {
    privateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
    if err != nil {
