@@ -1,5 +1,6 @@
 ![](../images/959982414-5e11d6393cab7_fix732.png)
 ![](../images/2641864607-5e11d65c74244_fix732.png)
+Go语言标准包crypto支持x509的tsl加密。
 **生成证书**
 cert.go
 ```
