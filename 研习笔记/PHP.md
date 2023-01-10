@@ -93,6 +93,15 @@ struct _zval_struct {
     } u2; //一些辅助值
 };
 ```
+字符串结构
+```
+struct _zend_string {
+    zend_refcounted_h gc;
+    zend_ulong        h;                /* hash value */
+    size_t            len;
+    char              val[1];
+};
+```
 
 
 引用只能通过&产生，无法通过赋值传递：
