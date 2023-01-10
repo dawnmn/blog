@@ -99,7 +99,25 @@ struct _zend_string {
     zend_refcounted_h gc;
     zend_ulong        h;                /* hash value */
     size_t            len;
-    char              val[1]; // 字符串内容，分配时按len长度申请内存
+    char              val[1]; // 字符串内容，变长struct，分配时按len长度申请内存
+};
+```
+对象/资源结构体
+```
+struct _zend_object {
+    zend_refcounted_h gc;
+    uint32_t          handle;
+    zend_class_entry *ce; //对象对应的class类
+    const zend_object_handlers *handlers;
+    HashTable        *properties; //对象属性哈希表
+    zval              properties_table[1];
+};
+
+struct _zend_resource {
+    zend_refcounted_h gc;
+    int               handle;
+    int               type;
+    void             *ptr;
 };
 ```
 
