@@ -99,7 +99,7 @@ struct _zend_string {
     zend_refcounted_h gc;
     zend_ulong        h;                /* hash value */
     size_t            len;
-    char              val[1];
+    char              val[1]; // 字符串内容，分配时按len长度申请内存
 };
 ```
 
