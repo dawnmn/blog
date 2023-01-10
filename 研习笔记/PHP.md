@@ -93,7 +93,7 @@ struct _zval_struct {
     } u2; //一些辅助值
 };
 ```
-字符串结构
+字符串结构体
 ```
 struct _zend_string {
     zend_refcounted_h gc;
@@ -118,6 +118,13 @@ struct _zend_resource {
     int               handle;
     int               type;
     void             *ptr;
+};
+```
+引用结构体
+```
+struct _zend_reference {
+    zend_refcounted_h gc;
+    zval              val;
 };
 ```
 
