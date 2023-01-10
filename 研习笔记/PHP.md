@@ -159,6 +159,8 @@ NTS 非线程安全，php-fpm是多进程单线程，因此适用。
 
 命名空间：解决类、函数、常量、接口名字冲突。
 类的自动加载：`spl_autoload_register`，可以支持任意数量的加载器，直到类成功注册为止，里面还是用的是require。常用框架比如yii2（有一套自己的autoload）也是借用composer+PSR规范实现框架外部类的自动加载，通过引入/vendor/autoload.php。
+use不会触发自动加载，只有在new时才触发自动加载。
+
 composer是php包管理器，也是自动加载的关键，它实现了类与文件的映射关系（namespace use），并且使用spl_autoload_register在需要时载入内存。
 psr4：命名空间必须对应一个目录，类名必须与php文件名相同，大小写敏感。
 
