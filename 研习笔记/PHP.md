@@ -158,7 +158,7 @@ xdebug_debug_zval('变量名')
 
 php三大组成部分：
 * sapi是php的接入层，将用户的输入引导至php脚本，包含cli、php-fpm。
-* zend引擎，编译器（将php代码编译成可执行的opcode），执行器（执行opcode）
+* zend引擎，编译器（将php代码编译成可执行的opcode，类似gcc），执行器（执行opcode）
 * 扩展
 
 php不像go语言一样实现了http网络库，而是通过php-fpm实现FastCGI协议，与web服务器配合来实现对http请求的处理。
