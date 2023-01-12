@@ -877,7 +877,7 @@ Go 内存管理的一般思想是使用不同的内存结构为不同大小的�
 互斥锁：同一时刻，只有一个线程能进入临界区。
 读写锁：写独占临界区，读共享。
 信号量：允许指定数目的线程进入临界区。
-悲观锁：互斥锁
+悲观锁：互斥锁：写锁
 乐观锁：无锁，会有失败的情况：select num as num_1 from user where id =1;update user set name='zhangsan',num=(num+1) where id=1 and num=num_1;
 
 
