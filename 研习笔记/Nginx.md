@@ -67,32 +67,42 @@ php-fpm.conf 配置 process_control_timeout=5 master进程留给worker进程结�
 
 负载均衡策略：
 轮询，服务器接收请求的比例是 1:1， 如果后端服务器down掉，能自动剔除
+```
 upstream web_servers {
    server localhost:8081;
    server localhost:8082;
 }
+```
 权重，指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均
+```
 upstream test {
     server localhost:8081 weight=1;
     server localhost:8082 weight=3;
     server localhost:8083 weight=4 backup; # backup备份，其它服务器都失效时启用
 }
+```
 ip_hash，每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，解决session等问题
+```
 upstream test {
     ip_hash;
     server localhost:8080;
     server localhost:8081;
 }
+```
 fair（第三方），按后端服务器的响应时间来分配请求，响应时间短的优先分配
+```
 upstream backend {
     fair;
     server localhost:8080;
     server localhost:8081;
 }
+```
 url_hash(第三方)，按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。
+```
 upstream backend {
     hash $request_uri;
     hash_method crc32;
     server localhost:8080;
     server localhost:8081;
 }
+```
