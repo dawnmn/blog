@@ -115,6 +115,5 @@
     * [Elasticsearch](研习笔记/Elasticsearch.md)
     * [凤凰架构](研习笔记/凤凰架构.md)
     * [理论原理](研习笔记/理论原理.md)
-    * [认证与鉴权](研习笔记/认证与鉴权.md)
     * [Vue](研习笔记/Vue.md)
     * [Docker从入门到实践](研习笔记/Docker从入门到实践.md)
