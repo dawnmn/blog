@@ -28,7 +28,7 @@ mysql服务层和存储引擎层都有锁。
 MVCC Multiversion Concurrency Control 多版本并发控制 在读取不加锁的情况下实现行级锁的效果，实现非阻塞读，只有写写之间相互阻塞。在Read Committed 和 Repeatable Read两个隔离级别下工作。
 
 Innodb中每一行多了几个字段：DB_TRX_ID(当前事务的ID，自动递增) DB_ROLL_PT（指向undo log记录，通过这个指针获得之前版本的数据） DB_RAW_ID（） deleted_flag（事务执行时置位true，commit之后才真正删除）
-InnoDB把这些为了回滚而记录的这些东西称之为undo log。
+InnoDB把这些为了回滚而记录的这些东西称之为undo log，它是链表的结构。
 ![](../images/undo_log日志格式.png)
 
 Read View一致性视图：RC 在事务中每一个select操作前生成 RR 在第一个select操作前生成。InnoDB为每一个事务构造了一个数组m_ids用于保存一致性视图生成瞬间当前所有活跃事务(开始但未提交事务)的ID，只有当前事务修改的未commit版本和所有已提交事务版本允许被访问。
