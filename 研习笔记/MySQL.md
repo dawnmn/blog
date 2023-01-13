@@ -44,7 +44,7 @@ UPDATE操作都是读取当前读(current read)数据进行更新的。
 
 InnoDB 是另一个公司以插件形式引入 MySQL 的。
 
-性能优化：表结构优化、索引优化、查询优化、应用层优化（实现方式、redis缓存、mongdb分担存储）
+**性能优化**：表结构优化、索引优化、查询优化、应用层优化（实现方式、redis缓存、mongdb分担存储）
 
 服务器性能剖析
 用explain分析sql:
@@ -59,7 +59,7 @@ Extra，使用优先级 空>Using index>Using Where>Using filesort（九死一�
 
 索引 索引是在存储引擎层实现而不是mysql服务器层。
 索引实现方式：
-B-Tree索引（层级更少，所有数据保存在叶子节点，顺序存储，有序链表，天然支持排序和范围查找，索引列的顺序非常重要：最左法则）innodb使用b+树。
+**B-Tree索引**（层级更少，所有数据保存在叶子节点，顺序存储，有序链表，天然支持排序和范围查找，索引列的顺序非常重要：最左法则）innodb使用b+树。
 哈希索引：只有精确匹配索引所有列的查询才有效，innodb有一个自适应哈希索引的功能，当某些索引使用非常频繁，会基于B-tree索引之上再创建一个哈希索引。
 全文索引：针对单词，不能匹配单词中的字母。mysql5.7后支持innodb的中文全文索引，只有字段的数据类型为 char、varchar、text 及其系列才可以建全文索引，fulltext key  使用 match 和 against（IN BOOLEAN MODE） 关键字，将ft_min_word_len 改为1，like + %在文本比较少时是合适的
 索引创建类型：INDEX、UNIQUE INDEX、FULLTEXT INDEX、INDEX(email(6))、PRIMARY KEY
