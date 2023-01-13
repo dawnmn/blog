@@ -28,13 +28,13 @@ mysql服务层和存储引擎层都有锁。
 MVCC Multiversion Concurrency Control 多版本并发控制 在读取不加锁的情况下实现行级锁的效果，实现非阻塞读，只有写写之间相互阻塞。在Read Committed 和 Repeatable Read两个隔离级别下工作。
 
 Innodb中每一行多了几个字段：DB_TRX_ID(当前事务的ID，自动递增) DB_ROLL_PT（指向undo log记录，通过这个指针获得之前版本的数据） DB_RAW_ID（） deleted_flag（事务执行时置位true，commit之后才真正删除）
-InnoDB把这些为了回滚而记录的这些东西称之为undo log，它是链表的结构。
+**undo log** InnoDB把这些为了回滚而记录的这些东西称之为undo log，它是链表的结构，实现事务的原子性、实现多版本并发控制。
 ![](../images/undo_log日志格式.png)
 
 Read View一致性视图：RC隔离级别 在事务中每一个select操作前生成，RR隔离级别 在第一个select操作前生成。
 UPDATE操作都是读取当前读(current read)数据进行更新的。
 
-Undo Log: 实现事务的原子性、实现多版本并发控制
+
 
 Redo Log：innodb特有的。如果每次修改都操作磁盘，IO成本和查找成本都很高。因此采用WAL（Write Ahead Logging）先写日志，再写磁盘。日志文件就叫做redo log（物理日志，固定大小，循环写，记录某个数据页做了什么改动），更新内存，在适当的时候从内存中更新到磁盘。因此具有崩溃恢复（crash-safe）的能力，innodb_flush_log_at_trx_commit 这个参数设置成 1，每次事务持久化。
 Bin Log: mysql服务器层，逻辑日志，归档日志，追加写，二进制形式记录，没有 crash-safe 能力。两种模式：statement：记录sql，row：记录修改前和修改后的行内容。sync_binlog 这个参数设置成 1，每次事务的binlog都持久化 。主从复制、数据恢复（需要配合数据库定期备份）。
