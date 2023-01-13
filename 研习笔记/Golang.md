@@ -820,7 +820,7 @@ mspan会被拆解成粒度更小的object，object和object之间构成一个Fre
 ![](../images/6404.png)
 ![](../images/5c6fda2eb9048569f700000e.png)
 
-在mspan中，用spanclass表示sizeclass。Go内存管理单元mspan被分为了两类：
+在mspan中，用spanclass表示sizeclass，它是个uint8。Go内存管理单元mspan被分为了两类：
 第一类：需要垃圾回收扫描的mspan，简称scan，sizeclass最后一位为0。
 第二类：不需要垃圾回收扫描的mspan，简称noscan，sizeclass最后一位为1。
 
