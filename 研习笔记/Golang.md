@@ -821,7 +821,7 @@ mspan会被拆解成粒度更小的object，object和object之间构成一个Fre
 第二类：不需要垃圾回收扫描的mspan，简称noscan，sizeclass最后一位为1。
 
 ![](../images/6403.png)
-微对象和小对象（<=32kb）通过`mcache`分配，大对象(>32kb)直接从`mheap`中分配。如果对应的大小规格在 mcache 中没有可用的块，则向 mcentral 申请，如果 mcentral 中没有可用的块，则向 mheap 申请，如果 mheap 中没有可用 span，则向操作系统申请一系列新的页arena。mcache和mcentral持有mspan，mheap持有mcentral和arena。
+微对象和小对象（<=32kb）通过`mcache`分配，大对象(>32kb)直接从`mheap`中分配。如果对应的大小规格在 mcache 中没有可用的块，则向 mcentral 申请，如果 mcentral 中没有可用的块，则向 mheap 申请，如果 mheap 中没有可用 span，则向操作系统申请一系列新的页arena。mcache和mcentral持有mspan，mheap持有mcentral和arena。访问中心缓存需要使用互斥锁。
 
 
 
