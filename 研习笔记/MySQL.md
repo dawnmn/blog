@@ -31,7 +31,7 @@ Innodb中每一行多了几个字段：DB_TRX_ID(当前事务的ID，自动递�
 InnoDB把这些为了回滚而记录的这些东西称之为undo log，它是链表的结构。
 ![](../images/undo_log日志格式.png)
 
-Read View一致性视图：RC隔离级别 在事务中每一个select操作前生成，RR隔离级别 在第一个select操作前生成。InnoDB为每一个事务构造了一个数组m_ids用于保存一致性视图生成瞬间当前所有活跃事务(开始但未提交事务)的ID，只有当前事务修改的未commit版本和所有已提交事务版本允许被访问。
+Read View一致性视图：RC隔离级别 在事务中每一个select操作前生成，RR隔离级别 在第一个select操作前生成。
 UPDATE操作都是读取当前读(current read)数据进行更新的。
 
 Undo Log: 实现事务的原子性、实现多版本并发控制
