@@ -129,8 +129,6 @@ MySQL 在执行读操作时，会先从数据库的缓冲区中读取，如果�
 平衡二叉树（AVL树）：1 是一棵二叉树，2 左右子树的高度差最大值为1。查询快，维护复杂。
 B+树：是一种平衡查找树，高度一般为2~4层，所有叶子节点位于同一层。增删改查时间复杂度为O(log n)。
 
-MySQL中有两个kill命令：
-kill query thread_id;
-kill connection thread_id;
+
 
 
