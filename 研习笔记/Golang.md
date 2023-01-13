@@ -816,15 +816,15 @@ Go的内存管理器是基于Google自身开源的TCMalloc内存分配器为理�
 操作系统是按`page`管理内存的，同样Go语言也是也是按page管理内存的，1page为8KB，保证了和操作系统一致。Go内存管理单元`mspan`通常由N个且连续的page组成。相同page数目的`mspan`之间还可以构成mspan链表。
 ![](../images/6402.png)
 
-mspan会被拆解成粒度更小的object，object和object之间构成一个FreeList链表。object大小由sizeclass决定的，它是个尺寸数组，一共包含 67 种跨度（0~32kb）。mspan由几pages构成也是sizeclass值决定的。mspan结构体上只要维护一个sizeclass的字段，就可以知道该mspan中object的大小、数量。
+mspan会被拆解成粒度更小的object，object和object之间构成一个FreeList链表。object大小由sizeclass决定的，它是个尺寸数组，一共包含 67 种跨度（0~32kb）。在mspan中，用spanclass表示sizeclass，它是个uint8。Go内存管理单元mspan被分为了两类：
+第一类：需要垃圾回收扫描的mspan，简称scan，sizeclass最后一位为0。
+第二类：不需要垃圾回收扫描的mspan，简称noscan，sizeclass最后一位为1。
 
 ![](../images/6403.png)
 
-![](../images/5c6fda2eb9048569f700000e.png)
 
-在mspan中，用spanclass表示sizeclass，它是个uint8。Go内存管理单元mspan被分为了两类：
-第一类：需要垃圾回收扫描的mspan，简称scan，sizeclass最后一位为0。
-第二类：不需要垃圾回收扫描的mspan，简称noscan，sizeclass最后一位为1。
+
+
 
 mcache由逻辑处理器（P）单独持有，因此分配内存无需持有锁。
 
