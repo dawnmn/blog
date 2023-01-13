@@ -822,18 +822,7 @@ mspan会被拆解成粒度更小的object，object和object之间构成一个Fre
 
 ![](../images/6403.png)
 微对象和小对象（<=32kb）通过`mcache`分配，大对象(>32kb)直接从`mheap`中分配。如果对应的大小规格在 mcache 中没有可用的块，则向 mcentral 申请，如果 mcentral 中没有可用的块，则向 mheap 申请，如果 mheap 中没有可用 span，则向操作系统申请一系列新的页arena。
-如果 mcentral 中没有可用的块，则向 mheap 申请
 
-
-
-
-
-
-mcache由逻辑处理器（P）单独持有，因此分配内存无需持有锁。
-
-mcentral 都包含两个 mspan 的列表，每个mcentral包含相同page数目的mspan：
-empty mspanList -- 没有空闲对象或 span 已经被 mcache 缓存的 span 列表。
-nonempty mspanList -- 有空闲对象的 span 列表。
 
 
 ![](../images/5c70206cb9048569f7000015.png)
