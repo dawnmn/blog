@@ -800,16 +800,19 @@ Go通过 escape analysis 来分配内存，通过 garbage collection（gc）来�
 * 2 编译器确定值太大而无法放入栈。
 * 3 编译器在编译的时候无法得知这个值的具体大小。
 
+
+`TCMalloc`全称Thread Cache Memory alloc线程缓存内存分配器。
 Go的内存管理器是基于Google自身开源的TCMalloc内存分配器为理念设计和实现的。
-TCMalloc全称Thread Cache Memory alloc线程缓存内存分配器。
-Go内存分配器采用了和TCMalloc一样的三层架构。逻辑上为：
-mcache：线程缓存
-mcentral：中央缓存
-mheap：堆内存
+
+逻辑上为：
+* mcache：线程缓存
+* mcentral：中央缓存
+* mheap：堆内存
 ![](../images/6401.png)
 
-操作系统是按page管理内存的，同样Go语言也是也是按page管理内存的，1page为8KB，保证了和操作系统一致。
-Go内存管理单元mspan通常由N个且连续的page组成。相同page数目的mspan之间还可以构成链表。
+
+操作系统是按`page`管理内存的，同样Go语言也是也是按page管理内存的，1page为8KB，保证了和操作系统一致。
+Go内存管理单元`mspan`通常由N个且连续的page组成。相同page数目的`mspan`之间还可以构成链表。
 mspan会被拆解成粒度更小的object，object和object之间构成一个FreeList链表。object大小由sizeclass决定的，一共包含 67 种跨度类。mspan由几pages构成也是sizeclass值决定的。mspan结构体上只要维护一个sizeclass的字段，就可以知道该mspan中object的大小、数量。
 ![](../images/6402.png)
 ![](../images/6403.png)
