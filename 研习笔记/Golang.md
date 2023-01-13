@@ -821,7 +821,8 @@ mspan会被拆解成粒度更小的object，object和object之间构成一个Fre
 第二类：不需要垃圾回收扫描的mspan，简称noscan，sizeclass最后一位为1。
 
 ![](../images/6403.png)
-微对象和小对象（<=32kb）通过`mcache`分配，大对象(>32kb)直接从`mheap`中分配。
+微对象和小对象（<=32kb）通过`mcache`分配，大对象(>32kb)直接从`mheap`中分配。如果对应的大小规格在 mcache 中没有可用的块，则向 mcentral 申请，如果 mcentral 中没有可用的块，则向 mheap 申请，如果 mheap 中没有可用 span，则向操作系统申请一系列新的页。
+如果 mcentral 中没有可用的块，则向 mheap 申请
 
 
 
@@ -834,17 +835,7 @@ mcentral 都包含两个 mspan 的列表，每个mcentral包含相同page数目�
 empty mspanList -- 没有空闲对象或 span 已经被 mcache 缓存的 span 列表。
 nonempty mspanList -- 有空闲对象的 span 列表。
 
-mheap 存储了134 个 mcentral 的数组，runtime.mheap 会持有 4194304 runtime.heapArena，每个 runtime.heapArena 都会管理 64MB 的内存，单个 Go 语言程序的内存上限也就是 256TB。
 
-对象分配流程
-大于 32K 的大对象直接从 mheap 分配。
-小于 16B 的使用 mcache 的微型分配器分配
-对象大小在 16B ~ 32K 之间的的，首先通过计算使用的大小规格，然后使用 mcache 中对应大小规格的块分配
-如果对应的大小规格在 mcache 中没有可用的块，则向 mcentral 申请
-如果 mcentral 中没有可用的块，则向 mheap 申请，并根据 BestFit 算法找到最合适的 mspan。如果申请到的 mspan 超出申请大小，将会根据需求进行切分，以返回用户所需的页数。剩余的页构成一个新的 mspan 放回 mheap 的空闲列表。
-如果 mheap 中没有可用 span，则向操作系统申请一系列新的页（最小 1MB），arena。
-
-Go 内存管理的一般思想是使用不同的内存结构为不同大小的对象使用不同的内存缓存级别来分配内存。将一个从操作系统接收的连续地址的块切分到多级缓存来减少锁的使用，同时根据指定的大小分配内存减少内存碎片以提高内存分配的效率和在内存释放之后加快 GC 运行的速度。
 ![](../images/5c70206cb9048569f7000015.png)
 ![](../images/2020-02-29-15829868066479-go-memory-layout.png)
 
