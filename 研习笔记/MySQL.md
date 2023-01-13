@@ -1,7 +1,7 @@
 mysql是由c和c++编写的。
 mysql服务器逻辑架构:
-服务层：处理客户端连接、sql解析和优化（重写sql、表的读取顺序、索引选择等）、存储过程、触发器等。
-存储引擎层：数据存储和提取。
+**服务层**：处理客户端连接、sql解析和优化（重写sql、表的读取顺序、索引选择等）、存储过程、触发器等。
+**存储引擎层**：数据存储和提取。
 mysql服务层和存储引擎层都有锁。
 
 用null而不是自己伪造零值。
@@ -12,7 +12,7 @@ mysql服务层和存储引擎层都有锁。
 范围锁: 对于某个范围直接加排他锁，在这个范围内的数据不能被写入。
 从业务层面去减少锁和死锁。
 事务：ACID 原子性（一个事务中所有操作全部成功，全部失败）一致性（数据库总是从一个一致性的状态转换到另一个一致性的状态）隔离性（一个事务执行过程中不会对另一个事务产生影响）持久性（事务执行完后会写入磁盘，永久保存）
-事务隔离级别：Read Uncommitted 读未提交（脏读）Read Committed 读已提交，写锁会一直持续到事务结束，但加的读锁在查询操作完成后就马上会释放。（不可重复读，事务A和B，A 多次读取同一数据，B 在A多次读取的过程中对数据作了修改并提交，导致A多次读取同一数据时，结果不一致）Repeatable Read 可重复读（innodb默认级别，通过行级锁+MVCC实现。幻读，A在读取范围数据时，B插入了一行，导致A多读了一行，多次读取记录数不同。幻读的定义侧重于多条记录，就是记录条数的变化，而不可重复读侧重于单条记录数据的变化，这样区分原因在于解决幻读需要范围锁，解决不可重复读只需要单条记录加锁。）。Serializable 串行化（对所有读取的行加锁，避免幻读，性能低）。
+**事务隔离级别**：Read Uncommitted 读未提交（脏读）Read Committed 读已提交，写锁会一直持续到事务结束，但加的读锁在查询操作完成后就马上会释放。（不可重复读，事务A和B，A 多次读取同一数据，B 在A多次读取的过程中对数据作了修改并提交，导致A多次读取同一数据时，结果不一致）Repeatable Read 可重复读（innodb默认级别，通过行级锁+MVCC实现。幻读，A在读取范围数据时，B插入了一行，导致A多读了一行，多次读取记录数不同。幻读的定义侧重于多条记录，就是记录条数的变化，而不可重复读侧重于单条记录数据的变化，这样区分原因在于解决幻读需要范围锁，解决不可重复读只需要单条记录加锁。）。Serializable 串行化（对所有读取的行加锁，避免幻读，性能低）。
 
 嵌套事务：mysql没有明确的嵌套事务，START TRANSACTION;SQL1;START TRANSACTION;SQL2;在遇到START TRANSACTION时，前面的事务会被强制commit，可以通过SAVEPOINT和ROLLBACK TO实现类似功能，START TRANSACTION;SQL1;SAVEPOINT P1;SQL2;ROLLBACK TO P1;COMMIT; 这样SQL1会成功，SQL2会失败
 
@@ -25,7 +25,7 @@ mysql服务层和存储引擎层都有锁。
 间隙锁：innodb在RR隔离级别会加间隙锁（不区分读、写锁），解决幻读问题。不同事务可重复加间隙锁。间隙锁会导致加锁达不到预期的情况。
 产生间隙锁的条件：唯一索引N不存在；唯一索引范围查询；普通索引加锁。
 
-MVCC Multiversion Concurrency Control 多版本并发控制 在读取不加锁的情况下实现行级锁的效果，实现非阻塞读，只有写写之间相互阻塞。在Read Committed 和 Repeatable Read两个隔离级别下工作。
+**MVCC** Multiversion Concurrency Control 多版本并发控制 在读取不加锁的情况下实现行级锁的效果，实现非阻塞读，只有写写之间相互阻塞。在Read Committed 和 Repeatable Read两个隔离级别下工作。
 
 Innodb中每一行多了几个字段：DB_TRX_ID(当前事务的ID，自动递增) DB_ROLL_PT（指向undo log记录，通过这个指针获得之前版本的数据） DB_RAW_ID（） deleted_flag（事务执行时置位true，commit之后才真正删除）
 **undo log** InnoDB把这些为了回滚而记录的这些东西称之为undo log，它是链表的结构，实现事务的原子性、实现多版本并发控制。
@@ -36,8 +36,8 @@ UPDATE操作都是读取当前读(current read)数据进行更新的。
 
 
 
-Redo Log：innodb特有的。如果每次修改都操作磁盘，IO成本和查找成本都很高。因此采用WAL（Write Ahead Logging）先写日志，再写磁盘。日志文件就叫做redo log（物理日志，固定大小，循环写，记录某个数据页做了什么改动），更新内存，在适当的时候从内存中更新到磁盘。因此具有崩溃恢复（crash-safe）的能力，innodb_flush_log_at_trx_commit 这个参数设置成 1，每次事务持久化。
-Bin Log: mysql服务器层，逻辑日志，归档日志，追加写，二进制形式记录，没有 crash-safe 能力。两种模式：statement：记录sql，row：记录修改前和修改后的行内容。sync_binlog 这个参数设置成 1，每次事务的binlog都持久化 。主从复制、数据恢复（需要配合数据库定期备份）。
+**Redo Log**：innodb特有的。如果每次修改都操作磁盘，IO成本和查找成本都很高。因此采用WAL（Write Ahead Logging）先写日志，再写磁盘。日志文件就叫做redo log（物理日志，固定大小，循环写，记录某个数据页做了什么改动），更新内存，在适当的时候从内存中更新到磁盘。因此具有崩溃恢复（crash-safe）的能力，innodb_flush_log_at_trx_commit 这个参数设置成 1，每次事务持久化。
+**Bin Log**: mysql服务器层，逻辑日志，归档日志，追加写，二进制形式记录，没有 crash-safe 能力。两种模式：statement：记录sql，row：记录修改前和修改后的行内容。sync_binlog 这个参数设置成 1，每次事务的binlog都持久化 。主从复制、数据恢复（需要配合数据库定期备份mysqldump）。
 取ID=2的行->数据页在内存中（不在就从磁盘中读取）->内存中更新数据->写入redo-log prepare（redolog buffer）->写入bin log->更新redo log commit状态（日志写入磁盘），MySQL 使用两阶段（2PC）提交主要解决 binlog 和 redo log 的数据一致性的问题。
 
 更新sql与查询sql不同，它会影响redo log（重做日志）和 binlog（归档日志）。
