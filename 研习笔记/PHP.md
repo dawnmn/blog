@@ -55,7 +55,7 @@ struct _zend_array {
 
 当删除或扩容达到一定数量后，会重建散列表、重建索引、将arData移到新的空间。
 
-变量有两个组成部分：变量名、变量值，PHP中可以将其对应为：zval、zend_value，PHP7中引用计数是在zend_value而不是zval上，变量之间的传递、赋值通常也是针对zend_value。
+**变量** 有两个组成部分：变量名、变量值，PHP中可以将其对应为：zval、zend_value，PHP7中引用计数是在zend_value而不是zval上，变量之间的传递、赋值通常也是针对zend_value。
 ```
 //zend_types.h
 typedef struct _zval_struct     zval;
@@ -122,7 +122,9 @@ struct _zend_resource {
     void             *ptr;
 };
 ```
-引用结构体
+**引用** 
+
+结构体
 ```
 struct _zend_reference {
     zend_refcounted_h gc;
