@@ -57,15 +57,13 @@ git checkout -b serverfix origin/serverfix
 # 删除远程分支
 git push origin --delete serverfix
 
-# git拉取目录示例
+# git仅拉取一个目录下面文件的示例
 git init
 git remote add -f origin https://gitee.com/xxx/xxx.git
 git config core.sparsecheckout true
 echo "yourpath/" >> .git/info/sparse-checkout
 cat .git/info/sparse-checkout
 git pull origin master
-
-
 ```
 
 **linux保存账号密码**
