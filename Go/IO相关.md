@@ -122,7 +122,9 @@ func Create(name string) (*File, error) {
     return OpenFile(name, O_RDWR|O_CREATE|O_TRUNC, 0666)
 }
 
-f.Read(slice) f.Write([]byte("abc")) f.WriteString("def") 
+f.Read(slice) 
+f.Write([]byte("abc")) 
+f.WriteString("def") 
 # 删除目录或文件，如果目录不为空则失败
 os.Reomove("a.txt")
 # 修改一个文件的名字或移动一个文件，如果 newpath 已经存在，则替换它
@@ -200,9 +202,9 @@ path 包中提供的函数，filepath 都有提供，一般应该总是使用 fi
 filepath.Dir("/a/b.txt")
 filepath.Base("/a/b.txt")
 filepath.Ext("/a/b.txt")
-// 遍历目录，包括文件
+// 遍历目录下的所有目录和文件
 filepath.Walk("/a/b", func(path string, info fs.FileInfo, err error) error {
-   fmt.Println(path)
+   fmt.Println(path) // path为绝对路径
    return err
 })
 ```
