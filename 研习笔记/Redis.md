@@ -63,7 +63,7 @@ redis使用惰性删除+定期删除（分批次遍历所有数据库的所有�
 
 LRU（Least Recent Used，淘汰掉最不经常使用的，基于hashmap的双向链表数据结构）
 
-**RDB** 持久化：生成的RDB文件是经过压缩的二进制文件，保存数据库的键值对数据。SAVE BGSAVE（执行时客户端发送的SAVE BGSAVE不会执行，BGREWRITEAOF在BGSAVE执行完后执行），SAVE命令由服务器进程执行保存工作，因此会阻塞服务器，BGSAVE由子进程执行保存工作，不会阻塞。因此可以用BGSAVE自动保存：save 600 1，600秒修改一次就保存。redis启动时会自动载入RDB文件（如果AOF持久化开启时，则会载入AOF文件，忽略RDB）。
+**RDB** 持久化：生成的RDB文件是经过压缩的二进制文件，保存数据库的键值对数据。SAVE BGSAVE（执行时客户端发送的SAVE BGSAVE不会执行，BGREWRITEAOF指令则会在BGSAVE执行完后执行），SAVE命令由服务器进程执行保存工作，因此会阻塞服务器，BGSAVE由子进程执行保存工作，不会阻塞。因此可以用BGSAVE自动保存：save 600 1，600秒修改一次就保存。redis启动时会自动载入RDB文件（如果AOF持久化开启时，则会载入AOF文件，忽略RDB）。
 **AOF**（append only file）持久化：只追加的方式，保存执行的写命令，appendfsync：aways everysec no。AOF文件重写（数据相同，体积更小，BGREWRITEAOF），它不是基于现有的AOF文件，而是通过遍历服务器当前数据来重新生成写操作指令。当子进程完成AOF重写工作后，父进程会将AOF重写缓冲区的内容写入新AOF文件，并将新的AOF文件覆盖现有的AOF文件，完成新旧替换，这整个过程会阻塞（不接受客户端命令）。
 
 redis单线程模型：采用 IO 多路复用机制同时监听多个 Socket，根据 Socket 上的事件来选择对应的事件处理器进行处理。
