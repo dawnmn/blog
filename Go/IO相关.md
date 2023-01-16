@@ -19,11 +19,11 @@ type ReaderAt interface {
 type WriterAt interface {
     WriteAt(p []byte, off int64) (n int, err error)
 }
-# ReadFrom 从 r 中读取数据，直到 EOF 或发生错误。
+# ReadFrom 从 r 中读取数据到缓存，直到 EOF 或发生错误。
 type ReaderFrom interface {
     ReadFrom(r Reader) (n int64, err error)
 }
-# WriteTo 将数据写入 w 中
+# WriteTo 将缓存中的数据写入 w 中
 type WriterTo interface {
     WriteTo(w Writer) (n int64, err error)
 }
