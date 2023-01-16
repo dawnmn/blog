@@ -227,7 +227,7 @@ func NewReader(rd io.Reader) *Reader {
 		return NewReaderSize(rd, defaultBufSize)
 }
 
-# 返回的 []byte 是指向 Reader 中的 buffer，而不是 copy 一份返回，也正因为如此，通常我们会使用 ReadBytes 或 ReadString。
+# ReadSlice返回的 []byte 是指向 Reader 中的 buffer，而不是 copy 一份返回，也正因为如此，通常我们会使用 ReadBytes 或 ReadString。
 func (b *Reader) ReadSlice(delim byte) (line []byte, err error)
 func (b *Reader) ReadBytes(delim byte) (line []byte, err error)
 func (b *Reader) ReadString(delim byte) (line string, err error)
