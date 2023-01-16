@@ -7,7 +7,7 @@ Redis是基于内存采用单进程单线程的KV数据库，C语言编写。绝
 集合：内部的键值对是无序的、唯一的 sadd smembers sismember spop srem 缓存日活记录，好友、关注、粉丝，数据全局去重，交集、并集、差集
 有序集合 zadd zrem zrange zcard zrank 排名，延迟队列
 
-Redis分布式锁：加锁$redis->set($key, 1, 'NX', 'EX', $expire) 解锁 键过期或del
+Redis分布式锁：加锁`SET resource-name token-string NX EX max-lock-time` 解锁 键过期或del
 api限流: 使用列表lrange，rpush存入时间，lpop弹出超时。
 消息队列：rpush生产消息，lpop消费消息。
 
