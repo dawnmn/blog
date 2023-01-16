@@ -150,7 +150,7 @@ unset一个引用只是断开变量名与内容的联系，参考linux的硬连�
 
 对象、资源是引用传递。
 
-include与require没有本质上的区别，唯一的不同在于错误级别，当文件无法被正常加载时include会抛出warning警告，而require则会抛出error错误。
+**include与require** 没有本质上的区别，唯一的不同在于错误级别，当文件无法被正常加载时include会抛出warning警告，而require则会抛出error错误。
 include就是把其它文件的内容拷贝到了调用文件中。
 include_once、require_once在一次请求中同一文件只会被加载一次。
 
