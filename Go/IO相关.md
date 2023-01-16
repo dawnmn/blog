@@ -97,7 +97,7 @@ func main() {
 
 `os.File` 同时实现了`io.Reader`和`io.Writer`
 在Linux中，有3种标准流 (standard stream)，分别为`stdin`,`stdout`（正常输出）, `stderr`（错误输出）。
-在go语言中，`Stdin Stdout Stderr`都是`os.File`的实例，每个进程都各有一个`Stdin Stdout Stderr`文件描述符。Stdout、Stderr基本相同。
+在go语言中，`Stdin Stdout Stderr`都是`os.File`的实例，每个进程都各有一个`Stdin Stdout Stderr`文件描述符，Stdout、Stderr基本相同。
 
 
 打开方式：
