@@ -50,7 +50,6 @@ func MultiReader(readers ...Reader) Reader
 # 将多个Writer合并成一个
 func MultiWriter(writers ...Writer) Writer
 # 读取全部，直到错误或者EOF，内部使用Read()方法。
-
 func ReadAll(r Reader) ([]byte, error)
 
 io.Discard变量，实现了io.Writer接口，空写入
