@@ -78,7 +78,7 @@ redis集群：主从，哨兵，cluster
 主库：所有的写操作都在主库发生，然后主库同步数据到从库，同时也可以进行读操作；
 从库：只负责读操作；
 全量同步：从服务器首次加入主服务器中发生的是全量同步。同步依赖RDB文件，主库会通过bgsave命令，生成RDB文件，然后将RDB文件传送到从库中。主库会在内存中用专门的replication buffer（主库对每个从库都会单独创建的缓冲区），记录 RDB 文件生成后收到的所有写操作，然后在 RDB 文件，同步完成之后，再将replication buffer中的命令发送到从库中。
-增量同步：用于主从服务器之间发生网络闪断，利用repl_backlog_buffer（主库独一份的缓冲区，环形缓冲区），master 把master_repl_offset与slave_repl_offset之间的命令同步给从库。如果超过repl_backlog_buffer，则会进行全量同步。
+增量同步：用于主从服务器之间发生网络闪断，利用repl_backlog_buffer（主库独一份的缓冲区，环形缓冲区），master 把master_repl_offset与slave_repl_offset之间的命令同步给从库。如果超过repl_backlog_buffer（master_repl_offset小于slave_repl_offset），则会进行全量同步。
 当同步完成后，repl_backlog_buffer
 
 
