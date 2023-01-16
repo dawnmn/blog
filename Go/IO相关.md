@@ -138,6 +138,9 @@ func WriteFile(name string, data []byte, perm FileMode)
 func RemoveAll(path string) error
 # 创建 path 指定的目录和所有下级目录，如果path存在不会报错
 func MkdirAll(path string, perm FileMode) error
+# 读取name目录下第一级的所有文件和目录
+func ReadDir(name string) ([]DirEntry, error)
+
 ```
 ```
 func main() {
@@ -210,23 +213,9 @@ filepath.Walk("/a/b", func(path string, info fs.FileInfo, err error) error {
 ```
 
 
-**ioutil** 没什么用
-```
-func ReadDir(dirname string) ([]fs.FileInfo, error)
+**ioutil** 功能被io和os包代替
 ```
 
-遍历目录，不如filepath.Walk：
-```
-func listAll(path string) {
-	fileInfos, _ := ioutil.ReadDir(path)
-	for _, info := range fileInfos {
-		fmt.Println(info.Name())
-		if info.IsDir() {
-			listAll(path + "/" + info.Name())
-		}
-	}
-}
-```
 
 **bufio**
 针对的是文件到内存的缓存。
