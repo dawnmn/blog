@@ -3,9 +3,19 @@
 进制表达前缀：`0x` `0` `0b`
 整数溢出转化为float，5/3结果为1.666...
 浮点数转整数，向下取整
-string是由字节组成的数组加上一个整数指明缓冲区的长度。可以把string当做字符组成的array，字符串会按照脚本文件的编码方式编码，`strlen` `mb_strlen`，字符串类型既是字符串也是byte，二进制字符串。
+**string**是由字节组成的数组加上一个整数指明缓冲区的长度。可以把string当做字符组成的array，字符串会按照脚本文件的编码方式编码，`strlen` `mb_strlen`，字符串类型既是字符串也是byte，二进制字符串。
+字符串结构体
+```
+struct _zend_string {
+    zend_refcounted_h gc;
+    zend_ulong        h;                /* hash value */
+    size_t            len;
+    char              val[1]; // 字符串内容，变长struct，分配时按len长度申请内存
+};
+```
 
-数组的key是int或者string，值可以是任意类型，如果数组定义中有多个相同的键，后面会覆盖前面的值，如果没指定键名，则为最大整数键名加一。
+
+**数组 HashTable** 的key是int或者string，值可以是任意类型，如果数组定义中有多个相同的键，后面会覆盖前面的值，如果没指定键名，则为最大整数键名加一。
 数组array是列表、散列表（哈希表）、队列、栈、集合、树形结构、多维数组，底层实现是散列表(HashTable结构体)。映射函数将key与value建立映射关系，可以根据key的哈希值与Bucket数组大小取模得到。哈希碰撞是指不同的key可能计算得到相同的哈希值，这时Bucket里面的zval里面的联合体里有一个next指针会串成链表，查找时遍历链表比较key。
 函数、类、全局变量、静态变量、常量等都是HashTable存储。
 ```
@@ -93,15 +103,7 @@ struct _zval_struct {
     } u2; //一些辅助值
 };
 ```
-字符串结构体
-```
-struct _zend_string {
-    zend_refcounted_h gc;
-    zend_ulong        h;                /* hash value */
-    size_t            len;
-    char              val[1]; // 字符串内容，变长struct，分配时按len长度申请内存
-};
-```
+
 对象/资源结构体
 ```
 struct _zend_object {
