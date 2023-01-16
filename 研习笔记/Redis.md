@@ -11,20 +11,24 @@ api限流: 使用列表lrange，rpush存入时间，lpop弹出超时 事务的wa
 消息队列：rpush生产消息，lpop消费消息。
 
 SDS simple dynamic string
+```
 struct sdshdr{
 	int len;
 	int free;
 	char buf[];
 }
+```
 buf[]字符数组以空字符\0结尾，这一点与c语言字符串保持一致。但是能够存储二进制数据。
 键名、字符串键值等使用SDS结构。
 
 链表
+```
 typedef struct listNode{
 	struct listNode *prev;
 	struct listNode *next;
 	void *value;
 }
+```
 列表等使用链表结构。
 
 字典
