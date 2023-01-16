@@ -217,7 +217,7 @@ filepath.Walk("/a/b", func(path string, info fs.FileInfo, err error) error {
 
 
 **bufio**
-针对的是文件到内存的缓存，按分隔符处理。
+针对的是文件到内存的缓存，主要功能是按分隔符处理。
 
 reader类型实例化：
 ```
