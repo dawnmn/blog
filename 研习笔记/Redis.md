@@ -41,11 +41,13 @@ rehash：当字典扩展或收缩到一定值时，会发生rehash。
 有序集合、集群内部使用跳跃表。
 
 整数集合
+```
 typedef struct intset{
 	uint32_t encoding; // contents元素的整数类型
 	uint32_t length; // contents元素个数
 	int8_t contents[]; // 集合元素数组
 }
+```
 集合的底层实现之一，当一个集合只包含整数，并且数量不多时使用。
 
 对象
