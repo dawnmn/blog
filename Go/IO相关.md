@@ -91,6 +91,9 @@ func main() {
 }
 ```
 
+
+
+**os**
 ```
 os.File 同时实现了io.Reader和io.Writer
 在Linux中，有3种标准流 (standard stream)，分别为stdin,stdout, stderr。
@@ -98,7 +101,6 @@ os.File 同时实现了io.Reader和io.Writer
 
 ```
 
-**os**
 打开方式：
 ```
 func OpenFile(name string, flag int, perm FileMode) (*File, error)
