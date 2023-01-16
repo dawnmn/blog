@@ -210,7 +210,7 @@ filepath.Walk("/a/b", func(path string, info fs.FileInfo, err error) error {
 ```
 
 
-**ioutil**
+**ioutil** 没什么用
 ```
 func ReadDir(dirname string) ([]fs.FileInfo, error)
 ```
