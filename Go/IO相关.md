@@ -215,7 +215,7 @@ filepath.Walk("/a/b", func(path string, info fs.FileInfo, err error) error {
 func ReadDir(dirname string) ([]fs.FileInfo, error)
 ```
 
-遍历目录：
+遍历目录，不如filepath.walk：
 ```
 func listAll(path string) {
 	fileInfos, _ := ioutil.ReadDir(path)
