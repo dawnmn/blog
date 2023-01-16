@@ -48,7 +48,6 @@ func WriteString(w Writer, s string) (n int, err error)
 # MultiReader 只是逻辑上将n个 Reader 组合起来，需要调用n次 Read 方法获取所有 Reader 的内容。在所有的 Reader 内容都被读完后，Read 会返回 EOF。
 func MultiReader(readers ...Reader) Reader
 # 将多个Writer合并成一个
-
 func MultiWriter(writers ...Writer) Writer
 # 读取全部，直到错误或者EOF，内部使用Read()方法。
 
