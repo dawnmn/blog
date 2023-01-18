@@ -2,7 +2,7 @@ Kafka 是一个Scala语言开发的分布式消息队列，具有高性能、持
 点对点的消息系统：消息保留在队列中，一个或者多个消费者可以消耗队列中的消息，但是消息最多只能被一个消费者消费，最典型的例子就是订单处理系统。
 发布-订阅消息系统：消费者可以订阅一个或多个主题并使用该主题中的所有消息。
 
-Kafka构建在ZooKeeper（分布式协调系统）同步服务之上。Kafka通过 ZooKeeper 管理集群配置、选举 Leader 以及在 consumer group 发生变化时进行 Rebalance。
+Kafka构建在ZooKeeper（分布式协调系统，java开发）同步服务之上。Kafka通过 ZooKeeper 管理集群配置、选举 Leader 以及在 consumer group 发生变化时进行 Rebalance。
 基本原理图：
 ![](../images/kafka基本原理.jpg)
 
