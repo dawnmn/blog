@@ -8,27 +8,7 @@ nginx -s reload	使运行中的Nginx服务重新加载nginx.conf文件，Nginx�
 
 nginx的访问日志access.log只包含http部分请求头信息，error.log则包含完全的数据。两者都会自动分片。
 
-配置项
-nginx部分配置项值支持正则
 
-```
-daemon on|off; # 默认on
-error_log pathfile level; # level表示日志级别
-include pathfile; # 将其他配置文件嵌入到当前的nginx.conf文件中
-pid pathfile; # 保存master的pid文件路径。
-user username groupname; # 设置master进程启动后，fork出的worker进程运行在哪个用户和用户组下。
-worker_rlimit_nofile limit; #  worker进程可以打开的最大句柄描述符个数。
-worker_connections limit; # 每个worker进程可以同时处理的最大连接数。
-
-keepalive_timeout time; # 默认单位s，一个keepalive连接最大闲置时间。
-client_max_body_size size; # 请求体最大值
-
-listen port default_server; # default/default_server 将所在的server块作为整个Web服务的默认server块
-server_name name; # 与header头中的Host匹配
-location [ |~]/uri/{...} # ~区分大小写。location是有顺序的，当一个请求有可能匹配多个location时，只会被第一个location处理。
-root path; # 资源路径
-index file...; # 请求路径/时访问的页面（首页），依次查找path/file...
-```
 
 反向代理：nginx会完全的接收客户端的http包体后，再向上游服务器发起连接，发送http数据。
 nginx的高性能是不是针对单个用户，而是服务器。
