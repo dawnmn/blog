@@ -673,6 +673,8 @@ func load(key string) (string, error) {
 
 **sync.Pool** 可以作为保存临时取还对象的一个“池子”，可以复用对象，无需重新分配，减轻 GC 的压力。New、Get()、Put()
 Get是随机的，Put归还对象时，将对象“清空”。只进行 Get 操作的话，就相当于一直在生成新的对象。使用时，先put合适数量的对象。
+使用场景：临时对象池、协程池、连接池等。
+
 ```
 var pool *sync.Pool
 
