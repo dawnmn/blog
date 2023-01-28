@@ -94,7 +94,7 @@ max.poll.interval.ms：它的默认值是 5 分钟，表示你的 Consumer 程�
 设置 heartbeat.interval.ms = 2s。
 要保证 Consumer 实例在被判定为“dead”之前，能够发送至少 3 轮的心跳请求，即 session.timeout.ms >= 3 * heartbeat.interval.ms。
 **时间轮**
-三层时间轮用60个数组元素，就可以承载[0-7999s]的定时任务
+三层时间轮用60个数组元素，就可以承载[0-7999s]的定时任务。
 ![](../images/20210213170330.png)
 **高吞吐和低延迟**
 
