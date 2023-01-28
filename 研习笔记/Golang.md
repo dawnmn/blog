@@ -407,18 +407,18 @@ import (
 **Channel** 是协程之间的通信机制，先入先出FIFO的有锁管道。
 ```
 type hchan struct {
-    qcount   uint           // 循环队列元素个数
-    dataqsiz uint           // 循环队列的大小
-    buf      unsafe.Pointer // 循环队列的指针
-    elemsize uint16         // chan中元素的大小
-    closed   uint32         // 是否已close
-    elemtype *_type         // chan中元素类型
-    sendx    uint           // send在buffer中的索引
-    recvx    uint           // recv在buffer中的索引
-    recvq    waitq          // receiver的等待队列
-    sendq    waitq          // sender的等待队列 
+   qcount   uint           // 循环队列元素个数
+   dataqsiz uint           // 循环队列的大小
+   buf      unsafe.Pointer // 循环队列的指针
+   elemsize uint16         // chan中元素的大小
+   closed   uint32         // 是否已close
+   elemtype *_type         // chan中元素类型
+   sendx    uint           // send在buffer中的索引
+   recvx    uint           // recv在buffer中的索引
+   recvq    waitq          // receiver的等待队列
+   sendq    waitq          // sender的等待队列
 
-    lock mutex							// 互拆锁，不是sync.Mutex
+   lock mutex              // 互拆锁，不是sync.Mutex
 }
 ```
 
