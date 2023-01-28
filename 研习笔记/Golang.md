@@ -405,6 +405,23 @@ import (
 ```
 
 **Channel** 是协程之间的通信机制，先入先出FIFO的有锁管道。
+```
+type hchan struct {
+    qcount   uint           // 循环列表元素个数
+    dataqsiz uint           // 循环队列的大小
+    buf      unsafe.Pointer // 循环队列的指针
+    elemsize uint16         // chan中元素的大小
+    closed   uint32         // 是否已close
+    elemtype *_type         // chan中元素类型
+    sendx    uint           // send在buffer中的索引
+    recvx    uint           // recv在buffer中的索引
+    recvq    waitq          // receiver的等待队列
+    sendq    waitq          // sender的等待队列 
+    // 互拆锁
+    lock mutex
+}
+```
+
 不要通过共享内存来通信，而应通过通信来共享内存。
 
 类型 chan<- int 表示一个只发送int的channel，类型 <-chan int 表示一个只接收int的channel
