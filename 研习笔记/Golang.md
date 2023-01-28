@@ -696,7 +696,6 @@ func main() {
    fmt.Println("Get Pool Object：", pool.Get().(*Person))
    fmt.Println("Get Pool Object：", pool.Get().(*Person))
 }
-
 ```
 
 **反射**：在运行时更新变量和检查它们的值、调用它们的方法和它们支持的内在操作，但是在编译时并不知道这些变量的具体类型。
