@@ -540,7 +540,9 @@ type Mutex struct {
 	sema  uint32
 }
 ```
-![](../images/2020-01-23-15797104328010-golang-mutex-state.png)
+![](../images/mutex的state结构.png)
+
+
 state 表示当前互斥锁的状态，而 sema 是用于控制锁状态的信号量。
 公平锁
 锁有两种模式：正常模式和饥饿模式。
