@@ -9,7 +9,7 @@ Elasticsearch 使用json作为文档的序列化格式。json已经成为 NoSQL 
 
 **index（索引）**
 索引是具有相似结构的文档的集合，类似mysql的数据库。
-**type（类型）**
+type（类型）
 7.0后type固定为_doc，8.0后废弃，类似mysql的table。
 **document（文档）**
 文档是存储在ES中的一个个JSON格式的字符，类似mysql的行。
