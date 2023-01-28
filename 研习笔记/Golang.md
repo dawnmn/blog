@@ -671,43 +671,32 @@ func load(key string) (string, error) {
 }
 ```
 
-**sync.Pool** 可以作为保存临时取还对象的一个“池子”，可以复用对象，无需重新分配，减轻 GC 的压力。New、Get()、Put()  Reset()
+**sync.Pool** 可以作为保存临时取还对象的一个“池子”，可以复用对象，无需重新分配，减轻 GC 的压力。New、Get()、Put()
 Get是随机的，Put归还对象时，将对象“清空”。只进行 Get 操作的话，就相当于一直在生成新的对象。使用时，先put合适数量的对象。
 ```
-package main
+var pool *sync.Pool
 
-import (
-	"fmt"
-	"sync"
-)
-
-type Gopher struct {
-	Name   string
-	Remark [1024]byte
+type Person struct {
+   Name string
 }
 
-func (s *Gopher) Reset() {
-	s.Name = ""
-	s.Remark = [1024]byte{}
+func init() {
+   pool = &sync.Pool{
+      New: func() interface{} {
+         fmt.Println("creating a new person")
+         return new(Person)
+      },
+   }
 }
-
-var gopherPool = sync.Pool{
-	New: func() interface{} {
-		return new(Gopher)
-	},
-}
-
 func main() {
-	g := gopherPool.Get().(*Gopher)
-	fmt.Println("首次从 pool 里获取：", g.Name)
-
-	g.Name = "first"
-	fmt.Printf("设置 p.Name = %s\n", g.Name)
-	gopherPool.Put(g)
-
-	fmt.Println("Pool 里已有一个对象：&{first}，调用 Get: ", gopherPool.Get().(*Gopher).Name)
-	fmt.Println("Pool 没有对象了，调用 Get: ", gopherPool.Get().(*Gopher).Name)
+   person := pool.Get().(*Person)
+   fmt.Println("Get Pool Object：", person)
+   person.Name = "first"
+   pool.Put(person)
+   fmt.Println("Get Pool Object：", pool.Get().(*Person))
+   fmt.Println("Get Pool Object：", pool.Get().(*Person))
 }
+
 ```
 
 **反射**：在运行时更新变量和检查它们的值、调用它们的方法和它们支持的内在操作，但是在编译时并不知道这些变量的具体类型。
