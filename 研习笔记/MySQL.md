@@ -57,6 +57,7 @@ Extra，使用优先级 空>Using index>Using Where>Using filesort（九死一�
 选择优化的数据类型（尽量小、尽量简单、需要索引的列避免NULL，改为NOT NULL），DECIMAL支持精确计算，把数据按照最小关系表的形式进行存储
 汇总表、缓存表、slot计数器表
 避免隐式类型转换。
+`select * from tradelog where tradeid=110717;`会转换成`select * from tradelog where CAST(tradid AS signed int) = 110717;`
 
 
 索引 索引是在存储引擎层实现而不是mysql服务器层。
