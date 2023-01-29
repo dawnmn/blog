@@ -62,7 +62,7 @@
     * [tcp](Go/tcp.md)
     * [IO相关](Go/IO相关.md)
     * [字符串相关](Go/字符串相关.md)
-    * [排序-链表-环](Go/排序-链表-环.md)
+    * [排序-堆-链表-环](Go/排序-堆-链表-环.md)
     * [time](Go/time.md)
     * [flag](Go/flag.md)
 * [jetbrains IDE 产品无限期使用方式](jetbrainsIDE产品无限期试用方式.md)
