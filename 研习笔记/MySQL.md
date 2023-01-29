@@ -16,6 +16,7 @@ mysql服务层和存储引擎层都有锁。
 
 嵌套事务：mysql没有明确的嵌套事务，START TRANSACTION;SQL1;START TRANSACTION;SQL2;在遇到START TRANSACTION时，前面的事务会被强制commit，可以通过SAVEPOINT和ROLLBACK TO实现类似功能，START TRANSACTION;SQL1;SAVEPOINT P1;SQL2;ROLLBACK TO P1;COMMIT; 这样SQL1会成功，SQL2会失败
 
+**锁**
 死锁：innodb解决方式：检测到死锁的循环依赖后，将有最少行级排它锁的事务回滚，稍后重新执行该事务即可。
 自动提交：autocommit，默认，每个sql被当做一个事务执行提交操作。
 隐式锁：Innodb采用两阶段锁协议，事务执行时，随时都可能上锁，在commit或rollback后才会释放所有的锁。
@@ -24,6 +25,8 @@ mysql服务层和存储引擎层都有锁。
 避免死锁：区分度高的列放到组合索引前面、将大事务拆成多个小事务来处理、在并发比较高的系统中，尽量不要显式加锁、减少范围查找、减少连接的表、将复杂SQL分解为多个简单的SQL
 间隙锁：innodb在RR隔离级别会加间隙锁（不区分读、写锁），解决幻读问题。不同事务可重复加间隙锁。间隙锁会导致加锁达不到预期的情况。
 产生间隙锁的条件：唯一索引N不存在；唯一索引范围查询；普通索引加锁。
+两阶段锁协议：在InnoDB事务中，行锁是在需要的时候才加上的，但是要等到事务结束时才释放。
+
 
 **MVCC** Multiversion Concurrency Control 多版本并发控制 在读取不加锁的情况下实现行级锁的效果，实现非阻塞读，只有写写之间相互阻塞。在Read Committed 和 Repeatable Read两个隔离级别下工作。
 
