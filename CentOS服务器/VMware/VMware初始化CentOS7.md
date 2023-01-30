@@ -30,7 +30,7 @@ systemctl disable firewalld.service
 service iptables stop
 chkconfig iptables off
 
-yum install vim
+yum -y install vim
 vim ~/.vimrc
 set nu
 vim  /etc/selinux/config
@@ -41,5 +41,5 @@ SELINUX=disabled
 **惯例配置**
 ```
 mkdir /var/download
-yum install lrzsz zip unzip wget net-tools
+yum -y install lrzsz zip unzip wget net-tools
 ```
