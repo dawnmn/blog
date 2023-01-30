@@ -419,8 +419,8 @@ type hchan struct {
    elemtype *_type         // chan中元素类型
    sendx    uint           // send在buffer中的索引
    recvx    uint           // recv在buffer中的索引
-   recvq    waitq          // receiver的等待队列
-   sendq    waitq          // sender的等待队列
+   recvq    waitq          // 等待发送数据的goroutine队列
+   sendq    waitq          // 等待接收数据的goroutine队列
 
    lock mutex              // 互拆锁，不是sync.Mutex
 }
