@@ -3,7 +3,7 @@ RabbitMQ用erlang开发，erlang是一门函数式面向高并发的编程语言
 AMQP（高级消息队列协议）是一个网络协议。它支持符合要求的客户端应用（application）和消息中间件代理（messaging middleware broker）之间进行通信。
 publisher->publish->exchange->router->queue->consumes->consumer
 
-发布者（publisher）消息属性 消息确认（确认回执）当一个消息无法被成功路由时，消息或许会被返回给发布者并被丢弃。
+**发布者**（publisher）消息属性 消息确认（确认回执）当一个消息无法被成功路由时，消息或许会被返回给发布者并被丢弃。
 队列、交换机和绑定统称为AMQP实体
 交换机可以有两个状态：持久（durable）、暂存（transient）。持久化的交换机会在消息代理（broker）重启后依旧存在，而暂存的交换机则不会。队列也有持久（durable）、暂存（transient）。
 消息的负载均衡是发生在消费者（consumer）之间的，而不是队列（queue）之间。
@@ -28,8 +28,7 @@ publisher->publish->exchange->router->queue->consumes->consumer
 
 如果没有绑定队列到交换器，消息将会丢失。但这个没有所谓，如果没有消费者监听，那么消息就会被忽略。
 
-PHP使用RabbitMQ:
-composer require php-amqplib/php-amqplib
+
 
 RabbitMQ实现RPC：客户端将请求数据（json格式）发布到队列A，并且监听队列B。服务器监听队列A，接受请求数据并处理后，返回数据发布到队列B。客户端处理队列B数据。由于一个客户端可以对应多个服务器，需要correlation_id参数确认连接是否对应。
 
