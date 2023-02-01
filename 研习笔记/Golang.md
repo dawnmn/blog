@@ -741,6 +741,15 @@ type timer struct {
     status uint32
 }
 ```
+**unsafe.Pointer**
+unsafe.Pointer可以绕过Go语言类型系统的检查，与任意的指针类型互相转换。可以将unsafe.Pointer当做桥梁，让这两种具有相同的内存结构类型的指针相互转换。
+```
+bytes := []byte{104, 101, 108, 108, 111}
+
+p := unsafe.Pointer(&bytes) //强制转换成unsafe.Pointer，编译器不会报错
+str := *(*string)(p)        //然后强制转换成string类型的指针，再将这个指针的值当做string类型取出来
+fmt.Println(str)            //输出 "hello"
+```
 完全二叉树：若设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边。
 最小堆：是一种完全二叉树，任一节点均小于等于它的左右子节点，位于堆顶节点的值最小。
 计时器以最小堆的形式存储P中，runtime.runtimer里面会启动一个for循环，不停的检查P的timer列表的第一个元素的状态。
