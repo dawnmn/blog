@@ -644,7 +644,7 @@ mu2.RUnlock()
 mu2.WLock()
 mu2.WUnlock()
 // sync.Map直接使用方法，不用实例化对象
-sync.Map. Store() Load() Delete() Range() // 遍历不能用for range
+sync.Map Store() Load() Delete() Range() // 遍历不能用for range
 sync.WaitGroup Add() Done() Wait()
 ```
 
