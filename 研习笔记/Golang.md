@@ -627,6 +627,7 @@ func listen(c *sync.Cond) {
 atomic原子操作主要用于并发环境下，无须加锁对整数进行安全的加减、比较、读取操作。
 
 ```
+atomic.Value // 处理任意类型变量
 
 func StoreT(addr *T, val T) // 原子性的存储
 func AddT(addr *T, delta T)(new T) // 原子性的相加，并返回新值
