@@ -79,7 +79,7 @@ RPC：服务器会并行发起RPC，并会在RPC超时后重试。
 接收者实现：
 
 1.  如果`term < currentTerm`返回 false 
-2.  如果 votedFor 为空或者为 candidateId，并且候选人的日志至少和自己一样新，那么就投票给他
+2.  如果 votedFor 为空或者为 candidateId，并且候选人的日志至少和自己一样新，那么就投票给他。
 
 **特性**
 所有服务器：
