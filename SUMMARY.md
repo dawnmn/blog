@@ -78,6 +78,8 @@
         * [Docker搭建centos7容器](云原生/Docker/Docker搭建centos7容器.md)
         * [Docker搭建LNMP](云原生/Docker/Docker搭建LNMP.md)
         * [Docker Swarm示例](云原生/Docker/DockerSwarm示例.md)
+    * [etcd](云原生/etcd.md)
+        * [安装](云原生/etcd/安装.md)
 * [版本控制](版本控制.md)
     * [Git常用指令与密码保存](版本控制/Git常用指令与密码保存.md)
     * [gitlab](版本控制/gitlab.md)
