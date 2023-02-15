@@ -35,7 +35,7 @@
     * [手动搭建lnmp环境并用supervisor监控](CentOS服务器/搭建web服务器集成环境.md)
     * [lnmp1.6一键安装包搭建web服务器集成环境](CentOS服务器/lnmp一键安装包搭建web服务器集成环境.md)
     * [搭建小白](CentOS服务器/搭建小白.md)
-    * [Xshell用ssh密钥登录](CentOS服务器/Xshell用ssh密钥登录.md)
+    * [Xshell实用技能](CentOS服务器/Xshell实用技能.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
