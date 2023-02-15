@@ -18,3 +18,7 @@ service sshd restart
 ```
 登录：
 xshell用户名`root `，SSH用户身份验证选择Public Key->浏览->文件(选择私钥)
+
+**ssh隧道**
+1 连接跳板机
+
