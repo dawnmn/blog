@@ -21,4 +21,9 @@ xshell用户名`root `，SSH用户身份验证选择Public Key->浏览->文件(�
 
 **ssh隧道**
 1 连接跳板机
-
+![](../images/SSH隧道-跳板机.png)
+![](../images/SSH隧道-跳板机账号密码.png)
+![](../images/SSH隧道-跳板机隧道.png)
+2 连接目标主机
+![](../images/SSH隧道-目标主机.png)
+![](../images/SSH隧道-目标主机账号密码.png)
