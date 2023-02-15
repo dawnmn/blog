@@ -87,6 +87,6 @@ RPC：服务器会并行发起RPC，并会在RPC超时后重试。
 如果commitIndex>lastApplied，则 lastApplied 递增，并将log[lastApplied]应用到状态机中。
 如果接收到的RPC请求或响应中，任期号T>currentTerm，则令currentTerm=T，并切换为跟随者状态。
 
-matchIndex[]对于每一台服务器，已知的已经复制到该服务器的最高日志条目的索引。
+matchIndex[]对于每一台服务器，已知的已经复制到该服务器的最高日志条目的索引（初始值为0，单调递增）。
 需要持久化的参数：currentTerm、votedFor、log[]。
 
