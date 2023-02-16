@@ -3,7 +3,7 @@ type Duration int64 // 代表两个时间点之间经过的时间，以纳秒为
 time.Time // 类型代表一个纳秒精度的时间点。
 ```
 
-Time 的零值是 sec 和 nsec 都是 0，表示 1 年 1 月 1 日。
+
 ```
 time.Unix(sec, nsec int64) 通过 Unix 时间戳生成 time.Time 实例；
 time.Time.Unix() 得到 Unix 时间戳；
