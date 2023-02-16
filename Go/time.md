@@ -2,7 +2,17 @@
 type Duration int64 // 代表两个时间点之间经过的时间，以纳秒为单位。
 time.Time // 类型代表一个纳秒精度的时间点。
 ```
+```
+type Time struct {
+	wall uint64
+	ext  int64
+	loc *Location
+}
+```
+hasMonotonic = 1时：
+![](../images/Time结构体的wall和ext.jpg)
 time.Time能够保证在1970~2157年之间能正常使用，即不会受到闰秒、时钟同步等的影响。
+
 
 
 ```
