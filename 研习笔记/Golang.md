@@ -426,7 +426,7 @@ type hchan struct {
 }
 ```
 
-不要通过共享内存来通信，而应通过通信来共享内存。
+CSP模型：不要通过共享内存来通信，而应通过通信来共享内存。
 
 类型 chan<- int 表示一个只发送int的channel，类型 <-chan int 表示一个只接收int的channel
 Channel还支持close操作，用于关闭channel，随后对基于该channel的任何发送操作都将导致panic异常。对一个已经被close过的channel之行接收操作依然可以接受到之前已经成功发送的数据；如果channel中已经没有数据的话讲产生一个零值的数据（每次获取都是零值）。
