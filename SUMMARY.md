@@ -70,6 +70,7 @@
     * [flag](Go/flag.md)
     * [常用包](Go/常用包.md)
     * [Unsafe](Go/Unsafe.md)
+    * [GC](Go/GC.md)
 * [云原生](云原生.md)
     * [Docker](云原生/Docker.md)
         * [安装Docker](云原生/Docker/安装Docker.md)
