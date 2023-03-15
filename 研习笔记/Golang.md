@@ -979,5 +979,5 @@ Strict-Transport-Security: max-age=有效期秒数
 X-Content-Type-Options: nosniff
 被服务器用来提示客户端一定要遵循在 Content-Type 首部中对 MIME 类型 的设定，而不能对其进行修改。
 X-Frame-Options: SAMEORIGIN
-给浏览器指示允许一个请求可否在 <frame>、<iframe>、<embed> 或者 <object> 中展现。SAMEORIGIN：可以在相同域名页面的 frame 中展示；DENY：不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。
+给浏览器指示允许一个请求可否在 `<frame>、<iframe>、<embed> `或者 `<object>` 中展现。SAMEORIGIN：可以在相同域名页面的 frame 中展示；DENY：不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。
 
