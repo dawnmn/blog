@@ -2,7 +2,7 @@
 ```
 tar -xJvf node-x-x.tar.xz
 mkdir /usr/local/nodejs
-mv node-v14.15.0-linux-x64/* /usr/local/nodejs
+mv node-v18.15.0-linux-x64/* /usr/local/nodejs
 
 vim /etc/profile
 export PATH=/usr/local/nodejs/bin:$PATH
