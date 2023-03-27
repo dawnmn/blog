@@ -8,11 +8,12 @@ publisher->publish->exchange->router->queue->consumes->consumer
 交换机可以有两个状态：持久（durable）、暂存（transient）。持久化的交换机会在消息代理（broker）重启后依旧存在，而暂存的交换机则不会。队列也有持久（durable）、暂存（transient）。
 消息的负载均衡是发生在消费者（consumer）之间的，而不是队列（queue）之间。
 消息是没有超时这个概念的；当工作者与它断开连的时候，RabbitMQ会重新发送消息。
+**交换机**
+
 
 默认交换机（default exchange）实际上是直连型交换机，每个新建队列（queue）都会自动绑定到默认交换机上，绑定的路由键（routing key）名称与队列名称相同。
 直连型交换机（direct exchange）是根据消息携带的路由键（routing key）将消息投递给对应队列的。
 扇型交换机（funout exchange）将消息路由给绑定到它身上的所有队列，而不理会绑定的路由键。排行榜更新等全局事件、分发系统广播、群聊分发消息
-**交换机**
 
 主题交换机（topic exchanges）通过对消息的路由键和队列到交换机的绑定模式之间的匹配，将消息路由给一个或多个队列。分发/订阅模式。发送到主题交换机（topic exchange）的消息不可以携带随意什么样子的路由键（routing_key），它的路由键必须是一个由.分隔开的词语列表。
 \* (星号) 用来表示一个单词.
