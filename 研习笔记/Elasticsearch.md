@@ -14,10 +14,9 @@ Elasticsearch 使用json作为文档的序列化格式。json已经成为 NoSQL 
 文档是存储在ES中的一个个JSON格式的字符，类似mysql的行。
 **field（字段）**
 **mapping（映射）**
-类似mysql的Schema(约束)，作用如下：
+类似mysql的Schema(约束)，包含的数据类型如下：
 
-1. 定义字段的数据类型，例如：布尔、字符串、数字、日期
-2. 字段倒排索引的设置：
+
 * text、keyword 字符串。keyword的意思是字符串的内容不会被分词处理。text类型ES会自动的添加一个keyword类型的子字段。
 * byte、short、integer、long、float、double 数字类型
 * boolean 布尔类型
