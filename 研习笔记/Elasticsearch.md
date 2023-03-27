@@ -87,27 +87,9 @@ Full text 全文本查询：Match 查询
 **Term**
 Term 查询：返回确切的文档内容，避免对 text 字段类型使用 term
 
-**Elastic Stack**
-ElasticSearch：数据存储与查询。
-Logstash：数据采集。将数据（日志等）放进一个管道内进行处理，支持多种输入数据源和多种输出数据源。
-Kibana：数据呈现。
-Beats：轻量化数据传送工具。如Filebeat。
-APM：应用程序性能管理（Application Performance Management）
-业界对可观测性的定义由 Logging（日志），Metrics （指标）和 Tracing（跟踪）组成。
-Elastic Stack 除了采集提供采集各类日志的能力外，它还提供了许多开箱即用的场景，如企业搜索，可观测性，安全解决方案。
 
-Node：单个 Elasticsearch 实例。在实际的部署中，一般是一个 server 上运行一个 node。
-根据 node 的作用，可以分为如下的几种：
-master-eligible：可以作为主 node。一旦成为主 node，它可以管理整个 cluster 的设置及变化：创建，更新，删除 index；添加或删除 node；为 node 分配 shard
-data：数据 node
-ingest: 数据接入（比如 pipepline)
-一个 node 可以具有上面的一种或几种功能。
 
-每当一个文档进来后，根据文档的 id 会自动进行 hash 计算，并存放于计算出来的 shard实例中，这样的结果可以使得所有的 shard 都比较有均衡的存储，而不至于有的 shard 很忙。
-
-分配多个分片和副本是分布式搜索功能设计的本质，提供高可用性和快速访问索引中的文档。主副本和副本分片之间的主要区别在于，只有主分片可以接受索引请求。副本和主分片都可以提供查询请求。
-
-Es与mongodb区别：
+**Elasticsearch与mongodb区别**
 MongoDB作为一个数据库产品, 是拥有源数据管理能力（修改数据）的。
 Elasticsearch作为一个搜索引擎，Mapping不可变也是为此服务的，es修改Mapping的代价非常高，一般都是把新数据重新写入一份新索引，然后直接切换读取的别名到新的索引。
 es和MongoDB都可以通过副本增强读能力, 这与kafka很不一样(kafka的副本只有备份功能)。
