@@ -33,7 +33,7 @@ Consumer 端丢失数据主要体现在 Consumer 端要消费的消息不见了�
 Kafka 允许为每条消息定义消息键，简称为 Key。相同Key的消息会被存储到同一个分区。
 Kafka 是不能保证全局消息顺序（不同的key顺序）的，只能保证单个 Partition 下的顺序。
 主题分区数应当是消费者数的倍数。
-**服务器：broker** 一个broker可以包含多个partition，同时一个partition可存在于多个broker（作为副本）。
+**服务器：broker** 一个broker可以包含多个partition，同时一个partition可存在于多个broker（作为副本）。分区首领均衡分布在不同的broker。
 ![](../images/broker与partition的关系.png)
 
 
