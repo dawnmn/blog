@@ -1,6 +1,6 @@
 消息队列中间件的应用场景：异步处理、削峰填谷、应用解耦。
 RabbitMQ用erlang开发，erlang是一门函数式面向高并发的编程语言。
-AMQP（高级消息队列协议）是一个网络协议。它支持符合要求的客户端应用（application）和消息中间件代理（messaging middleware broker）之间进行通信。
+**AMQP**（高级消息队列协议）是一个网络协议。它支持符合要求的客户端应用（application）和消息中间件代理（messaging middleware broker）之间进行通信。
 publisher->publish->exchange->router->queue->consumes->consumer
 
 **发布者**（publisher）消息属性 消息确认（确认回执）当一个消息无法被成功路由时，消息或许会被返回给发布者并被丢弃。
