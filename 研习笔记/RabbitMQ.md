@@ -19,11 +19,11 @@ publisher->publish->exchange->router->queue->consumes->consumer
 \# (井号) 用来表示任意数量（零个或多个）单词。
 头交换机（headers exchange）使用多个消息属性来代替路由键建立路由规则。通过判断消息头的值能否与指定的绑定相匹配来确立路由规则。可以视为直连交换机的另一种表现形式。x-match：any/all
 
-队列（queue）存储着即将被应用消费掉的消息。队列在声明（declare）后才能被使用。声明一个队列是幂等的。
+**队列**（queue）存储着即将被应用消费掉的消息。队列在声明（declare）后才能被使用。声明一个队列是幂等的。
 持久化队列（Durable queues）会被存储在磁盘上，当消息代理（broker）重启的时候，它依旧存在。
-绑定（Binding）是交换机（exchange）将消息（message）路由给队列（queue）所需遵循的规则。
+**绑定**（Binding）是交换机（exchange）将消息（message）路由给队列（queue）所需遵循的规则。
 
-消费者 push/pull
+**消费者** push/pull
 消息确认：自动确认模式（消息代理（broker）将消息发送给应用后立即删除）/显式确认模式（消费者应用来选择什么时候发送确认回执）
 如果一个消费者在尚未发送确认回执的情况下挂掉了，那AMQP代理会将消息重新投递给另一个消费者。
 默认轮询的方式将消息发送给消费者。
