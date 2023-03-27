@@ -31,7 +31,7 @@ Consumer 端丢失数据主要体现在 Consumer 端要消费的消息不见了�
 **分区：Partition**，每个主题下可以有多个分区，用来实现负载均衡。不同的主题拥有独立的分区，一个分区对应一个append log文件。
 比较常见的分区策略包括轮询（Round-robin）策略、随机策略（从实际表现来看，它要逊于轮询策略）和按消息键保序策略。
 Kafka 允许为每条消息定义消息键，简称为 Key。相同Key的消息会被存储到同一个分区。
-Kafka 是不能保证全局消息顺序的，只能保证单个 Partition 下的顺序。
+Kafka 是不能保证全局消息顺序（不同的key顺序）的，只能保证单个 Partition 下的顺序。
 主题分区数应当是消费者数的倍数。
 **服务器：broker** 一个broker可以包含多个partition，同时一个partition可存在于多个broker（作为副本）。
 ![](../images/broker与partition的关系.png)
