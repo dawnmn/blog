@@ -52,10 +52,6 @@ message UserList{
   repeated User list = 1;
 }
 ```
-proto转换成go代码
-```
-protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative user/user.proto
-```
 server
 ```
 package main
