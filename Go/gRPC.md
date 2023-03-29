@@ -8,8 +8,8 @@ GRPC的两个特性：`多路复用`（一个客户端连接可以在多个客�
 ```
 # 查看版本
 protoc --version
-# 编译xxx.proto文件
-protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative a.proto
+# 编译user.proto文件
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative user.proto
 ```
 **linux安装protobuf**
 [Github下载protobuf](https://github.com/protocolbuffers/protobuf/releases)，选择protobuf-all-xxx.tar.gz
