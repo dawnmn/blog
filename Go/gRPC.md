@@ -17,7 +17,8 @@ make && make install && ldconfig
 ```
 # 查看版本
 protoc --version
-# 编译user.proto文件
+# 编译user.proto文件，先进入user.proto所在的目录user
+cd user
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative user.proto
 ```
 **示例**
