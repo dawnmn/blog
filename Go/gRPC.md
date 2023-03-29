@@ -14,7 +14,7 @@ option go_package = "./";
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative a.proto
 ```
 **linux安装protobuf**
-[Github下载protobuf]([https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases))，选择protobuf-all-xxx.tar.gz
+[Github下载protobuf](https://github.com/protocolbuffers/protobuf/releases)，选择protobuf-all-xxx.tar.gz
 ```
 tar -zxvf protobuf-all-xxx.tar.gz
 cd protobuf-xxx/
