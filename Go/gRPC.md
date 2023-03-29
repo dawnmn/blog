@@ -29,7 +29,7 @@ user.proto
 syntax = "proto3";
 
 package user;
-option go_package="./";
+option go_package="./user";
 
 service UserInfo{
   rpc addUser(User) returns(UserId);
