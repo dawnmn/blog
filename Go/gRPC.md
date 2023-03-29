@@ -63,7 +63,7 @@ import (
    "google.golang.org/grpc"
    "net"
    "strconv"
-   pb "test/user/user"
+   pb "test/user"
 )
 
 type Server struct {
@@ -109,7 +109,7 @@ import (
    "fmt"
    "google.golang.org/grpc"
    "google.golang.org/grpc/credentials/insecure"
-   pb "test/user/user"
+   pb "test/user"
    "time"
 )
 
