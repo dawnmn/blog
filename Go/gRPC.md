@@ -6,7 +6,7 @@ GRPC的两个特性：`多路复用`（一个客户端连接可以在多个客�
 **windows安装protobuf**
 [Github下载protobuf]([https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases))，选择protoc-xx.x-win64.zip，解压缩，将protoc.exe移动到GOROOT/bin目录下
 **linux安装protobuf**
-[Github下载protobuf](https://github.com/protocolbuffers/protobuf/releases)，选择protobuf-all-xxx.tar.gz
+[Github下载protobuf](https://github.com/protocolbuffers/protobuf/releases)，选择protobuf-all-xxx.tar.gz，注意：需要选择含有`all`的发布版本的源码安装包。
 ```
 tar -zxvf protobuf-all-xxx.tar.gz
 cd protobuf-xxx/
