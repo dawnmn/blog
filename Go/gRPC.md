@@ -1,17 +1,18 @@
 GRPC的两个特性：`多路复用`（一个客户端连接可以在多个客户端函数中使用）和`超时重连`。
 单个连接的client可以支持最大到9w的qps，通过使用自建连接池，经测qps可以达到40w左右。
 *****
-参考[grpc官网](https://grpc.io/docs/languages/go/basics/)，[Go示例](https://github.com/grpc/grpc-go)
-*****
 **windows安装protobuf**
 [Github下载protobuf]([https://github.com/protocolbuffers/protobuf/releases](https://github.com/protocolbuffers/protobuf/releases))，选择protoc-xx.x-win64.zip，解压缩，将protoc.exe移动到GOROOT/bin目录下
 **linux安装protobuf**
-[Github下载protobuf](https://github.com/protocolbuffers/protobuf/releases)，选择protobuf-all-xxx.tar.gz，注意：需要选择含有`all`的发布版本的源码安装包。
+[Github下载protobuf](https://github.com/protocolbuffers/protobuf/releases)，选择protobuf-all-xxx.tar.gz，注意：需要选择含有`all`的发布版本的源码安装包。参考[grpc官网](https://grpc.io/docs/languages/go/basics/)
 ```
 tar -zxvf protobuf-all-xxx.tar.gz
 cd protobuf-xxx/
 ./configure
 make && make install && ldconfig
+
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 ```
 **使用protobuf**
 ```
@@ -22,6 +23,7 @@ cd user
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative user.proto
 ```
 **示例**
+官方参考：[Go示例](https://github.com/grpc/grpc-go)
 user.proto
 ```
 syntax = "proto3";
