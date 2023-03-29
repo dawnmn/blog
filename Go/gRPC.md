@@ -11,13 +11,8 @@ GRPC的两个特性：`多路复用`（一个客户端连接可以在多个客�
 tar -zxvf protobuf-all-xxx.tar.gz
 cd protobuf-xxx/
 ./configure
-make && make install
+make && make install && ldconfig
 
-ldconfig
-
-
-
-cp /root/go/bin/protoc-gen-go /usr/local/go/bin
 ```
 **使用protobuf**
 ```
