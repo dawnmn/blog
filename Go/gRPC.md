@@ -12,7 +12,6 @@ tar -zxvf protobuf-all-xxx.tar.gz
 cd protobuf-xxx/
 ./configure
 make && make install && ldconfig
-
 ```
 **使用protobuf**
 ```
