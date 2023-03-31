@@ -10,6 +10,7 @@ cd .ssh
 # rz 上传文件C:\Users\dawnmn\.ssh\id_rsa.pub
 mv id_rsa.pub authorized_keys
 ```
+windows执行`ssh root@192.168.126.132`，不需要密码就能登录，说明配置成功。
 VScode安装插件`Remote Development`，然后修改config配置：
 ![](../images/screenshot_1680256819380.png)
 ```
