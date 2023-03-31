@@ -19,4 +19,4 @@ Host remote
     Port 22
 ```
 ![](../images/screenshot_1680256995523.png)
-会打开新的VScode窗口，开始远程开发。
+会打开新的VScode窗口，设置远程服务器目录后，开始远程开发。
