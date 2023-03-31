@@ -973,11 +973,5 @@ SetFinalizer 函数可以将 x 的终止器设置为 f，当垃圾收集器发�
 对称加密使用：
 crypto/rsa、crypto/aes等
 
-HTTP安全头部：
-Strict-Transport-Security: max-age=有效期秒数
-响应标头用来通知浏览器应该只通过 HTTPS 访问该站点，并且以后使用 HTTP 访问该站点的所有尝试都应自动重定向到 HTTPS。这比在你的服务器上简单地配置 HTTP 到 HTTPS（301）重定向要安全，因为初始的 HTTP 连接仍然易受到中间人攻击。
-X-Content-Type-Options: nosniff
-被服务器用来提示客户端一定要遵循在 Content-Type 首部中对 MIME 类型 的设定，而不能对其进行修改。
-X-Frame-Options: SAMEORIGIN
-给浏览器指示允许一个请求可否在 `<frame>、<iframe>、<embed> `或者 `<object>` 中展现。SAMEORIGIN：可以在相同域名页面的 frame 中展示；DENY：不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。
+
 
