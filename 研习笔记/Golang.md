@@ -420,7 +420,7 @@ import (
 |-- main.go
 ```
 
-**Channel** 是协程之间的通信机制，先入先出FIFO的有锁管道。
+**Channel** 是协程之间的通信机制，先入先出FIFO的有锁管道。管道包含一个循环队列、一个锁、读写协程列表等。
 ```
 type hchan struct {
    qcount   uint           // 循环队列元素个数
