@@ -8,9 +8,9 @@ Go是编译型语言，PHP是解释型语言。
 main函数是整个程序的入口。os.Args[0]是可执行文件的完整路径。
 
 Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。
-基础类型： 数字、字符串和布尔型
-复合数据类型：数组、结构体
-引用类型：指针、切片、字典、函数、通道
+基础类型： 数字、字符串和布尔型，内存地址：&v
+复合数据类型：数组、结构体，内存地址：fmt.Printf("%p", &v)，与数组/结构体第一个元素内存地址相同。
+引用类型：指针、切片、字典、函数、通道，内部都有指针，是对指针的封装。内存地址：fmt.Printf("%p", v)
 接口类型：interface
 内建常量: true false iota nil
 内建类型: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64 bool byte rune string error
