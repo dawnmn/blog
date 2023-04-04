@@ -41,7 +41,7 @@ unsafe.Sizeof(chan)   永远都是 8
 unsafe.Sizeof(pointer)   永远都是 8
 unsafe.Sizeof(func)   永远都是 8
 
-unsafe.Sizeof(interface)   永远都是 10
+unsafe.Sizeof(interface)   永远都是 16
 arr := [...]int{1,2,3,4,5}
 fmt.Println(unsafe.Sizeof(arr)) //40，由数组长度决定
 
