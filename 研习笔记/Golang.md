@@ -32,11 +32,15 @@ func main() {
 ```
 
 sizeof总是在编译期求值。
+unsafe.Sizeof(bool) 永远都是 1
+
 unsafe.Sizeof(string) 永远都是 16
 unsafe.Sizeof(slice)   永远都是 24
 unsafe.Sizeof(map)   永远都是 8
 unsafe.Sizeof(chan)   永远都是 8
 unsafe.Sizeof(pointer)   永远都是 8
+unsafe.Sizeof(func)   永远都是 8
+
 unsafe.Sizeof(interface)   永远都是 10
 arr := [...]int{1,2,3,4,5}
 fmt.Println(unsafe.Sizeof(arr)) //40，由数组长度决定
