@@ -741,7 +741,7 @@ func main() {
 }
 ```
 **定时器**
-定时器是通过四叉树堆(heep)实现，通过构建一个最小堆，保证最快拿到到期了的定时器执行。定时器的执行，在专门的goroutine中进行的：go timerproc()。
+定时器是通过四叉树堆(heep)实现，runtime.runtimer里面会启动一个for循环，不停的检查P的timer列表的第一个元素的状态。定时器的执行，在专门的goroutine中进行的：go timerproc()。
 
 
 **unsafe.Pointer**
@@ -753,9 +753,8 @@ p := unsafe.Pointer(&bytes) //强制转换成unsafe.Pointer，编译器不会报
 str := *(*string)(p)        //然后强制转换成string类型的指针，再将这个指针的值当做string类型取出来
 fmt.Println(str)            //输出 "hello"
 ```
-完全二叉树：若设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边。
-最小堆：是一种完全二叉树，任一节点均小于等于它的左右子节点，位于堆顶节点的值最小。
-计时器以最小堆的形式存储P中，runtime.runtimer里面会启动一个for循环，不停的检查P的timer列表的第一个元素的状态。
+
+
 ![](../images/计时器以最小堆的形式存储P中.png)
 
 
