@@ -574,10 +574,12 @@ type Mutex struct {
 	sema  uint32 // 信号量，用于唤醒goroutine
 }
 ```
-![](../images/mutex的state结构.png)
+![](../images/互斥锁state结构.jpg)
 
 
-state 表示当前互斥锁的状态，而 sema 是用于控制锁状态的信号量。
+
+
+
 公平锁
 锁有两种模式：正常模式和饥饿模式。
 在正常模式下，所有的等待锁的goroutine都会存在一个先进先出的队列中（轮流被唤醒）。但是一个被唤醒的goroutine并不是直接获得锁，而是仍然需要和那些新请求锁的（new arrivial）的goroutine竞争，而这其实是不公平的，因为新请求锁的goroutine有一个优势——它们正在CPU上运行，并且数量可能会很多。所以一个被唤醒的goroutine拿到锁的概率是很小的。在这种情况下，这个被唤醒的goroutine会加入到队列的头部。
