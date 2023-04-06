@@ -1,3 +1,5 @@
+**规则**
+iota在每个const中从0值开始，每一行自增1。
 **iota只能在const的表达式中**
 ```
 fmt.Println(iota)  
