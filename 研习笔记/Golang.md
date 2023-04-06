@@ -570,8 +570,8 @@ func main() {
 
 ```
 type Mutex struct {
-	state int32
-	sema  uint32
+	state int32 // 互斥锁的状态
+	sema  uint32 // 信号量，用于唤醒goroutine
 }
 ```
 ![](../images/mutex的state结构.png)
