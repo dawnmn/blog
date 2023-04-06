@@ -564,6 +564,21 @@ func main() {
 	time.Sleep(3 * time.Second)
 }
 ```
+**sync.atomic**
+原子操作是 CPU 的能力，是指中间状态对外不可见，与操作系统无关。在 Go（甚至是大部分语言）中，一条普通的赋值语句其实不是一个原子操作。原子操作由底层硬件支持，而锁则由操作系统的调度器实现。
+atomic原子操作主要用于并发环境下，无须加锁对整数进行安全的加减、比较、读取操作。
+
+```
+atomic.Value // 处理任意类型变量
+
+func StoreT(addr *T, val T) // 原子性的存储
+func AddT(addr *T, delta T)(new T) // 原子性的相加，并返回新值
+func LoadT(addr *T) (val T) // 原子性的获取
+
+func SwapT(addr *T, new T) (old T) //原子性的存储并返回旧值
+func CompareAndSwapT(addr *T, old, new T) (swapped bool) //原子性的比较*addr和old，如果相同则将new赋值给*addr并返回true
+```
+
 
 **sync.Mutex**
 内存同步：如果是多个goroutine都需要访问的变量，使用互斥条件来访问。
@@ -639,20 +654,7 @@ func listen(c *sync.Cond) {
 }
 ```
 
-**sync.atomic**
-原子操作是 CPU 的能力，是指中间状态对外不可见，与操作系统无关。在 Go（甚至是大部分语言）中，一条普通的赋值语句其实不是一个原子操作。原子操作由底层硬件支持，而锁则由操作系统的调度器实现。
-atomic原子操作主要用于并发环境下，无须加锁对整数进行安全的加减、比较、读取操作。
 
-```
-atomic.Value // 处理任意类型变量
-
-func StoreT(addr *T, val T) // 原子性的存储
-func AddT(addr *T, delta T)(new T) // 原子性的相加，并返回新值
-func LoadT(addr *T) (val T) // 原子性的获取
-
-func SwapT(addr *T, new T) (old T) //原子性的存储并返回旧值
-func CompareAndSwapT(addr *T, old, new T) (swapped bool) //原子性的比较*addr和old，如果相同则将new赋值给*addr并返回true
-```
 **sync.RWMutex**、 **sync.Map**、 **sync.WaitGroup**
 ```
 var mu2 sync.RWMutex
