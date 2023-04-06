@@ -575,7 +575,7 @@ type Mutex struct {
 }
 ```
 ![](../images/互斥锁state结构.jpg)
-通过atomic的CAS函数原子操作state实现并发处理。
+通过`atomic`的`CAS`函数原子操作state实现并发处理。
 
 
 
