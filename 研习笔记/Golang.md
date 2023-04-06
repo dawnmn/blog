@@ -741,25 +741,9 @@ func main() {
 }
 ```
 **定时器**
-```
-type timer struct {
-    // 对应处理器P的指针
-    pp puintptr 
-    // 定时器被唤醒的时间
-    when   int64
-    // 唤醒的间隔时间
-    period int64
-    // 唤醒时被调用的函数
-    f      func(interface{}, uintptr)
-    // 被调用的函数的参数
-    arg    interface{} 
-    seq    uintptr
-    // 处于timerModifiedXX状态时用于设置when字段 
-    nextwhen int64 
-    // 定时器的状态
-    status uint32
-}
-```
+定时器是通过四叉树堆(heep)实现，通过构建一个最小堆，保证最快拿到到期了的定时器执行。定时器的执行，在专门的goroutine中进行的：go timerproc()。
+
+
 **unsafe.Pointer**
 unsafe.Pointer可以绕过Go语言类型系统的检查，与任意的指针类型互相转换。可以将unsafe.Pointer当做桥梁，让这两种具有相同的内存结构类型的指针相互转换。
 ```
