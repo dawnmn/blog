@@ -24,4 +24,30 @@ const (
 	OutSurround // 5
 )
 ```
+**位掩码**
+```
+// 二进制位运算
+type AudioOutput int
+
+const (
+	mutexLocked      = 1 << iota // 00000001 1
+	mutexWoken                   // 00000010 2
+	mutexStarving                // 00000100 4
+	mutexWaiterShift = iota      // 3
+)
+```
+**定义数量级**
+```
+type ByteSize int64
+
+const (
+	_           = iota             // 忽略0值
+	KB ByteSize = 1 << (10 * iota) // 1 << (10*1)
+	MB                             // 1 << (10*2)
+	GB                             // 1 << (10*3)
+	TB                             // 1 << (10*4)
+	PB                             // 1 << (10*5)
+	EB                             // 1 << (10*6)
+)
+```
 
