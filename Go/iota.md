@@ -11,3 +11,17 @@ const (
 	c        // 1
 )
 ```
+**允许跳过值**
+```
+type AudioOutput int
+
+const (
+	OutMute   AudioOutput = iota // 0
+	OutMono                      // 1
+	OutStereo                    // 2
+	_
+	_
+	OutSurround // 5
+)
+```
+
