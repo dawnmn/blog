@@ -57,7 +57,7 @@ su www
 配置该用户的git账号密码。
 
 2 配置拉取程序
-进入项目的web目录
+进入项目的web目录，编辑如下，并配置好nginx，让其能够访问：
 ```
 vim webhook.php
 
@@ -74,7 +74,6 @@ if ($content['ref']=='refs/heads/master' && $content['total_commits_count']>0) {
     shell_exec("cd {$path} && git pull origin master 2>&1");
 }
 ```
-在nginx配置好
 
 3 gitlab配置
 网页配置允许局域网钩子：`Admin->Settings->Network->Outbound requests` 勾选。
