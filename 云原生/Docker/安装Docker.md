@@ -1,9 +1,14 @@
 **windows**
-[官网安装](https://www.docker.com/get-started/) Docker，启动Docker桌面
+[官网安装](https://docs.docker.com/engine/install/centos/) Docker，启动Docker桌面
 
 **linux**
 ```
-curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+yum install -y yum-utils
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 systemctl start docker
 docker run hello-world
