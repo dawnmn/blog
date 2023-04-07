@@ -45,10 +45,8 @@ systemctl restart docker
 点击`头像->settings->Access Tokens`，账号是gitlab账号，密码是生成的token。
 
 **PHP自动拉取**
-网页添加SSH，这里www为你的nginx用户名
-```
-sudo -Hu www ssh-keygen -t rsa -C "webhook"
-```
+1 配置代码服务器用户
+这里www为你的nginx用户名
 ```
 cat /etc/passwd | grep www
 vim /etc/passwd
@@ -56,21 +54,16 @@ vim /etc/passwd
 
 su www
 ```
-进入一个空的目录，克隆一下项目，目的是更新`/home/www/.ssh/known_hosts`。
+配置该用户的git账号密码。
 
-网页配置允许局域网钩子：`Admin->Settings->Network->Outbound requests` 勾选。
-
-网页配置webhooks：`Settings->Webhooks`
-URL：http://192.168.152.128:9901/webhook.php （你的webhook脚本路径）
-Secret token：123123 （随便填，用处是在php验证是gitlab发出的）
-
+2 配置拉取程序
 进入项目的web目录
 ```
 vim webhook.php
 
 <?php
 
-$path = "/var/www/yii_admin/"; // 你的项目目录
+$path = "/home/wwwroot/auth/app/web/html/"; // 你的项目目录
 
 if (empty($requestBody = file_get_contents("php://input"))) {
     die('send fail');
@@ -78,12 +71,14 @@ if (empty($requestBody = file_get_contents("php://input"))) {
 $content = json_decode($requestBody, true);
 
 if ($content['ref']=='refs/heads/master' && $content['total_commits_count']>0) {
-    $res = shell_exec("cd {$path} && git pull origin master 2>&1");
-    $res_log = '-------------------------'.PHP_EOL;    
-    $res_log .= $content['user_name'] . ' 在' . date('Y-m-d H:i:s') . '向' . $content['repository']['name'] . '项目的' . $content['ref'] . '分支push了' . $content['total_commits_count'] . '个commit：' . PHP_EOL;
-    $res_log .= $res.PHP_EOL;   
-    file_put_contents("git-webhook.log", $res_log, FILE_APPEND);
+    shell_exec("cd {$path} && git pull origin master 2>&1");
 }
 ```
-测试效果
+在nginx配置好
+
+3 gitlab配置
+网页配置允许局域网钩子：`Admin->Settings->Network->Outbound requests` 勾选。
+网页配置webhooks：`Settings->Webhooks`
+URL：`http://192.168.152.128:9901/webhook.php` （你的webhook脚本路径）
+Secret token：123123 （随便填，用处是在php验证是gitlab发出的）
 
