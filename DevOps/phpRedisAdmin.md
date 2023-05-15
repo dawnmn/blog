@@ -4,6 +4,7 @@
 ```
 cd includes
 cp config.sample.inc.php config.inc.php
+vim config.inc.php
 ```
 修改`host ` `port `等参数，注意`密码`是`auth`字段。
 4. 配置nginx后即可访问。
