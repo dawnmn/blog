@@ -4,7 +4,7 @@
 
 
 只有简洁的设计，才能让软件持久的进化。
-Go是编译型语言，PHP是解释型语言。
+
 main函数是整个程序的入口。os.Args[0]是可执行文件的完整路径。
 
 Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。
@@ -15,6 +15,8 @@ Go语言将数据类型分为四类：基础类型、复合类型、引用类型
 内建常量: true false iota nil
 内建类型: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64 bool byte rune string error
 内建函数: make len cap new append copy close delete panic recover complex real imag
+支持len的数据结构：数组 切片 map chan
+
 类型断言 `number,ok :=x.(int)`
 
 类型别名转换
