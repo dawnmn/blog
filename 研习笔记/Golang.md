@@ -15,7 +15,7 @@ Go语言将数据类型分为四类：基础类型、复合类型、引用类型
 内建常量: true false iota nil
 内建类型: int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 uintptr float32 float64 complex128 complex64 bool byte rune string error
 内建函数: make len cap new append copy close delete panic recover complex real imag
-支持len的数据结构：数组 切片 map chan
+支持len函数的数据结构：数组 切片 map chan
 
 类型断言 `number,ok :=x.(int)`
 
