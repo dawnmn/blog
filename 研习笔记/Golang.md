@@ -103,7 +103,7 @@ append自我赋值不用担心性能问题，Go已经做了优化。
 **哈希** 字典 映射 MAP 键值对
 map两种初始化方式：
 m := map[int]string{}
-m := make([int]string, 0)
+m := make([int]string)
 读写性能好O(1)，哈希函数的选择在很大程度上能够决定哈希表的读写性能。
 Go语言的map中所有的key都有相同的类型，所有的value也有着相同的类型。
 哈希冲突：
