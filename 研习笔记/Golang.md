@@ -490,7 +490,9 @@ Go并发协程退出方式（核心：关闭channel会发送广播）：
 为每个子协程传递相同的上下文ctx即可，调用cancel()函数后该Context控制的所有子协程都会退出。
 通过协程和管道可以实现生产者/消费者、发布/订阅。
 
-**上下文** context.Context 是 Go 语言在 1.7 版本中引入标准库的接口1，该接口定义了四个需要实现的方法，其中包括：
+**上下文** context.Context 是 Go 语言在 1.7 版本中引入标准库的接口。
+原理：done()返回一个chan，cancel()关闭chan。父子协程之间链式调用cancel()。
+该接口定义了四个需要实现的方法，其中包括：
 Deadline — 返回 context.Context 被取消的时间，也就是完成工作的截止日期；
 Done — 返回一个 Channel，这个 Channel 会在当前工作完成或者上下文被取消后关闭，多次调用 Done 方法会返回同一个 Channel；
 Err — 返回 context.Context 结束的原因，它只会在 Done 方法对应的 Channel 关闭时返回非空的值；
