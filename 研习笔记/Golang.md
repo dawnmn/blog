@@ -625,7 +625,7 @@ sync.Mutex.Lock()函数内部是个for循环不断轮询获取锁。
 
 
 **sync.Cond**
-**条件变量** 可以让一组的 Goroutine 都在满足特定条件时被唤醒。
+**条件变量** 使用场景：多个goroutines等待、1个goroutine通知事件发生。
 使用方法：c.L.Lock() 、c.L.Unlock()、c.Wait()、c.Broadcast()、c.Signal()
 原理：调用 Wait 会自动释放锁 c.L，并挂起调用者所在的 goroutine（释放CPU，提高性能），因此当前协程会阻塞在 Wait 方法调用的地方。如果其他协程调用了 Signal 或 Broadcast 唤醒了该协程，那么 Wait 方法在结束阻塞时，会重新给 c.L 加锁，并且继续执行 Wait 后面的代码。使用了`for !condition()`而非`if`，是因为当前协程被唤醒时，条件不一定符合，需要再次 Wait 等待下次被唤醒。条件判断的作用是避免先唤醒，再等待的情况（协程永远等待下去）。
 
