@@ -85,6 +85,7 @@
         * [php8.2.3镜像](云原生/Docker/php8.2.3镜像.md)
     * [etcd](云原生/etcd.md)
         * [安装](云原生/etcd/安装.md)
+        * [实用技能](云原生/etcd/实用技能.md)
 * [版本控制](版本控制.md)
     * [Git常用指令与密码保存](版本控制/Git常用指令与密码保存.md)
     * [gitlab](版本控制/gitlab.md)
