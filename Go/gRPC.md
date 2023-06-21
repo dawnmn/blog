@@ -24,6 +24,11 @@ protoc --version
 cd user
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative user.proto
 ```
+**编码解码**
+```
+out, err := proto.Marshal(&message)
+proto.Unmarshal(out, &message)
+```
 **示例**
 官方参考：[Go示例](https://github.com/grpc/grpc-go)
 user.proto
