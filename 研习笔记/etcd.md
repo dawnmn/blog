@@ -94,3 +94,152 @@ matchIndex[]对于每一台服务器，已知的已经复制到该服务器的�
 Etcd是CoreOS基于Raft协议用Go语言开发的分布式键值对存储，可用于服务发现、共享配置、一致性保障（如数据库选主、分布式锁等）。
 Etcd单实例(V3)支持每秒10KQps。
 etcd 网关是一个简单的 TCP 代理，转发网络数据到 etcd 集群。
+Etcd是CoreOS基于Raft协议用Go语言开发的分布式键值对存储，可用于服务发现、共享配置、一致性保障（如数据库选主、分布式锁等）。
+Etcd单实例(V3)支持每秒10KQps。
+etcd 网关是一个简单的 TCP 代理，转发网络数据到 etcd 集群。
+etcd是一个有序的k-v存储。
+如果多个 key的过期时间是一样的，那么这些 key 就可以共享一个租约。
+etcd v3数据库存储在磁盘上，底层的存储引擎使用的是BoltDB。
+目前 etcd 可以存储百万到千万级别的 key。
+事务：global.Etcd.Txn(context.TODO()).If().Then().Else().Commit()，If().Then().Else()参数均可为空。
+
+etcd客户端与服务器端、节点之间使用grpc通信。
+etcd(Server)大体上可以分为网络层(http(s) server)、Raft模块、复制状态机(RSM)和存储模块。
+网络层:提供网络数据读写功能，监听服务端口，完成集群节点之间数据通信，收发客户端数据。
+Raft模块：Raft强一致性算法的具体实现。
+存储模块：涉及KV存储、WAL文件、Snapshot管理等，用户处理etcd支持的各类功能的事务，包括数据索引 节点状态变更、监控与反馈、事件处理与执行 ，是 etcd 对用户提供的大多数 API 功能的具体实现。
+复制状态机：这是一个抽象的模块，状态机的数据维护在内存中，定期持久化到磁盘，每次写请求都会持久化到 WAL 文件，并根据写请求的内容修改状态机数据。
+
+etcd它是etc和distributed的结合体。
+
+mvcc多版本
+每个tx事务有唯一事务ID，在etcd中叫做mainID，全局递增不重复。
+一个tx可以包含多个修改操作（put和delete），每一个操作叫做一个revision(修订)，共享同一个mainID。
+一个tx内连续的多个修改操作会被从0递增编号，这个编号叫做subID。
+每个revision由（mainID，subID）唯一标识。
+
+索引+存储
+内存索引btree+磁盘存储value
+在boltdb中，revision作为key
+etcd支持按key前缀查询，其实也就是通过内存btree在keyIndex.generations[0].revs中找到最后一条revision，再根据revision去bbolt中获取用户的value。
+boltdb中的value结构：
+type KeyValue struct {
+	Key            []byte 
+	CreateRevision int64  
+	ModRevision    int64  
+	Version        int64  
+	Value          []byte 
+	Lease          int64  
+}
+
+
+watch
+推送机制
+etcd的watch机制是基于mvcc多版本实现的。客户端可以提供一个要监听的revision.main作为watch的起始ID，只要etcd当前的全局自增事务ID > watch起始ID，etcd就会将MVCC在bbolt中存储的所有历史revision数据（value中的key是不是用户watch的），逐一顺序的推送给客户端。
+若watcher监听的版本号已经小于当前 etcd server 压缩的版本号，服务器会返回一个错误。
+当收到创建 watcher 请求的时候，它会把 watcher 监听的 key 范围插入到上面的区间树中，区间的值保存了监听同样 key 范围的 watcher 集合 /watcherSet。
+当产生一个事件时，etcd 首先需要从 map 查找是否有 watcher 监听了单 key，其次它还需要从区间树找出与此 key 相交的所有区间，然后从区间的值获取监听的 watcher 集合。
+区间树支持快速查找一个 key 是否在某个区间内，时间复杂度 O(LogN)，因此 etcd 基于 map 和区间树实现了 watcher 与事件快速匹配。
+
+
+key删除后指定查询指定版本号,还可以获得版本号对应的值。
+
+MVCC
+MVCC 模块将请求请划分成两个类别，分别是读事务（ReadTxn）和写事务（WriteTxn）
+etcd 设计上支持多种 Backend 实现，目前实现的 Backend 是 boltdb。boltdb 是一个基于 B+ tree 实现的、支持事务的 key-value 嵌入式数据库。
+为什么 etcd 使用 B-tree 而不使用哈希表、平衡二叉树？
+
+从功能特性上分析， 因 etcd 支持范围查询，因此保存索引的数据结构也必须支持范围查询才行。所以哈希表不适合，而 B-tree 支持范围查询。
+从性能上分析，平横二叉树每个节点只能容纳一个数据、导致树的高度较高，而 B-tree 每个节点可以容纳多个数据，树的高度更低，更扁平，涉及的查找次数更少，具有优越的增、删、改、查性能。
+
+etcd 是基于最小堆来管理 Lease。
+
+etcd 默认数据一更新就落盘持久化，数据持久化存储使用 WAL (write ahead log ，预写式日志）格式 WAL 记录了数据变化的全过程，在 etcd 中所有数据在提交之前都要先写人 WAL 中； etcd Snapshot （快照）文件则存储了某一时刻 etcd 的所有数据，默认设置为每 10 000 条记录做一次快照，经过快照后WAL文件即可删除。v3日志和快照的主要作用是进行分布式的复制。
+v2、v3公用raft协议，但是通信方式、存储方式都是独立的。
+v3客户端与服务器只有一个http2长连接，watch、get等操作多路复用
+
+goreman 使用 https://github.com/mattn/goreman
+go-nsq https://github.com/nsqio/go-nsq
+
+boltdb protobuf
+protobuf的效率是JSON的数倍
+
+IaaS：基础架构即服务。
+PaaS：平台即服务，主要面向开发人员，它允许用户开发、运行和管理自己的应用，而无需构建和维护通常与该流程相关联的基础架构或平台。
+SaaS：软件即服务。
+
+CAP
+客户端一致性：多并发访问时获取最新的数据
+服务端一致性：节点之间的数据保持一致
+
+复制状态机。，指令在状态机上的执行顺序并不一定等同于指令的发出顺序或接收顺序。
+
+拜占庭将军问题
+
+etcd 默认数据一更新就落盘持久化，数据持久化存储使用 WAL (write ahead log ，预写式日志）格式 WAL 记录了数据变化的全过程，在 etcd 中所有数据在提交之前都要先写人 WAL 中； etcd Snapshot （快照）文件则存储了某一时刻 etcd 的所有数据，默认设置为每 10 000 条记录做一次快照，经过快照后WAL 文件即可删除。
+
+
+节点间通信：
+Leader Follower 发送心跳包， Follower Leader 回复消息
+Leader Follower 发送日志追加信息
+Leader Follower 发送 Snapshot 数据
+Candidate 节点发起选举，向其他节点发起投票请求
+Follower 将收到的写操作转发给 Leader
+
+2类消息传输通道：stream，节点之间维持一个http长连接，小数据；pipeline，http短链接，大数据
+etcd server 之间通过 peer 端口使用 HTTP 进行通信。
+
+分布式锁实现思路：
+prefix
+锁名称+租约id，每个客户端只操作自己持有的锁。
+lease
+租约保活，在创建锁的时候绑定租约，并定期进行续约，如果获得锁期间客户端意外宕机，则持有的锁会被自动删除，避免了死锁的产生。
+Revision
+用Revision值的大小来决定获取锁的先后顺序，避免产生惊群效应。
+watch
+watch机制可以用于监听锁的删除事件，不必使用忙轮询的方式查看是否释放了锁。同时，在watch时候可以通过Revision来进行监听，比较create_revision比自己小一个的最大create_revision。
+
+revision、create_revision、mod_revision
+
+Peer ：对同 etcd 集群中另外一个 Member 的叫法。
+
+etcd server 之间是可以重定向请求的。--advertise-client-urls
+
+MVCC 模型是指由于保存了键的历史，因此可以查看过去某个 revision （时刻）的 key value 存储。
+
+etcd 支持key的前缀和范围查询。
+
+在一个事务中多次修改同一个 key 是被禁止的。if检查可以是如下内容：该 key后台存储是否有 value ？该 key 自由 value 是否等于某个给定的值？(CAS)
+
+watch：Event 按照 revision 排序，后发 Event 不会在前面的 Event之前出现在 watch 流中。
+
+resume
+
+etcd的grpc代理：
+etcd grpc-proxy start --endpoints=http://192.168.10.7:2379,http://192.168.10.8:2379,http://192.168.10.9:2379 --listen-addr=192.168.10.7:12379
+etcdctl --endpoints=192.168.10.7:12379 put foo bar
+
+即使 panic 是出现在其他启动的子 goroutine 中，也会导致 Go 程序的崩溃退出，同时 panic 只能捕获 goroutine 自身的异常。
+
+客户端可以通过调用cli.Sync(context.Background())方法同步endpoint。
+
+主节点故障不会影响租约。
+
+etcd比较吃cpu。
+etcd用于读多写少的场景。
+
+在MVCC 中，每当想要更改或者删除某个数据对象时， DBMS 不会在原地删除或修改这个已有的数据对象本身，而是针对该数据对象创建一个新的版本，这样一来，并发的读取操作仍然可以读取老版本的数据，而写操作就可以同时进行。读写无锁，写写有锁。
+
+b+树中键值对的 key是revision, revision 是一个二元组（ main, sub ），其中main 是该 revision 的主版本号， sub 是副版本号，用于区分同一个 revision 不同 key，一个事务中每次一操作的编号。 B+树中键值对的 value 包含了相对于之前revision 的修改。b+树按 key 字典字节序进行排序。
+etcd 还在内存中维护了一个基于b树的二级索引来加快对 key 的范围查询。该b树索引的 key 是向用户暴露的 key ，而该树索引的value 是revision，etcd 的压缩操会删除指向B树索引的无效指针。
+etcd 在BoltDB 中存储的 key 是reversion, value etcd 自己的 key-value组合，也就是说 etcd BoltDB 中保存每个版本，从而实现多版本机制。
+KeyValue{ 
+	Key : key , 
+	Value : value, 
+	CreateRevision : c , 
+	ModRevision : rev, 
+	Version : ver, 
+	Lease: int64 (leaseID),
+}
+
+etcd保证事务以某种顺序串行化运行。
