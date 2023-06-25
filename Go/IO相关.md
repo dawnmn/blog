@@ -113,7 +113,7 @@ const (
     O_SYNC   int = syscall.O_SYNC   // 打开文件用于同步 I/O
     O_TRUNC  int = syscall.O_TRUNC  // 如果可能，打开时清空文件
 )
-FileMode 1 执行 2 写 4 读
+// FileMode 1 执行 2 写 4 读
 
 func Open(name string) (*File, error) {
     return OpenFile(name, O_RDONLY, 0)
