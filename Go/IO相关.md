@@ -140,6 +140,8 @@ func RemoveAll(path string) error
 func MkdirAll(path string, perm FileMode) error
 # 读取name目录下第一级的所有文件和目录
 func ReadDir(name string) ([]DirEntry, error)
+# 获取文件信息
+func Stat(name string) (FileInfo, error)
 ```
 ```
 func main() {
