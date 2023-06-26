@@ -23,10 +23,13 @@ func main() {
 
 	var data *[size]byte
 	data = (*[size]byte)(unsafe.Pointer(&v))
-	fmt.Println(data)
+	fmt.Println(data) // 0 4 0 0 0 0 0 0 2 0 0 0 0 0 0 0
 
 	var p *a
 	p = (*a)(unsafe.Pointer(data))
-	fmt.Println(*p)
+	fmt.Println(*p) // 1024 2
+
+	pp := (*int8)(unsafe.Pointer(uintptr(unsafe.Pointer(&v)) + uintptr(8)))
+	fmt.Println(*pp) // 2
 }
 ```
