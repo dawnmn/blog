@@ -142,6 +142,9 @@ func MkdirAll(path string, perm FileMode) error
 func ReadDir(name string) ([]DirEntry, error)
 # 获取文件信息
 func Stat(name string) (FileInfo, error)
+
+# getconf PAGE_SIZE 获取操作系统page页大小，单位是字节
+os.Getpagesize()
 ```
 ```
 func main() {
