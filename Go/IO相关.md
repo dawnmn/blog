@@ -125,6 +125,8 @@ func Create(name string) (*File, error) {
 f.Read(slice) 
 f.Write([]byte("abc")) 
 f.WriteString("def") 
+f.Truncate(1024) // 设置文件大小
+
 # 删除目录或文件，如果目录不为空则失败
 os.Reomove("a.txt")
 # 修改一个文件的名字或移动一个文件，如果 newpath 已经存在，则替换它
