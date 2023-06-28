@@ -292,6 +292,7 @@ mvcc多版本
 在boltdb中，revision作为key
 etcd支持按key前缀查询，其实也就是通过内存btree在keyIndex.generations[0].revs中找到最后一条revision，再根据revision去bbolt中获取用户的value。
 boltdb中的value结构：
+```
 type KeyValue struct {
 	Key            []byte 
 	CreateRevision int64  
@@ -300,6 +301,7 @@ type KeyValue struct {
 	Value          []byte 
 	Lease          int64  
 }
+```
 
 
 watch
