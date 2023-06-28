@@ -217,7 +217,7 @@ subBucket => branch/leaf页
 
 一个db存在一个唯一的根Bucket。子Bucket信息保存在leaf页中。
 
-事务：支持acid，mvcc。commit时写磁盘的顺序：先写freelist、branch、leaf页，再写meta页，通过通过File.WriteAt()、File.Sync()
+事务：支持acid，mvcc。commit时写磁盘的顺序：先写freelist、branch、leaf页，再写meta页，通过File.WriteAt()、File.Sync()。
 每次写事务，freelist、branch、free会重新分配页，将旧页id写入freelist.pending，等到没有读事务依赖旧页id时，删除（在创建写事务时，会找到db.txs中最小的txid，释放freelist.pending中所有txid小于它的pending page。）。
 只读事务结束：tx.db.removeTx(tx)
 读写事务结束：tx.db.rwtx = nil
@@ -243,7 +243,9 @@ fnv哈希算法：可以快速hash大量的数据并保持较小的冲突概率�
 1 << 15 == 1 * 2^15
 15 << 1 == 15 * 2^1
 mmap：将磁盘地址映射到内存地址的方法，通过操作内存实现对磁盘的读写。boltdb利用mmap读取size大小的数据到db.data，通过db.data来操作页，将磁盘的页数据赋值给db.meta0、db.meta1、db.freelist。
-在数据库初始化和扩充文件大小时调用mmap
+在数据库初始化和扩充文件大小时调用mmap。
+写磁盘：File.WriteAt()、File.Sync()、File.Truncate()
+
 
 
 **db.Update**
