@@ -207,6 +207,7 @@ type elemRef struct {
 	index int   //  
 }
 ```
+![](../images/botldb数据结构总览.png)
 **主体说明**
 一个db文件对应一个数据库。db文件由page（页）组成。页分为四类：meta、freelist、leaf、branch。
 
