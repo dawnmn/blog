@@ -90,6 +90,178 @@ RPC：服务器会并行发起RPC，并会在RPC超时后重试。
 matchIndex[]对于每一台服务器，已知的已经复制到该服务器的最高日志条目的索引（初始值为0，单调递增）。
 需要持久化的参数：currentTerm、votedFor、log[]。
 
+# boltdb
+**磁盘数据结构**
+```
+type page struct {
+	id       pgid    // 页头字段 页id，从0开始，单调递增
+	flags    uint16  // 页头字段 页4种类型之一
+	count    uint16  // 页头字段 页里面的元素个数，最大65535
+	overflow uint32  // 页头字段 溢出页数目
+	ptr      uintptr // 页在byte[]的起始元素地址，只存在于内存中的概念
+}
+
+type meta struct {
+	magic    uint32 // 固定值，作为boltdb数据库文件标识
+	version  uint32 // boltdb版本
+	pageSize uint32 // 操作系统页大小，单位是字节
+	flags    uint32 // 保留字段，未使用
+	root     bucket // x字节，所有bucket的根，bucket.root值初始化为3
+	freelist pgid   // 空闲页id，空闲页只有一个
+	pgid     pgid   // 下一个将要分配的页id，当前最大页id+1，不一定连续
+	txid     txid   // 下一个将要分配的事务id，从0开始，单调递增
+	checksum uint64 // 以上8个字段值[]byte校验和，保证读取的是上一次写入的数据
+}
+
+type bucket struct {
+	root     pgid   // 桶的根级页的页id。叶根id
+	sequence uint64 // 从0开始，单调递增
+}
+
+freelist []pgid // 如果pgid数目超过65535，页头count置为65535，同时pgid[0]存储pgid数目
+
+type branchPageElement struct {
+	pos   uint32 // 该元素与key的偏移量
+	ksize uint32 // key的长度，字节
+	pgid  pgid   // 子节点的页id
+}
+
+type leafPageElement struct {
+	flags uint32 // 0 k/v 1 subBucket，存储bucket结构体信息
+	pos   uint32 // 该元素与key的偏移量
+	ksize uint32 // key的长度，字节
+	vsize uint32 // value的长度，字节
+}
+```
+内存数据结构
+```
+type freelist struct {
+	ids     []pgid          // 已释放的页id列表
+	pending map[txid][]pgid // 即将释放的页id列表
+	cache   map[pgid]bool   // 已释放和即将释放的页id列表
+}
+
+type node struct {
+	bucket     *Bucket // 关联一个桶
+	isLeaf     bool    // 是否是leaf页
+	unbalanced bool    // 是否需要页合并
+	spilled    bool    // 是否需要页分裂
+	key        []byte  // branch页时，第一个key的值
+	pgid       pgid    // 关联的页id
+	parent     *node   // 父节点
+	children   nodes   // 子节点
+	inodes     inodes  // 节点保存的k/v数据
+}
+
+type inode struct {
+	flags uint32 // 区分 subBucket 1 和 value 0
+	pgid  pgid   // subBucket时有值，子节点的页id
+	key   []byte // key值/bucket的名称
+	value []byte // value时有值
+}
+
+type Bucket struct {
+	*bucket                        // bucket值，结构体指针嵌套
+	tx          *Tx                // 关联的事务
+	buckets     map[string]*Bucket // subBucket列表，键为bucket的名称
+	page        *page              // inline页面信息
+	rootNode    *node              // 根节点
+	nodes       map[pgid]*node     // 缓存已经读入内存的page对应的node信息。
+	FillPercent float64            // 填充率
+}
+
+type DB struct {
+	path     string            // 数据库文件路径
+	file     *os.File          // 数据库文件
+	data     *[maxMapSize]byte // mmap 磁盘映射到内存中的数据
+	datasz   int               // mmap 数据大小
+	filesz   int               // 数据库文件大小
+	meta0    *meta             // 第一个meta
+	meta1    *meta             // 第二个meta
+	pageSize int               // 页大小
+	rwtx     *Tx               // 一个写事务指针，同时事务也持有db指针
+	txs      []*Tx             // 多个读事务
+	freelist *freelist         // freelist
+	pagePool sync.Pool         // 页池
+
+	...
+}
+
+type Tx struct {
+	db    *DB            // db指针，同时db也持有事务指针
+	meta  *meta          // meta页
+	root  Bucket         // 页根对应的bucket
+	pages map[pgid]*page // 涉及到的页
+
+	...
+}
+
+type Cursor struct {
+	bucket *Bucket   // 关联的bucket
+	stack  []elemRef // 作为移动游标时的临时栈
+}
+
+type elemRef struct {
+	page  *page // 页
+	node  *node // 节点，页在内存中的形式
+	index int   //  
+}
+```
+**主体说明**
+一个db文件对应一个数据库。db文件由page（页）组成。页分为四类：meta、freelist、leaf、branch。
+
+branch/leaf页 <=> node
+k/v => leaf页
+subBucket => branch/leaf页
+
+一个db存在一个唯一的根Bucket。子Bucket信息保存在leaf页中。
+
+事务：支持acid，mvcc。commit时写磁盘的顺序：先写freelist、branch、leaf页，再写meta页，通过通过File.WriteAt()、File.Sync()
+每次写事务，freelist、branch、free会重新分配页，将旧页id写入freelist.pending，等到没有读事务依赖旧页id时，删除（在创建写事务时，会找到db.txs中最小的txid，释放freelist.pending中所有txid小于它的pending page。）。
+只读事务结束：tx.db.removeTx(tx)
+读写事务结束：tx.db.rwtx = nil
+mvcc：通过filelist.pending保存上一个版本的数据。
+
+Cursor：对b+树的实现
+
+数据库级别的锁：syscall.Flock，同时只能有多个共享锁（多个只读的db实例）或一个独占锁（一个读写的db实例）。
+事务级别的锁：sync.Mutex针对读写事务，只能有一个；只读事务没有锁，可以共存多个。
+
+boltDB在更新B+树数据时不会直接修改树的结构，而只是更新数据。在数据写入磁盘前才按需合并、分裂node。
+
+
+**bolt.Open**
+
+初始化数据库：2个meta页（用于写操作时交替保存，获取的时候取校验正确并且txid更大的一个）、1个freelist页、1个leaf页。写磁盘：通过File.WriteAt()、File.Sync()将4个初始页中的内存数据[]byte写入文件。
+fnv哈希算法：可以快速hash大量的数据并保持较小的冲突概率。go语言中标准库实现。
+
+打开数据库
+读磁盘：通过File.ReadAt()读取第一个meta页（unsafe.Pointer映射到page、meta结构体），用于验证数据库文件的正确性。
+设置mmap的size：小于32kb时，置为32kb；然后从32kb开始翻倍，直到1Gb；之后每次增加1Gb，直到256TB，注意需为页大小的倍数。
+位运算，左移：
+1 << 15 == 1 * 2^15
+15 << 1 == 15 * 2^1
+mmap：将磁盘地址映射到内存地址的方法，通过操作内存实现对磁盘的读写。boltdb利用mmap读取size大小的数据到db.data，通过db.data来操作页，将磁盘的页数据赋值给db.meta0、db.meta1、db.freelist。
+在数据库初始化和扩充文件大小时调用mmap
+
+
+**db.Update**
+
+创建一个写事务。给tx.db、tx.meta、tx.root赋值，meta.txid自增1。
+tx.root作为bucket根
+tx.root.tx = tx
+tx.root.bucket = tx.meta.root
+
+创建一个cursor，关联该bucket，从根bucket开始找key对应的bucket。
+
+刚创建Bucket是inline-buckets。尽管每个Bucket内部的数据是合法的B+树，但它们共同组成的Bucket树通常不是B+树。
+
+
+**freelist**
+
+freelist存储空间分配：遍历freelist.ids，找到 连续的pgid数目=待分配页数 的首个pgid。
+读取：将磁盘数据读入ids
+写入：将ids和pending写入磁盘
 # etcd
 Etcd是CoreOS基于Raft协议用Go语言开发的分布式键值对存储，可用于服务发现、共享配置、一致性保障（如数据库选主、分布式锁等）。
 Etcd单实例(V3)支持每秒10KQps。
