@@ -273,7 +273,7 @@ etcd是一个有序的k-v存储。如果多个 key的过期时间是一样的，
 事务：global.Etcd.Txn(context.TODO()).If().Then().Else().Commit()，If().Then().Else()参数均可为空。
 
 etcd客户端与服务器端、节点之间使用grpc通信。
-etcd(Server)大体上可以分为网络层(http(s) server)、Raft模块、复制状态机(RSM)和存储模块。
+
 网络层:提供网络数据读写功能，监听服务端口，完成集群节点之间数据通信，收发客户端数据。
 Raft模块：Raft强一致性算法的具体实现。
 存储模块：涉及KV存储、WAL文件、Snapshot管理等，用户处理etcd支持的各类功能的事务，包括数据索引 节点状态变更、监控与反馈、事件处理与执行 ，是 etcd 对用户提供的大多数 API 功能的具体实现。
