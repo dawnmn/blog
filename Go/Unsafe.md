@@ -4,8 +4,9 @@ func Alignof(x ArbitraryType) uintptr // 返回变量对齐字节数量
 func Offsetof(x ArbitraryType) uintptr // 返回变量指定属性的偏移量
 func Sizeof(x ArbitraryType) uintptr // 返回变量在内存中占用的字节数
 type ArbitraryType int
-type Pointer *ArbitraryType // 通用指针类型，用于转换不同类型的指针，不能进行指针运算，不能读取内存存储的值（必须转换到某一类型的普通指针）。
+type Pointer *ArbitraryType
 ```
+`unsafe.Pointer`：通用指针类型，用于转换不同类型的指针，不能进行指针运算，不能读取内存存储的值（必须转换到某一类型的普通指针）。GC不会回收unsafe.Pointer的内存。
 `uintptr`：用于指针运算，GC不把 uintptr 当指针，uintptr 无法持有对象。uintptr 类型的目标会被回收。
 **byte数组与struct转换**
 ```
