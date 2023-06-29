@@ -173,7 +173,8 @@ type Bucket struct {
 type DB struct {
 	path     string            // 数据库文件路径
 	file     *os.File          // 数据库文件
-	data     *[maxMapSize]byte // mmap 磁盘映射到内存中的数据
+	dataref  []byte            // mmap 磁盘映射到内存中的数据 切片形式
+	data     *[maxMapSize]byte // mmap 磁盘映射到内存中的数据 数组指针形式
 	datasz   int               // mmap 数据大小
 	filesz   int               // 数据库文件大小
 	meta0    *meta             // 第一个meta
