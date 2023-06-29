@@ -236,7 +236,7 @@ boltDB在更新B+树数据时不会直接修改树的结构，而只是更新数
 **bolt.Open**
 
 初始化数据库：2个meta页（用于写操作时交替保存，获取的时候取校验正确并且txid更大的一个）、1个freelist页、1个leaf页。写磁盘：通过File.WriteAt()、File.Sync()将4个初始页中的内存数据[]byte写入文件。
-fnv哈希算法：可以快速hash大量的数据并保持较小的冲突概率。go语言中标准库实现。
+fnv哈希算法：go语言中标准库实现的非加密哈希算法。
 
 打开数据库
 读磁盘：通过File.ReadAt()读取第一个meta页（unsafe.Pointer映射到page、meta结构体），用于验证数据库文件的正确性。
