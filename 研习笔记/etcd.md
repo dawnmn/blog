@@ -147,7 +147,7 @@ type node struct {
 	unbalanced bool    // 是否需要页合并
 	spilled    bool    // 是否需要页分裂
 	key        []byte  // branch页时，第一个key的值
-	pgid       pgid    // 关联的页id
+	pgid       pgid    // 关联的页id，如果是0，表示内联bucket
 	parent     *node   // 父节点
 	children   nodes   // 子节点
 	inodes     inodes  // 节点保存的k/v数据
