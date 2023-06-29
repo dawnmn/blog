@@ -34,3 +34,9 @@ func main() {
 	fmt.Println(*pp) // 2
 }
 ```
+**超大byte数组**
+```
+var b = (*[0xFFFFFFFFFFFF]byte)(unsafe.Pointer(&[10]byte{}))
+fmt.Println((*b)[0])   // 0，在声明的数组范围内
+fmt.Println((*b)[100]) // 102，超过声明的数组范围，值不确定
+```
