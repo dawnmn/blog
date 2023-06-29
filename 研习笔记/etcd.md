@@ -232,7 +232,7 @@ pagePool：sync.pool对页[]byte做内存池管理。
 
 
 boltDB在更新B+树数据时不会直接修改树的结构，而只是更新数据。在数据写入磁盘前才按需合并、分裂node。
-key、value有最大值限制。
+key、value有最大长度限制。
 
 
 
