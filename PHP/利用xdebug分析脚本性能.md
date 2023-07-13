@@ -30,4 +30,4 @@ php -d xdebug.mode=profile -d xdebug.output_dir=. /var/data/php-script/hello.php
 
 php -d xdebug.mode=profile -d xdebug.output_dir=. /var/data/php-script/console/yii wireless/stat
 ```
-会生成类似`cachegrind.out.13096`的文件，将它用phpstorm查看：`Tools`->`analyze xdebug profiler snapshot`
+会生成类似`cachegrind.out.13096`的文件，用phpstorm查看：`Tools`->`analyze xdebug profiler snapshot`
