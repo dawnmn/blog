@@ -32,6 +32,22 @@ SHOW [GLOBAL|SESSION] STATUS [LIKE 匹配的模式];
 
 
 InnoDB中一个页一般是 16KB ，当记录中的数据太多，当前页放不下的时候，会把多余的数据存储到其他页中，这种现象称为行溢出 。
+页结构：
+![](../images/innodb页结构.png)
+|   名称  | 中文名    |    占用空间大小 |  简单描述   |
+|-----|-----|-----|-----|
+|  File Header   | 文件头部   |  38 字节   |  页的一些通用信息   |
+|   Page Header  |   页面头部  |  56 字节   |   数据页专有的一些信息  |
+|   Infimum + Supremum  |  最小记录和最大记录   |  26 字节   | 两个虚拟的行记录    |
+|   User Records  |  用户记录   |  不确定   |  实际存储的行记录内容   |
+|   Free Space  |   空闲空间  |   不确定  |  页中尚未使用的空间   |
+|  Page Directory   |  页面目录   | 不确定    |   页中的某些记录的相对位置  |
+|   File Trailer  |  文件尾部   |  8 字节   |  校验页是否完整   |
+
+
+Compressed 行格式：
+![](../images/innodb的compact行格式.png)
+Dynamic 和 Compressed 行格式与Compact 行格式很相似，只是在处理 行溢出 数据时不同。Compressed 行格式会采用压缩算法对页面进行压缩。
 
 
 
