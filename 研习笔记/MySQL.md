@@ -198,6 +198,32 @@ n_rows统计方法：采样，选取几个叶子节点页面，计算平均记�
 
 临时表：读写操作代价比较高
 
+**子查询**
+```
+# 标量子查询
+SELECT * FROM t1 WHERE m1 = (SELECT MIN(m2) FROM t2);
+# 行子查询
+SELECT * FROM t1 WHERE (m1, n1) = (SELECT m2, n2 FROM t2 LIMIT 1);
+# 列子查询
+SELECT * FROM t1 WHERE m1 IN (SELECT m2 FROM t2);
+# 表子查询
+SELECT * FROM t1 WHERE (m1, n1) IN (SELECT m2, n2 FROM t2);
+```
+子查询语句一般放在FROM或者WHERE后面。
+EXISTS子查询，不关心查询内容是什么，只关心是否查出来，EXISTS返回true或者false。
+```
+SELECT * FROM t1 WHERE [NOT] EXISTS (SELECT 1 FROM t2)
+```
+查询优化器可能会将子查询转换为了连接查询。
+
+**explain 执行计划**
+```
+explain sql
+
+explain FORMAT=JSON sql
+```
+
+
 **数据目录** 在数据目录下，每个数据库都对应一个同名的目录，里面包含：
 db.opt 记录数据库信息
 表名.frm 记录表的结构
