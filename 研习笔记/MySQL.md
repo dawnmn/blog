@@ -74,6 +74,12 @@ InnoDB中一个页一般是 16KB ，当记录中的数据太多，当前页放�
 |  FIL_PAGE_FILE_FLUSH_LSN   |  8字节   |   仅在系统表空间的一个页中定义，代表文件至少被刷新到了对应的LSN值  |
 |   FIL_PAGE_ARCH_LOG_NO_OR_SPACE_ID  |  4字节   |  页属于哪个表空间   |
 
+FIL_PAGE_PREV和FIL_PAGE_NEXT代表上一页、下一页的页号，通过这个双向链表把磁盘上并不相邻的页串联起来。
+
+innodb中，下一个数据页中用户记录的主键值必须大于上一个页中用户记录的主键值。
+
+页分裂是磁盘的概念，当记录在一页中装不下时，就会页分裂。不同槽、页的记录再分配的时候会根据主键大小排序。
+
 
 Compressed 行格式：
 ![](../images/innodb的compact行格式.png)
