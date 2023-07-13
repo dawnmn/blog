@@ -242,7 +242,7 @@ UNION会创建临时表，将各个查询结果去重。UNION ALL则不需要使
 访问方法（type）：const、ref、ref_or_null、range、index、all
 除了 all 这个访问方法外，其余的访问方法都能用到索引，除了 index_merge 访问方法外，其余的访问方法都最多只能用到一个索引。
 
-optimize trace 查看mysql查询优化过程
+optimize trace 查看mysql查询优化过程：
 ```
 SHOW VARIABLES LIKE 'optimizer_trace';
 SET optimizer_trace="enabled=on";
@@ -250,6 +250,82 @@ SELECT ...;
 SELECT * FROM information_schema.OPTIMIZER_TRACE;
 SET optimizer_trace="enabled=off";
 ```
+**Buffer Pool**
+Buffer Pool是一片连续的内存。
+![](../images/mysql的buffer_pool结构.png)
+表空间号+页号作为key ，缓存页作为value创建一个哈希表，通过这个哈希表定位一个页。
+每个控制块大约占用缓存页大小的5%。
+
+free链表：将空闲的缓存页对应的控制块作为一个节点放到一个链表中。
+
+flush链表：将脏页对应的控制块作为一个节点放到一个链表中。
+
+简单的LRU（Least Recently Used）链表：将当前访问的页的 控制块 移动到 LRU链表 的头部。用于Buffer Pool不够时删除页的判定。
+预读：如果顺序访问了某个区（ extent ）的页面超过这个系统变量的值，就会触发一次 异步 读取下一个区中全部的页面到 Buffer Pool 的请求。
+mysql的LRU链表：young区域+old区域，先进入old区域，再进入young区域。尽量高效的提高 Buffer Pool 的缓存命中率。
+
+刷新脏页到磁盘：1 异步的定时从 flush链表 中刷新一部分页面到磁盘 2 异步的定时从 LRU链表 尾部开始扫描出脏页到磁盘。
+`SHOW ENGINE INNODB STATUS\G;`
+查看 BUFFER POOL AND MEMORY 项，Total large memory allocated：Buffer Pool大小（字节）；Buffer pool size：页数目。
+
+**事务**：ACID 原子性（一个事务中所有操作全部成功，全部失败）一致性（数据库总是从一个一致性的状态转换到另一个一致性的状态）隔离性（一个事务执行过程中不会对另一个事务产生影响）持久性（事务执行完后会写入磁盘，永久保存）
+事务隔离级别：Read Uncommitted 读未提交（脏读）Read Committed 读已提交，写锁会一直持续到事务结束，但加的读锁在查询操作完成后就马上会释放。（不可重复读，事务A和B，A 多次读取同一数据，B 在A多次读取的过程中对数据作了修改并提交，导致A多次读取同一数据时，结果不一致）Repeatable Read 可重复读（innodb默认级别，通过行级锁+MVCC实现。幻读，A在读取范围数据时，B插入了一行，导致A多读了一行，多次读取记录数不同。幻读的定义侧重于多条记录，就是记录条数的变化，而不可重复读侧重于单条记录数据的变化，这样区分原因在于解决幻读需要范围锁，解决不可重复读只需要单条记录加锁。）。Serializable 串行化（对所有读取的行加锁，避免幻读，性能低）。
+
+隐式提交：当我们在一个事务还没提交或者回滚时就又使用 START TRANSACTION等指令时，会隐式的提交上一个事务。
+当前读：事务中数据修改的操作(update、insert、delete)和显示锁(LOCK IN SHARE MODE、FOR UPDATE)都是采用当前读的模式。
+
+幻读：同一个事务里面连续执行两次同样的sql语句，第二次sql语句可能会返回之前不存在的行。
+
+
+
+**redo log** 重做日志：会把事务在执行过程中对数据库所做的所有修改都记录下来（WAL），顺序写入磁盘，在之后系统奔溃重启后可以把事务所做的任何修改都恢复出来。环形缓冲区。
+**Bin Log**: mysql服务器层，逻辑日志，归档日志，追加写，二进制形式记录，没有 crash-safe 能力。两种模式：statement：记录sql，row：记录修改前和修改后的行内容。sync_binlog 这个参数设置成 1，每次事务的binlog都持久化 。主从复制、数据恢复（需要配合数据库定期备份mysqldump）。
+取ID=2的行->数据页在内存中（不在就从磁盘中读取）->内存中更新数据->写入redo-log prepare（redolog buffer）->写入bin log->更新redo log commit状态（日志写入磁盘），MySQL 使用两阶段（2PC）提交主要解决 binlog 和 redo log 的数据一致性的问题。
+**undo log** 回滚日志：为了实现原子性。一个事务会生成多条undo log
+**MVCC** Multiversion Concurrency Control 多版本并发控制，在不使用锁的情况下实现非阻塞读。在Read Committed 和 Repeatable Read两个隔离级别下工作。
+普通的 select 语句不会对记录加锁，因为它属于快照读。
+mvcc解决了快照读ReadView的幻读问题，但是当前读依然会有幻读，需要手动加锁解决。
+
+**ReadView概念**
+Read View一致性视图：RC隔离级别 在事务中每一个select操作前生成，RR隔离级别 在第一个select操作前生成。
+READ COMMITTED 每次查询开始时都会生成一个独立的ReadView。
+REPEATABLE READ 在第一次读取数据时生成一个ReadView，后面复用该ReadView。
+UPDATE操作都是读取当前读(current read)数据进行更新的。
+m_ids ：表示在生成 ReadView 时当前系统中活跃的读写事务的 事务id 列表。
+min_trx_id ：表示在生成 ReadView 时当前系统中活跃的读写事务中最小的 事务id ，也就是 m_ids 中的最
+小值。
+max_trx_id ：表示生成 ReadView 时系统中应该分配给下一个事务的 id 值。
+ 小贴士：
+ 注意max_trx_id并不是m_ids中的最大值，事务id是递增分配的。比方说现在有id为1，2，3这三
+个事务，之后id为3的事务提交了。那么一个新的读事务在生成ReadView时，m_ids就包括1和2，mi
+n_trx_id的值就是1，max_trx_id的值就是4。
+creator_trx_id ：表示生成该 ReadView 的事务的 事务id 。
+ 只有在对表中的记录做改动时（执行INSERT、DELETE、UPDATE这些语句时）才会为事务分配事务id，否则在一个只读事务中的事务id值都默认为0。
+
+版本可见性判断依据：
+如果被访问版本的 trx_id 属性值与 ReadView 中的 creator_trx_id 值相同，意味着当前事务在访问它自己修改过的记录，所以该版本可以被当前事务访问。
+如果被访问版本的 trx_id 属性值小于 ReadView 中的 min_trx_id 值，表明生成该版本的事务在当前事务生成 ReadView 前已经提交，所以该版本可以被当前事务访问。
+如果被访问版本的 trx_id 属性值大于 ReadView 中的 max_trx_id 值，表明生成该版本的事务在当前事务生成 ReadView 后才开启，所以该版本不可以被当前事务访问。
+如果被访问版本的 trx_id 属性值在 ReadView 的 min_trx_id 和 max_trx_id 之间，那就需要判断一下trx_id 属性值是不是在 m_ids 列表中，如果在，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。
+
+从最新的版本开始，依次往下查询，如果最后一个版本也不可见，查询结果就不包含该记录。
+
+undo log 回滚日志：为了实现原子性。一个事务会生成多条undo log
+
+**锁**
+共享锁：SELECT ... LOCK IN SHARE MODE; 会影响加锁行的写
+独占锁：SELECT ... FOR UPDATE; 会影响加锁行的读和写
+
+隐式锁：事务中的写操作（update、delete）会在记录上隐式加独占锁，应当把最可能造成锁冲突、最可能影响并发度的锁尽量往后放。
+
+行锁类型：
+Record Lock:	在索引上对单行记录加锁。
+Gap Lock:	锁定一个范围的记录,但不包括记录本身.锁加在未使用的空闲空间上,可能是两个索引记录之间，也可能是第一个索引记录之前或最后一个索引之后的空间。用于解决幻读问题。
+Next-Key Lock:	行锁与间隙锁组合起来用就叫做Next-Key Lock。锁定一个范围，并且锁定记录本身。对于行的查询，都是采用该方法，主要目的是解决幻读的问题。
+mysql会根据不同的情况在记录上加不同类型的行锁。
+
+死锁innodb解决方式：检测到死锁的循环依赖后，将有最少行级排它锁的事务回滚，稍后重新执行该事务即可。
+
 
 **数据目录** 在数据目录下，每个数据库都对应一个同名的目录，里面包含：
 db.opt 记录数据库信息
