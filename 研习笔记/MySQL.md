@@ -333,8 +333,33 @@ db.opt 记录数据库信息
 表名.frm 记录表的结构
 表名.ibd 记录表的数据
 
+**性能优化**：表结构优化、索引优化、查询优化、应用层优化（业务实现方式、redis缓存、mongdb分担存储）
 
+自增主键可能是不连续的：SQL错误时、回滚时。
 
+Change Buffer：提高了写的性能。对非唯一的普通索引的新增或更新操作，如果索引B+树的需要新增或更新的数据页不在内存中，则直接更新change buffer，等到后面需要使用这个数据页（真正读到内存中来）的时候，再根据change buffer在内存中做merge合并操作。用于业务场景中的写远大于读时。
+
+select * from table_name use index(index_name) ... 显示选择索引
+
+count(列不包含null)，count(*)mysql做了特殊优化，性能最好。
+distinct 与 group by 切换
+offset limit优化：select * from table_name offset 1000 limit 10 改成 select id from table_name offset 1000 limit 10 和 select * from table_name where id in()
+union all 
+
+InnoDB Myisam比较
+事务：InnoDB 是事务型的，可以使用 Commit 和 Rollback 语句。
+并发：MyISAM 只支持表级锁，而 InnoDB 还支持行级锁。
+外键：InnoDB 支持外键。
+备份：InnoDB 支持在线热备份。
+崩溃恢复：MyISAM 崩溃后发生损坏的概率比 InnoDB 高很多，而且恢复的速度也更慢。
+
+主从策略：
+单主多从，MySQL Cluster，进行全同步复制时，会等待所有 Slave 节点的 Binlog 都完成写入后，Master 节点的事务才进行提交。
+双主单写，一个Master提供线上服务，另一个Master作为备胎。也叫做主备模式
+
+**分库和分表**是两码事，可能光分库不分表，也可能光分表不分库。
+分库：将一个库的数据拆分到多个库，访问时就访问一个库。垂直分库：按业务拆分，水平分库：相同库结构按数据拆分。
+分表：把一个表的数据放到多个表中，查询时，就查一个表。单表到几百万时性能就会相对差点，就该分表。垂直分表：按字段拆分。水平分表：相同表结构按数据拆分。
 
 
 
