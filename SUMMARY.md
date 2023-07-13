@@ -6,7 +6,6 @@
     * [MySQL5.7](CentOS服务器/mysql5.7.md)
         * [安装](CentOS服务器/MySQL5.7/安装mysql5.7.md)
         * [实用技能](CentOS服务器/MySQL5.7/实用技能.md)
-        * [服务器性能优化](CentOS服务器/MySQL5.7/服务器性能优化.md)
         * [主从同步](CentOS服务器/MySQL5.7/主从同步.md)
     * [Nginx](CentOS服务器/nginx.md)
         * [实用技能](CentOS服务器/Nginx/实用技能.md)
