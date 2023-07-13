@@ -65,7 +65,7 @@ InnoDB中一个页一般是 16KB ，当记录中的数据太多，当前页放�
 文件头结构 File Header：
 |名称     |  占用空间大小   |  描述   |
 |-----|-----|-----|
-|   FIL_PAGE_SPACE_OR_CHKSUM  | 4字节    |   页的校验和（checksum值）  |
+|   FIL_PAGE_SPACE_OR_CHKSUM  | 4字节    |  页的校验和（checksum值），检测内存中同步到磁盘的页的完整性。  |
 |  FIL_PAGE_OFFSET   |  4字节   |  页号，0开始   |
 |  FIL_PAGE_PREV   |  4字节   |  上一个页的页号   |
 |  FIL_PAGE_NEXT   |  4字节   |   下一个页的页号  |
