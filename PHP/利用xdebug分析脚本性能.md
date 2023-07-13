@@ -18,4 +18,16 @@ vim /usr/local/php/etc/php.ini
 #在末尾添加
 [xdebug]
 zend_extension = xdebug.so
+
+php --ri xdebug
 ```
+
+**分析脚本**
+```
+php --ri xdebug
+
+php -d xdebug.mode=profile -d xdebug.output_dir=. /var/data/php-script/hello.php
+
+php -d xdebug.mode=profile -d xdebug.output_dir=. /var/data/php-script/console/yii wireless/stat
+```
+会生成类似`cachegrind.out.13096`的文件，将它用phpstorm查看：`Tools`->`analyze xdebug profiler snapshot`
