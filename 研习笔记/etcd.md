@@ -133,7 +133,7 @@ type leafPageElement struct {
 	vsize uint32 // value的长度，字节
 }
 ```
-内存数据结构
+**内存数据结构**
 ```
 type freelist struct {
 	ids     []pgid          // 已释放的页id列表
@@ -239,6 +239,8 @@ key、value有最大长度限制。
 **bolt.Open**
 
 初始化数据库：2个meta页（用于写操作时交替保存，获取的时候取校验正确并且txid更大的一个，写入的时候m.txid % 2选取meta）、1个freelist页、1个leaf页。写磁盘：通过File.WriteAt()、File.Sync()将4个初始页中的内存数据[]byte写入文件。
+![](../images/boltdb-空db页结构.png)
+
 fnv哈希算法：go语言中标准库实现的非加密哈希算法。
 
 打开数据库
