@@ -46,6 +46,7 @@
         * [常用配置](PHP/PHPStorm/常用配置.md)
     * [webdriver爬虫](PHP/webdriver.md)
     * [Opcache](PHP/Opcache.md)
+    * [利用xdebug分析脚本性能](PHP/利用xdebug分析脚本性能.md)
 * [其它语言](其它语言.md)
     * [JS](其它语言/JS.md)
         * [安装nodejs](其它语言/JS/安装nodejs.md)
