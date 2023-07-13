@@ -136,8 +136,7 @@ GROUP BY：分组列的顺序也需要和索引列的顺序一致。
 2 索引列的类型尽量小。
 3 索引字符串值的前缀。
 
-`SELECT * FROM single_table WHERE key1='abc' AND key2>1000;`
-查询过程：先通过索引key1查找对应的主键，再用主键回表查询数据，在数据中用key2>1000条件筛选。
+`SELECT * FROM single_table WHERE key1='abc' AND key2>1000;`查询过程：先通过索引key1查找对应的主键，再用主键回表查询数据，在数据中用key2>1000条件筛选。
 
 一个使用到索引的搜索条件和没有使用该索引的搜索条件使用OR连接起来后是无法使用该索引的。
 
