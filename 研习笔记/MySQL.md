@@ -137,7 +137,7 @@ Buffer Pool是一片连续的内存。
 * 异步的定时从 LRU链表 尾部开始扫描出脏页到磁盘。
 
 `SHOW ENGINE INNODB STATUS\G;` 查看 BUFFER POOL AND MEMORY 项，Total large memory allocated：Buffer Pool大小（字节）；Buffer pool size：页数目。
-
+**索引**
 
 多列索引：将这些列和主键作为数据字段，生成一个b+树。要使用联合索引，搜索条件中的各个列必须是联合索引中从最左边连续的列。
 mysql表结构的sql语法中，KEY和INDEX是同义词
