@@ -140,7 +140,7 @@ Buffer Pool是一片连续的内存。
 **索引**
 
 `多列索引`：将这些列和主键作为数据字段，生成一个b+树。要使用联合索引，搜索条件中的各个列必须是联合索引中从最左边连续的列。
-mysql表结构的sql语法中，KEY和INDEX是同义词。
+
 
 `索引的代价`：
 * 空间：存储索引b+树。
@@ -166,7 +166,7 @@ mysql表结构的sql语法中，KEY和INDEX是同义词。
 * `哈希索引`：只有精确匹配索引所有列的查询才有效，innodb有一个自适应哈希索引的功能，当某些索引使用非常频繁，会基于B-tree索引之上再创建一个哈希索引。
 * `全文索引`：针对单词，不能匹配单词中的字母。mysql5.7后支持innodb的中文全文索引，只有字段的数据类型为 char、varchar、text 及其系列才可以建全文索引，fulltext key  使用 match 和 against（IN BOOLEAN MODE） 关键字，将ft_min_word_len 改为1，like + %在文本比较少时是合适的。
 
-索引创建类型：INDEX、UNIQUE INDEX、FULLTEXT INDEX、INDEX(email(6))、PRIMARY KEY
+索引创建类型：INDEX、UNIQUE INDEX、FULLTEXT INDEX、INDEX(email(6))、PRIMARY KEY。mysql表结构的sql语法中，KEY和INDEX是同义词。
 索引三大优点：
 1 大大减少服务器查询时扫描的数据量
 2 避免排序和临时表
