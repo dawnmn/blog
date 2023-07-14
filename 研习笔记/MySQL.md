@@ -114,6 +114,10 @@ Page Directory（页目录）：由槽组成，槽值为最小主键值地址偏
 `page_no`：页号
 目录项与用户数据使用相同的页结构，只是字段为key、page_no。这种结构称为聚簇索引。
 
+二级索引：
+![](../images/innodb二级索引.png)
+二级索引：实际上还有主键字段，图中没画
+
 **Buffer Pool**
 Buffer Pool是一片连续的内存。
 ![](../images/mysql的buffer_pool结构.png)
@@ -132,9 +136,7 @@ mysql的LRU链表：young区域+old区域，先进入old区域，再进入young�
 `SHOW ENGINE INNODB STATUS\G;`
 查看 BUFFER POOL AND MEMORY 项，Total large memory allocated：Buffer Pool大小（字节）；Buffer pool size：页数目。
 
-二级索引：
-![](../images/innodb二级索引.png)
-二级索引：实际上还有主键字段，图中没画
+
 多列索引：将这些列和主键作为数据字段，生成一个b+树。要使用联合索引，搜索条件中的各个列必须是联合索引中从最左边连续的列。
 mysql表结构的sql语法中，KEY和INDEX是同义词
 
