@@ -285,14 +285,16 @@ SET optimizer_trace="enabled=off";
 
 `幻读`：同一个事务里面连续执行两次同样的sql语句，第二次sql语句可能会返回之前不存在的行。
 
+**Log 日志**
 
 
-**redo log** 重做日志：会把事务在执行过程中对数据库所做的所有修改都记录下来（WAL），顺序写入磁盘，在之后系统奔溃重启后可以把事务所做的任何修改都恢复出来。环形缓冲区。
-**Bin Log**: mysql服务器层，逻辑日志，归档日志，追加写，二进制形式记录，没有 crash-safe 能力。两种模式：statement：记录sql，row：记录修改前和修改后的行内容。sync_binlog 这个参数设置成 1，每次事务的binlog都持久化 。主从复制、数据恢复（需要配合数据库定期备份mysqldump）。
+`redo log` 重做日志：会把事务在执行过程中对数据库所做的所有修改都记录下来（WAL），顺序写入磁盘，在之后系统奔溃重启后可以把事务所做的任何修改都恢复出来。环形缓冲区。
+`Bin Log` : mysql服务器层，逻辑日志，归档日志，追加写，二进制形式记录，没有 crash-safe 能力。两种模式：statement：记录sql，row：记录修改前和修改后的行内容。sync_binlog 这个参数设置成 1，每次事务的binlog都持久化 。主从复制、数据恢复（需要配合数据库定期备份mysqldump）。
 取ID=2的行->数据页在内存中（不在就从磁盘中读取）->内存中更新数据->写入redo-log prepare（redolog buffer）->写入bin log->更新redo log commit状态（日志写入磁盘），MySQL 使用两阶段（2PC）提交主要解决 binlog 和 redo log 的数据一致性的问题。
-**undo log** 回滚日志：实现事务的原子性、实现多版本并发控制。一个事务会生成多条undo log
+`undo log` 回滚日志：实现事务的原子性、实现多版本并发控制。一个事务会生成多条undo log。
 ![](../images/undo_log日志格式.png)
-**MVCC** Multiversion Concurrency Control 多版本并发控制，在不使用锁的情况下实现非阻塞读。在Read Committed 和 Repeatable Read两个隔离级别下工作。
+**MVCC** 
+Multiversion Concurrency Control 多版本并发控制，在不使用锁的情况下实现非阻塞读。在Read Committed 和 Repeatable Read两个隔离级别下工作。
 普通的 select 语句不会对记录加锁，因为它属于快照读。
 mvcc解决了快照读ReadView的幻读问题，但是当前读依然会有幻读，需要手动加锁解决。
 
