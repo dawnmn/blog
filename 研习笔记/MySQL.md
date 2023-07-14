@@ -253,7 +253,6 @@ explain FORMAT=JSON sql
 | filtered    |  某个表经过搜索条件过滤后剩余记录条数的百分比   |
 |   Extra  |  一些额外的信息   |
 
-UNION会创建临时表，将各个查询结果去重。UNION ALL则不需要使用临时表。
 
 访问方法（type）：const、ref、ref_or_null、range、index、all
 除了 all 这个访问方法外，其余的访问方法都能用到索引，除了 index_merge 访问方法外，其余的访问方法都最多只能用到一个索引。
@@ -266,7 +265,7 @@ SELECT ...;
 SELECT * FROM information_schema.OPTIMIZER_TRACE;
 SET optimizer_trace="enabled=off";
 ```
-
+`UNION` 会创建临时表，将各个查询结果去重。UNION ALL则不需要使用临时表。
 **事务**：ACID 原子性（一个事务中所有操作全部成功，全部失败）一致性（数据库总是从一个一致性的状态转换到另一个一致性的状态）隔离性（一个事务执行过程中不会对另一个事务产生影响）持久性（事务执行完后会写入磁盘，永久保存）
 事务隔离级别：Read Uncommitted 读未提交（脏读）Read Committed 读已提交，写锁会一直持续到事务结束，但加的读锁在查询操作完成后就马上会释放。（不可重复读，事务A和B，A 多次读取同一数据，B 在A多次读取的过程中对数据作了修改并提交，导致A多次读取同一数据时，结果不一致）Repeatable Read 可重复读（innodb默认级别，通过行级锁+MVCC实现。幻读，A在读取范围数据时，B插入了一行，导致A多读了一行，多次读取记录数不同。幻读的定义侧重于多条记录，就是记录条数的变化，而不可重复读侧重于单条记录数据的变化，这样区分原因在于解决幻读需要范围锁，解决不可重复读只需要单条记录加锁。）。Serializable 串行化（对所有读取的行加锁，避免幻读，性能低）。
 
