@@ -319,8 +319,6 @@ mvcc解决了快照读ReadView的幻读问题，但是当前读依然会有幻�
 
 从最新的版本开始，依次往下查询，如果最后一个版本也不可见，查询结果就不包含该记录。
 
-undo log 回滚日志：为了实现原子性。一个事务会生成多条undo log
-
 **锁**
 共享锁：SELECT ... LOCK IN SHARE MODE; 会影响加锁行的写
 独占锁：SELECT ... FOR UPDATE; 会影响加锁行的读和写
