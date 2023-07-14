@@ -135,6 +135,7 @@ Buffer Pool是一片连续的内存。
 `刷新脏页到磁盘`：
 * 异步的定时从 flush链表 中刷新一部分页面到磁盘。
 * 异步的定时从 LRU链表 尾部开始扫描出脏页到磁盘。
+
 `SHOW ENGINE INNODB STATUS\G;`
 查看 BUFFER POOL AND MEMORY 项，Total large memory allocated：Buffer Pool大小（字节）；Buffer pool size：页数目。
 
