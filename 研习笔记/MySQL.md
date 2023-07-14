@@ -114,6 +114,24 @@ Page Directory（页目录）：由槽组成，槽值为最小主键值地址偏
 `page_no`：页号
 目录项与用户数据使用相同的页结构，只是字段为key、page_no。这种结构称为聚簇索引。
 
+**Buffer Pool**
+Buffer Pool是一片连续的内存。
+![](../images/mysql的buffer_pool结构.png)
+表空间号+页号作为key ，缓存页作为value创建一个哈希表，通过这个哈希表定位一个页。
+每个控制块大约占用缓存页大小的5%。
+
+free链表：将空闲的缓存页对应的控制块作为一个节点放到一个链表中。
+
+flush链表：将脏页对应的控制块作为一个节点放到一个链表中。
+
+简单的LRU（Least Recently Used）链表：将当前访问的页的 控制块 移动到 LRU链表 的头部。用于Buffer Pool不够时删除页的判定。
+预读：如果顺序访问了某个区（ extent ）的页面超过这个系统变量的值，就会触发一次 异步 读取下一个区中全部的页面到 Buffer Pool 的请求。
+mysql的LRU链表：young区域+old区域，先进入old区域，再进入young区域。尽量高效的提高 Buffer Pool 的缓存命中率。
+
+刷新脏页到磁盘：1 异步的定时从 flush链表 中刷新一部分页面到磁盘 2 异步的定时从 LRU链表 尾部开始扫描出脏页到磁盘。
+`SHOW ENGINE INNODB STATUS\G;`
+查看 BUFFER POOL AND MEMORY 项，Total large memory allocated：Buffer Pool大小（字节）；Buffer pool size：页数目。
+
 二级索引：
 ![](../images/innodb二级索引.png)
 二级索引：实际上还有主键字段，图中没画
@@ -250,23 +268,6 @@ SELECT ...;
 SELECT * FROM information_schema.OPTIMIZER_TRACE;
 SET optimizer_trace="enabled=off";
 ```
-**Buffer Pool**
-Buffer Pool是一片连续的内存。
-![](../images/mysql的buffer_pool结构.png)
-表空间号+页号作为key ，缓存页作为value创建一个哈希表，通过这个哈希表定位一个页。
-每个控制块大约占用缓存页大小的5%。
-
-free链表：将空闲的缓存页对应的控制块作为一个节点放到一个链表中。
-
-flush链表：将脏页对应的控制块作为一个节点放到一个链表中。
-
-简单的LRU（Least Recently Used）链表：将当前访问的页的 控制块 移动到 LRU链表 的头部。用于Buffer Pool不够时删除页的判定。
-预读：如果顺序访问了某个区（ extent ）的页面超过这个系统变量的值，就会触发一次 异步 读取下一个区中全部的页面到 Buffer Pool 的请求。
-mysql的LRU链表：young区域+old区域，先进入old区域，再进入young区域。尽量高效的提高 Buffer Pool 的缓存命中率。
-
-刷新脏页到磁盘：1 异步的定时从 flush链表 中刷新一部分页面到磁盘 2 异步的定时从 LRU链表 尾部开始扫描出脏页到磁盘。
-`SHOW ENGINE INNODB STATUS\G;`
-查看 BUFFER POOL AND MEMORY 项，Total large memory allocated：Buffer Pool大小（字节）；Buffer pool size：页数目。
 
 **事务**：ACID 原子性（一个事务中所有操作全部成功，全部失败）一致性（数据库总是从一个一致性的状态转换到另一个一致性的状态）隔离性（一个事务执行过程中不会对另一个事务产生影响）持久性（事务执行完后会写入磁盘，永久保存）
 事务隔离级别：Read Uncommitted 读未提交（脏读）Read Committed 读已提交，写锁会一直持续到事务结束，但加的读锁在查询操作完成后就马上会释放。（不可重复读，事务A和B，A 多次读取同一数据，B 在A多次读取的过程中对数据作了修改并提交，导致A多次读取同一数据时，结果不一致）Repeatable Read 可重复读（innodb默认级别，通过行级锁+MVCC实现。幻读，A在读取范围数据时，B插入了一行，导致A多读了一行，多次读取记录数不同。幻读的定义侧重于多条记录，就是记录条数的变化，而不可重复读侧重于单条记录数据的变化，这样区分原因在于解决幻读需要范围锁，解决不可重复读只需要单条记录加锁。）。Serializable 串行化（对所有读取的行加锁，避免幻读，性能低）。
