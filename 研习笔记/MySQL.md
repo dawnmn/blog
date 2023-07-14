@@ -319,10 +319,10 @@ mvcc解决了快照读ReadView的幻读问题，但是当前读依然会有幻�
 4. 如果被访问版本的 trx_id 属性值在 ReadView 的 min_trx_id 和 max_trx_id 之间，那就需要判断一下trx_id 属性值是不是在 m_ids 列表中，如果在，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。
 
 **锁**
-共享锁：SELECT ... LOCK IN SHARE MODE; 会影响加锁行的写
-独占锁：SELECT ... FOR UPDATE; 会影响加锁行的读和写
+`共享锁`：`SELECT ... LOCK IN SHARE MODE;` 会影响加锁行的写。
+`独占锁`：`SELECT ... FOR UPDATE; `会影响加锁行的读和写。
 
-隐式锁：事务中的写操作（update、delete）会在记录上隐式加独占锁，应当把最可能造成锁冲突、最可能影响并发度的锁尽量往后放。
+`隐式锁`：事务中的写操作（update、delete）会在记录上隐式加独占锁，应当把最可能造成锁冲突、最可能影响并发度的锁尽量往后放。
 
 行锁类型：
 Record Lock:	在索引上对单行记录加锁。
