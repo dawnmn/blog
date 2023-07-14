@@ -167,10 +167,11 @@ Buffer Pool是一片连续的内存。
 * `全文索引`：针对单词，不能匹配单词中的字母。mysql5.7后支持innodb的中文全文索引，只有字段的数据类型为 char、varchar、text 及其系列才可以建全文索引，fulltext key  使用 match 和 against（IN BOOLEAN MODE） 关键字，将ft_min_word_len 改为1，like + %在文本比较少时是合适的。
 
 索引创建类型：INDEX、UNIQUE INDEX、FULLTEXT INDEX、INDEX(email(6))、PRIMARY KEY。mysql表结构的sql语法中，KEY和INDEX是同义词。
-索引三大优点：
-1 大大减少服务器查询时扫描的数据量
-2 避免排序和临时表
-3 将随机I/O变为顺序I/O
+`索引三大优点`：
+* 大大减少服务器查询时扫描的数据量。
+* 避免排序和临时表。
+* 将随机I/O变为顺序I/O。
+
 三星索引：索引包含需要查找的全部记录、索引中的数据顺序和查找的排序顺序一致、索引的列包含查询的全部列
 聚簇索引（innodb）：索引和数据放在一起，主键索引的叶子节点存的是整行数据，主键->唯一非空列->隐式定义主键。一个表只能有一个聚簇索引。
 二级索引：叶子节点内容是主键的值。非主键索引也被称为二级索引（secondary index）。
