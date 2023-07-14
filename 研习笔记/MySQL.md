@@ -299,26 +299,23 @@ Multiversion Concurrency Control 多版本并发控制，在不使用锁的情�
 mvcc解决了快照读ReadView的幻读问题，但是当前读依然会有幻读，需要手动加锁解决。
 
 **ReadView概念**
-Read View一致性视图：RC隔离级别 在事务中每一个select操作前生成，RR隔离级别 在第一个select操作前生成。
-READ COMMITTED 每次查询开始时都会生成一个独立的ReadView。
-REPEATABLE READ 在第一次读取数据时生成一个ReadView，后面复用该ReadView。
-UPDATE操作都是读取当前读(current read)数据进行更新的。
-m_ids ：表示在生成 ReadView 时当前系统中活跃的读写事务的 事务id 列表。
-min_trx_id ：表示在生成 ReadView 时当前系统中活跃的读写事务中最小的 事务id ，也就是 m_ids 中的最
-小值。
-max_trx_id ：表示生成 ReadView 时系统中应该分配给下一个事务的 id 值。
- 小贴士：
- 注意max_trx_id并不是m_ids中的最大值，事务id是递增分配的。比方说现在有id为1，2，3这三
-个事务，之后id为3的事务提交了。那么一个新的读事务在生成ReadView时，m_ids就包括1和2，mi
-n_trx_id的值就是1，max_trx_id的值就是4。
-creator_trx_id ：表示生成该 ReadView 的事务的 事务id 。
- 只有在对表中的记录做改动时（执行INSERT、DELETE、UPDATE这些语句时）才会为事务分配事务id，否则在一个只读事务中的事务id值都默认为0。
+`Read View一致性视图`：
+* READ COMMITTED 每次查询开始时都会生成一个独立的ReadView。
+* REPEATABLE READ 在第一次读取数据时生成一个ReadView，后面复用该ReadView。
 
-版本可见性判断依据：
-如果被访问版本的 trx_id 属性值与 ReadView 中的 creator_trx_id 值相同，意味着当前事务在访问它自己修改过的记录，所以该版本可以被当前事务访问。
-如果被访问版本的 trx_id 属性值小于 ReadView 中的 min_trx_id 值，表明生成该版本的事务在当前事务生成 ReadView 前已经提交，所以该版本可以被当前事务访问。
-如果被访问版本的 trx_id 属性值大于 ReadView 中的 max_trx_id 值，表明生成该版本的事务在当前事务生成 ReadView 后才开启，所以该版本不可以被当前事务访问。
-如果被访问版本的 trx_id 属性值在 ReadView 的 min_trx_id 和 max_trx_id 之间，那就需要判断一下trx_id 属性值是不是在 m_ids 列表中，如果在，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。
+`事务id` 只有在对表中的记录做改动时（执行INSERT、DELETE、UPDATE这些语句时）才会为事务分配事务id，否则在一个只读事务中的事务id值都默认为0。
+`m_ids` ：表示在生成 ReadView 时当前系统中活跃的读写事务的 事务id 列表。
+`min_trx_id` ：表示在生成 ReadView 时当前系统中活跃的读写事务中最小的 事务id ，也就是 m_ids 中的最
+小值。
+`max_trx_id` ：表示生成 ReadView 时系统中应该分配给下一个事务的 id 值。注意max_trx_id并不是m_ids中的最大值，事务id是递增分配的。比方说现在有id为1，2，3这三个事务，之后id为3的事务提交了。那么一个新的读事务在生成ReadView时，m_ids就包括1和2，min_trx_id的值就是1，max_trx_id的值就是4。
+`creator_trx_id` ：表示生成该 ReadView 的事务的 事务id 。
+
+
+`版本可见性判断`：
+1. 如果被访问版本的 trx_id 属性值与 ReadView 中的 creator_trx_id 值相同，意味着当前事务在访问它自己修改过的记录，所以该版本可以被当前事务访问。
+2. 如果被访问版本的 trx_id 属性值小于 ReadView 中的 min_trx_id 值，表明生成该版本的事务在当前事务生成 ReadView 前已经提交，所以该版本可以被当前事务访问。
+3. 如果被访问版本的 trx_id 属性值大于 ReadView 中的 max_trx_id 值，表明生成该版本的事务在当前事务生成 ReadView 后才开启，所以该版本不可以被当前事务访问。
+4. 如果被访问版本的 trx_id 属性值在 ReadView 的 min_trx_id 和 max_trx_id 之间，那就需要判断一下trx_id 属性值是不是在 m_ids 列表中，如果在，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问；如果不在，说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。
 
 从最新的版本开始，依次往下查询，如果最后一个版本也不可见，查询结果就不包含该记录。
 
