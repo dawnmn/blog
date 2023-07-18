@@ -64,15 +64,15 @@ vim webhook.php
 
 <?php
 
-$path = "/home/wwwroot/auth/app/web/html/"; // 你的项目目录
+$path = "/home/nginx/www/ddd-api/";
 
 if (empty($requestBody = file_get_contents("php://input"))) {
     die('send fail');
 }
 $content = json_decode($requestBody, true);
 
-if ($content['ref']=='refs/heads/master' && $content['total_commits_count']>0) {
-    shell_exec("cd {$path} && git pull origin master 2>&1");
+if ($content['ref']=='refs/heads/test' && $content['total_commits_count']>0) {
+    file_put_contents("a.txt", var_export(shell_exec("cd {$path} && git pull origin test 2>&1"), true));
 }
 ```
 
