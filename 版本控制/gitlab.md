@@ -53,8 +53,9 @@ vim /etc/passwd
 # 将www的shell改成/bin/bash
 
 su www
+
 ```
-配置该用户的git账号密码。
+cd nginx的www目录，按照上面的SSH步骤，配置SSH，SSH克隆
 
 2 配置拉取程序
 进入项目的web目录，编辑如下，并配置好nginx，让其能够访问：
