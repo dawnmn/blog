@@ -57,6 +57,8 @@ vi /etc/sudoers
 www ALL=(ALL)       ALL
 chmod 440 /etc/sudoers
 
+chown -R www:www wwwroot
+
 su www
 cd /home/wwwroot
 ```
