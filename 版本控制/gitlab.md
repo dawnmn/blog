@@ -58,8 +58,9 @@ www ALL=(ALL)       ALL
 chmod 440 /etc/sudoers
 
 su www
+cd /home/wwwroot
 ```
-cd nginx的www目录，按照上面的SSH步骤，配置SSH，SSH克隆
+按照上面的SSH步骤，配置SSH，SSH克隆
 
 2 配置拉取程序
 进入项目的web目录，编辑如下，并配置好nginx，让其能够访问：
