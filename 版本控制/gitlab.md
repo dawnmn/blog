@@ -52,8 +52,12 @@ cat /etc/passwd | grep www
 vim /etc/passwd
 # 将www的shell改成/bin/bash
 
-su www
+chmod 777 /etc/sudoers
+vi /etc/sudoers
+www ALL=(ALL)       ALL
+chmod 440 /etc/sudoers
 
+su www
 ```
 cd nginx的www目录，按照上面的SSH步骤，配置SSH，SSH克隆
 
