@@ -62,20 +62,66 @@ length=${#array_name[@]}
 ```
 **Shell的引号**
 与php相似
-双引号 ""
+双引号 `""`
 ```
 echo "My current directory is `pwd`"
 echo "My home the directory is $HOME \n"
 ```
-单引号 ''
+单引号 `''`
 不转义
 
-倒引号 ``
+倒引号 ````
 倒引号括起来的字符串被 Shell 解释为命令行，在执行时，Shell 会先执行该命令行，并以它的标准输出结果取代整个倒引号部分。
 ```
 mypath=`pwd`
 echo My directory is $mypath
 ```
+**Shell的命令执行顺序操作符**
+顺序执行 `;`
+```
+pwd; ls -l ~/.vimrc; cal; who; ifconfig
+```
+管道 `|`
+管道的作用是将前边命令的输出作为后边命令的输入。
+```
+who | wc -l | write username
+```
+逻辑与 `&&`
+在Shell中，命令执行成功返回值为0，执行失败返回值为非0。
+```
+cp test1 /home/huoty/ && cat /home/huoty/test1
+```
+后台 `nohup &`
+&表示后台运行，nohup表示关闭终端依然运行。
+输入重定向 `<`
+```
+command < input-file
+```
+
+输出重定向 `>`
+```
+command > output-file
+```
+
+输出追加定向 `>>`
+把命令（或执行程序）的输出追加到指定文件的后面
+```
+command >> output-file
+```
+
+标准错误重定向 `2>`
+```
+command 2> error-file
+```
+
+标准输入 `read` 标准输出 `echo`
+```
+read n1 n2
+echo $n1
+echo $n2
+```
+
+
 
 
 
