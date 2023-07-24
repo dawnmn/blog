@@ -60,6 +60,23 @@ echo "Get All Method: ${NAME[@]}"
 ```
 length=${#array_name[@]}
 ```
+**Shell的引号**
+与php相似
+双引号 ""
+```
+echo "My current directory is `pwd`"
+echo "My home the directory is $HOME \n"
+```
+单引号 ''
+不转义
+
+倒引号 ``
+倒引号括起来的字符串被 Shell 解释为命令行，在执行时，Shell 会先执行该命令行，并以它的标准输出结果取代整个倒引号部分。
+```
+mypath=`pwd`
+echo My directory is $mypath
+```
+
 
 
 
