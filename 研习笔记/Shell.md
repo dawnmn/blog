@@ -15,3 +15,51 @@ Shell支持：`环境变量`、`用户自定义变量`。
 |   $!   | 后台运行的最后一个进程的pid                                                            |
 |   $-   | 显示shell使用的当前选项                                                            |
 |   $_   | 之前命令的最后一个参数                                                            |
+
+**用户自定义变量**
+```
+myEmail="huoty@gmail.com"
+echo $myEmail
+unset myEmail
+echo $myEmail
+```
+取子符串
+```
+var="12345678"
+echo ${var:5}
+echo${var:0:5}
+```
+计算字符串长度
+```
+var="12345678"
+echo ${#var}  # 输出：8
+```
+替换或删除部分字符串
+```
+var="12341234"
+echo ${var/1234/1111}  # 输出：11111234
+
+var="12341234"
+echo ${var//123/}  # 输出：44
+```
+
+**数组**
+Bash支持一维数组（不支持多维数组），并且没有限定数组的大小，数组元素的下标由0开始编号。
+```
+NAME[0]="Zara"
+NAME[1]="Qadir"
+NAME[2]="Mahnaz"
+NAME[3]="Ayan"
+NAME[4]="Daisy"
+echo "First Index: ${NAME[0]}"
+echo "Second Index: ${NAME[1]}"
+echo "Get All Method: ${NAME[*]}"
+echo "Get All Method: ${NAME[@]}"
+```
+获取数组长度
+```
+length=${#array_name[@]}
+```
+
+
+
