@@ -33,7 +33,7 @@ func main() {
 }
 ```
 
-sizeof总是在编译期求值。
+`Sizeof`总是在编译期求值。
 unsafe.Sizeof(bool) 永远都是 1
 
 unsafe.Sizeof(string) 永远都是 16
