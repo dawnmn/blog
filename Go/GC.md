@@ -1,4 +1,5 @@
 **SetFinalizer**
+在变量被GC回收时，触发的函数。
 ```
 package main
 
