@@ -441,7 +441,7 @@ type hchan struct {
    closed   uint32         // 是否已close
    elemtype *_type         // chan中元素类型
    sendx    uint           // send在buffer中的索引，每次+1，到底后置零
-   recvx    uint           // recv在buffer中的索引，每次+1，到底后置零
+   recvx    uint           // recv在buffer中的索引，每次+1，到底后置零，追赶sendx
    recvq    waitq          // 等待发送数据的goroutine队列
    sendq    waitq          // 等待接收数据的goroutine队列
 
