@@ -39,7 +39,7 @@ systemctl restart docker
 重启gitlab
 
 **SSH克隆，配置SSH**
-在需要克隆的主机上运行：`ssh-keygen -t rsa -C "标题"`，一路回车，生成文件。点击`头像->Preferences->SSH Keys`，将`/root/.ssh/id_edxxx.pub`内容复制上去。
+在需要克隆的主机上运行：`ssh-keygen -t rsa -C "你的标题"`，一路回车，生成文件。点击`头像->Preferences->SSH Keys`，将`/root/.ssh/id_rsa.pub`内容复制上去。
 
 **HTTP克隆，配置Personal Access Tokens**
 点击`头像->settings->Access Tokens`，账号是gitlab账号，密码是生成的token。
@@ -62,7 +62,7 @@ chown -R www:www wwwroot
 su www
 cd /home/wwwroot
 ```
-按照上面的SSH步骤，配置SSH，SSH克隆。
+按照上面的SSH步骤，配置SSH，SSH克隆。注意，路径是：`/home/www/.ssh/`
 
 2 配置拉取程序
 进入项目的web目录，编辑如下，并配置好nginx，让其能够访问：
