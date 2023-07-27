@@ -62,7 +62,7 @@ chown -R www:www wwwroot
 su www
 cd /home/wwwroot
 ```
-按照上面的SSH步骤，配置SSH，SSH克隆。注意，路径是：`/home/www/.ssh/`
+按照上面的SSH步骤，配置SSH，SSH克隆。注意，路径是：`/home/www/.ssh/`，`cp /home/www/.ssh/* /root/.ssh`
 
 2 配置拉取程序
 进入项目的web目录，编辑如下，并配置好nginx，让其能够访问：
