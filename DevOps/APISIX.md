@@ -11,3 +11,9 @@ vi logs/access.log
 ```
 docker compose -p docker-apisix up -d
 ```
+配置https
+1. 用`cert.go`生成密钥，`host`为：`www.ddd.com`
+2. `apisix`->`证书`-> `cert.pem`、`key.pem`
+3. vhost 配置 `192.168.2.70 www.ddd.com`
+
+4. `api`访问：`https://www.ddd.com:9443/xxx`
