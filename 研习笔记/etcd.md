@@ -308,14 +308,14 @@ etcd grpc-proxy start --endpoints=http://192.168.10.7:2379,http://192.168.10.8:2
 etcdctl --endpoints=192.168.10.7:12379 put foo bar
 ```
 
-MVCC
-在MVCC 中，每当想要更改或者删除某个数据对象时， DBMS 不会在原地删除或修改这个已有的数据对象本身，而是针对该数据对象创建一个新的版本，这样一来，并发的读取操作仍然可以读取老版本的数据，而写操作就可以同时进行。读写无锁，写写有锁。
-一个tx可以包含多个修改操作（put和delete），每一个操作叫做一个revision(修订)，共享同一个mainID。
-一个tx内连续的多个修改操作会被从0递增编号，这个编号叫做subID。
-每个revision由（mainID，subID）唯一标识。
+
+**MVCC** 每当想要更改或者删除某个数据对象时， DBMS 不会在原地删除或修改这个已有的数据对象本身，而是针对该数据对象创建一个新的版本，这样一来，并发的读取操作仍然可以读取老版本的数据，而写操作就可以同时进行。读写无锁，写写有锁。
 MVCC模型是指由于保存了键的历史，因此可以查看过去某个revision的key value存储。
 
-revision、create_revision、mod_revision
+一个tx可以包含多个修改操作（put和delete），每一个操作叫做一个revision(修订)，共享同一个mainID。一个tx内连续的多个修改操作会被从0递增编号，这个编号叫做subID。每个revision由（mainID，subID）唯一标识。revision、create_revision、mod_revision。
+
+
+
 
 事务：global.Etcd.Txn(context.TODO()).If().Then().Else().Commit()，If().Then().Else()参数均可为空。每个tx事务有唯一事务ID，在etcd中叫做mainID，全局递增不重复。
 etcd保证事务以某种顺序串行化运行。
