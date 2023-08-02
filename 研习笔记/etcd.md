@@ -144,7 +144,7 @@ type leafPageElement struct {
 ```
 type freelist struct {
 	ids     []pgid          // 空闲的页id列表
-	pending map[txid][]pgid // 即将释放的页id列表
+	pending map[txid][]pgid // 保存事务操作对应的页面ID
 	cache   map[pgid]bool   // 已释放和即将释放的页id列表
 }
 
