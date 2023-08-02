@@ -146,7 +146,6 @@ type bucket struct {
 * 读页面内容到内存：将存储的[]pgid数据读入ids。
 * 写页面内容到磁盘：读取ids数组和pending中的页面id，拼接、排序之后生成[]pgid数据写入磁盘。
 
-如果事务需要回滚，实际上是将`pending`中的页面返还回去，重新变成空闲页面。
 ![](../images/freelist-page-layout.png)
 **branch页面**
 用于存储B+树中的内部节点，只有索引数据，不会存储值。
@@ -158,7 +157,7 @@ type bucket struct {
 ```
 type freelist struct {
 	ids     []pgid          // 空闲的页id列表
-	pending map[txid][]pgid // 保存事务操作对应的页面ID
+	pending map[txid][]pgid // 保存事务操作对应的页面ID，即修改钱数据对应页面ID
 	cache   map[pgid]bool   // 已释放和即将释放的页id列表
 }
 
