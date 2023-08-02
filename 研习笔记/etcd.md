@@ -312,12 +312,12 @@ etcdctl --endpoints=192.168.10.7:12379 put foo bar
 **MVCC** 每当想要更改或者删除某个数据对象时， DBMS 不会在原地删除或修改这个已有的数据对象本身，而是针对该数据对象创建一个新的版本，这样一来，并发的读取操作仍然可以读取老版本的数据，而写操作就可以同时进行。读写无锁，写写有锁。
 MVCC模型是指由于保存了键的历史，因此可以查看过去某个revision的key value存储。
 
-一个tx可以包含多个修改操作（put和delete），每一个操作叫做一个revision(修订)，共享同一个mainID。一个tx内连续的多个修改操作会被从0递增编号，这个编号叫做subID。每个revision由（mainID，subID）唯一标识。revision、create_revision、mod_revision。
+**事务** 一个tx可以包含多个修改操作（put和delete），每一个操作叫做一个`revision`(修订)，共享同一个`mainID`。一个tx内连续的多个修改操作会被从0递增编号，这个编号叫做`subID`。每个revision由（mainID，subID）唯一标识。`revision`、`create_revision`、`mod_revision`。
 
 
 
 
-事务：global.Etcd.Txn(context.TODO()).If().Then().Else().Commit()，If().Then().Else()参数均可为空。每个tx事务有唯一事务ID，在etcd中叫做mainID，全局递增不重复。
+事务使用：global.Etcd.Txn(context.TODO()).If().Then().Else().Commit()，If().Then().Else()参数均可为空。每个tx事务有唯一事务ID，在etcd中叫做mainID，全局递增不重复。
 etcd保证事务以某种顺序串行化运行。
 在一个事务中多次修改同一个key是被禁止的。if检查可以是如下内容：该 key后台存储是否有value？该key的value是否等于某个给定的值？(CAS)
 MVCC模块将请求请划分成两个类别，分别是读事务（ReadTxn）和写事务（WriteTxn）
