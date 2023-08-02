@@ -285,24 +285,28 @@ freelist存储空间分配：遍历freelist.ids，找到 连续的pgid数目=待
 **通信**
 etcd客户端与服务器端、节点之间使用`grpc`通信。
 
-节点间通信：
+`节点间通信`
 * Leader Follower 发送心跳包， Follower Leader 回复消息
 * Leader Follower 发送日志追加信息
 * Leader Follower 发送 Snapshot 数据
 * Candidate 节点发起选举，向其他节点发起投票请求
 * Follower 将收到的写操作转发给 Leader
 
-2类消息传输通道：stream，节点之间维持一个http长连接，小数据；pipeline，http短链接，大数据
+`2类消息传输通道`
+* stream，节点之间维持一个http长连接，小数据；
+* pipeline，http短链接，大数据
 
-v3客户端与服务器只有一个http2长连接，watch、get等操作多路复用
+v3客户端与服务器只有一个http2长连接，watch、get等操作多路复用。
 
-Peer：对同etcd集群中另外一个Member的叫法。
 
-etcd server之间是可以重定向请求的：--advertise-client-urls
+
+etcd server之间是可以重定向请求的：`--advertise-client-urls`
 
 etcd的grpc代理：
+```
 etcd grpc-proxy start --endpoints=http://192.168.10.7:2379,http://192.168.10.8:2379,http://192.168.10.9:2379 --listen-addr=192.168.10.7:12379
 etcdctl --endpoints=192.168.10.7:12379 put foo bar
+```
 
 MVCC
 在MVCC 中，每当想要更改或者删除某个数据对象时， DBMS 不会在原地删除或修改这个已有的数据对象本身，而是针对该数据对象创建一个新的版本，这样一来，并发的读取操作仍然可以读取老版本的数据，而写操作就可以同时进行。读写无锁，写写有锁。
