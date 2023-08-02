@@ -274,7 +274,7 @@ freelist存储空间分配：遍历freelist.ids，找到 连续的pgid数目=待
 读取：将磁盘数据读入ids
 写入：将ids和pending写入磁盘
 # etcd
-**etcd** 是CoreOS基于Raft协议用Go语言开发的分布式键值对存储，可用于服务发现、共享配置、一致性保障（如数据库选主、分布式锁等）。单实例(V3)支持每秒10KQps。etcd是etc和distributed的结合体。etcd是一个有序的k-v存储。如果多个 key的过期时间是一样的，那么这些 key 就可以共享一个租约。etcd v3数据库存储在磁盘上，底层的存储引擎使用的是BoltDB。目前 etcd 可以存储百万到千万级别的 key。etcd数据持久化存储使用boltdb。etcd比较吃cpu。用于读多写少的场景。
+**etcd** 是CoreOS基于Raft协议用Go语言开发的分布式键值对存储，可用于服务发现、共享配置、一致性保障（如数据库选主、分布式锁等）。单实例(V3)支持每秒10KQps。etcd是etc和distributed的结合体。etcd是一个有序的k-v存储。如果多个 key的过期时间是一样的，那么这些 key 就可以共享一个租约。etcd v3数据库存储在磁盘上，底层的存储引擎使用的是BoltDB。目前 etcd 可以存储百万到千万级别的 key。etcd数据持久化存储使用boltdb。etcd比较吃cpu，用于读多写少的场景。
 
 
 
