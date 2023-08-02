@@ -135,8 +135,6 @@ type leafPageElement struct {
 	vsize uint32 // value的长度，字节
 }
 
-
-
 type bucket struct {
 	root     pgid   // 桶的根级页的页id。叶根id
 	sequence uint64 // 从0开始，单调递增
