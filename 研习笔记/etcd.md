@@ -1,6 +1,6 @@
 # Raft算法
 Raft是一种为了管理复制日志的一致性算法。一致性算法允许一组机器像一个整体一样工作，即使其中一些机器出现故障。
-关键概念：复制状态机、选主、任期号、追随者、候选人、领导人、日志、currentTerm、term、prevLogIndex、prevLogTerm、lastLogIndex、lastLogTerm、leaderCommit、commitIndex、lastApplied
+关键概念：`复制状态机`、`选主`、`任期号`、`追随者`、`候选人`、`领导人`、`日志`、`currentTerm`、`term`、`prevLogIndex`、`prevLogTerm`、`lastLogIndex`、`lastLogTerm`、`leaderCommit`、`commitIndex`、`lastApplied`
 **复制状态机** 通常都是基于复制日志实现的，而一致性算法的任务是保证复制日志的一致性。状态机从日志中处理相同顺序的相同指令，所以产生的结果也是相同的。因此，服务器集群看起来形成了一个高可靠的状态机。
 Raft算法特点：
 * 安全性：网络延迟、分区、丢包、重复和乱序等错误都可以保证正确，决不返回一个错误的结果。
