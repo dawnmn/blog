@@ -324,7 +324,7 @@ MVCC模块将请求请划分成两个类别，分别是读事务（ReadTxn）和
 **查询**etcd支持key的前缀和范围查询。key删除后指定查询指定版本号,还可以获得版本号对应的值。
 
 **watch** 使用推送机制
-etcd的watch机制是基于mvcc多版本实现的。客户端可以提供一个要监听的revision.main作为watch的起始ID，只要etcd当前的全局自增事务ID > watch起始ID，etcd就会将MVCC在bbolt中存储的所有历史revision数据（value中的key是不是用户watch的），逐一顺序的推送给客户端。
+etcd的watch机制是基于mvcc多版本实现的。客户端可以提供一个要监听的`revision.main`作为watch的起始ID，只要etcd当前的全局自增事务ID > watch起始ID，etcd就会将MVCC在bbolt中存储的所有历史revision数据（value中的key是不是用户watch的），逐一顺序的推送给客户端。
 若watcher监听的版本号已经小于当前 etcd server 压缩的版本号，服务器会返回一个错误。
 当收到创建 watcher 请求的时候，它会把 watcher 监听的 key 范围插入到上面的区间树中，区间的值保存了监听同样 key 范围的 watcher 集合 /watcherSet。
 当产生一个事件时，etcd 首先需要从 map 查找是否有 watcher 监听了单 key，其次它还需要从区间树找出与此 key 相交的所有区间，然后从区间的值获取监听的 watcher 集合。
