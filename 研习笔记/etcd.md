@@ -117,11 +117,6 @@ type meta struct {
 	checksum uint64 // 以上8个字段值[]byte校验和，保证读取的是上一次写入的数据
 }
 
-type bucket struct {
-	root     pgid   // 桶的根级页的页id。叶根id
-	sequence uint64 // 从0开始，单调递增
-}
-
 // 页体 freelist类型数据结构
 freelist []pgid // 如果pgid数目超过65535，页头count置为65535，同时pgid[0]存储pgid数目
 
@@ -138,6 +133,13 @@ type leafPageElement struct {
 	pos   uint32 // 该元素与key的偏移量
 	ksize uint32 // key的长度，字节
 	vsize uint32 // value的长度，字节
+}
+
+
+
+type bucket struct {
+	root     pgid   // 桶的根级页的页id。叶根id
+	sequence uint64 // 从0开始，单调递增
 }
 ```
 **内存数据结构**
