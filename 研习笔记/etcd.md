@@ -92,6 +92,7 @@ matchIndex[]对于每一台服务器，已知的已经复制到该服务器的�
 需要持久化的参数：currentTerm、votedFor、log[]。
 
 # boltdb
+一个空的boltDB实例由4个page构成，其中2个`meta page`、1个`freelist page`和1个`leaf page`。
 **磁盘数据结构**
 ```
 type page struct {
