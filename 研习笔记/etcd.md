@@ -143,7 +143,7 @@ type leafPageElement struct {
 **内存数据结构**
 ```
 type freelist struct {
-	ids     []pgid          // 已释放的页id列表
+	ids     []pgid          // 空闲的页id列表
 	pending map[txid][]pgid // 即将释放的页id列表
 	cache   map[pgid]bool   // 已释放和即将释放的页id列表
 }
