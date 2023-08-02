@@ -95,7 +95,7 @@ matchIndex[]对于每一台服务器，已知的已经复制到该服务器的�
 一个空的boltDB实例由4个page构成，其中2个`meta page`、1个`freelist page`和1个`leaf page`。
 **磁盘数据结构**
 ```
-// 页头数据结构
+// 页头 数据结构
 type page struct {
 	id       pgid    // 页头字段 页id，从0开始，单调递增
 	flags    uint16  // 页头字段 页4种类型之一
@@ -103,6 +103,8 @@ type page struct {
 	overflow uint32  // 页头字段 溢出页数目
 	ptr      uintptr // 页在byte[]的起始元素地址，只存在于内存中的概念
 }
+// 页体 meta类型数据结构
+
 
 type meta struct {
 	magic    uint32 // 固定值，作为boltdb数据库文件标识
@@ -120,14 +122,20 @@ type bucket struct {
 	root     pgid   // 桶的根级页的页id。叶根id
 	sequence uint64 // 从0开始，单调递增
 }
+// 页体 meta类型数据结构
+
 
 freelist []pgid // 如果pgid数目超过65535，页头count置为65535，同时pgid[0]存储pgid数目
+// 页体 meta类型数据结构
+
 
 type branchPageElement struct {
 	pos   uint32 // 该元素与key的偏移量
 	ksize uint32 // key的长度，字节
 	pgid  pgid   // 子节点的页id
 }
+// 页体 meta类型数据结构
+
 
 type leafPageElement struct {
 	flags uint32 // 0 k/v 1 subBucket，存储bucket结构体信息
