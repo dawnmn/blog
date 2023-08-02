@@ -130,9 +130,9 @@ type branchPageElement struct {
 // 页体 leaf page类型数据结构
 type leafPageElement struct {
 	flags uint32 // 0 k/v 1 subBucket，存储bucket结构体信息
-	pos   uint32 // 该元素与key的偏移量
-	ksize uint32 // key的长度，字节
-	vsize uint32 // value的长度，字节
+	pos   uint32 // 存储键相对于当前页面数据部分的偏移量。
+	ksize uint32 // 键的长度，字节
+	vsize uint32 // 值的长度，字节
 }
 
 type bucket struct {
