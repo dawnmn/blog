@@ -317,15 +317,13 @@ MVCC模型是指由于保存了键的历史，因此可以查看过去某个revi
 
 
 
-事务使用：global.Etcd.Txn(context.TODO()).If().Then().Else().Commit()，If().Then().Else()参数均可为空。每个tx事务有唯一事务ID，在etcd中叫做mainID，全局递增不重复。
-etcd保证事务以某种顺序串行化运行。
-在一个事务中多次修改同一个key是被禁止的。if检查可以是如下内容：该 key后台存储是否有value？该key的value是否等于某个给定的值？(CAS)
+事务使用：`global.Etcd.Txn(context.TODO()).If().Then().Else().Commit()`，`If().Then().Else()`参数均可为空。每个tx事务有唯一事务ID，在etcd中叫做mainID，全局递增不重复。
+etcd保证事务以某种顺序串行化运行。在一个事务中多次修改同一个key是被禁止的。if检查可以是如下内容：该 key后台存储是否有value？该key的value是否等于某个给定的值？(CAS)
 MVCC模块将请求请划分成两个类别，分别是读事务（ReadTxn）和写事务（WriteTxn）
 
-etcd支持key的前缀和范围查询。key删除后指定查询指定版本号,还可以获得版本号对应的值。
+**查询**etcd支持key的前缀和范围查询。key删除后指定查询指定版本号,还可以获得版本号对应的值。
 
-watch
-推送机制
+**watch** 使用推送机制
 etcd的watch机制是基于mvcc多版本实现的。客户端可以提供一个要监听的revision.main作为watch的起始ID，只要etcd当前的全局自增事务ID > watch起始ID，etcd就会将MVCC在bbolt中存储的所有历史revision数据（value中的key是不是用户watch的），逐一顺序的推送给客户端。
 若watcher监听的版本号已经小于当前 etcd server 压缩的版本号，服务器会返回一个错误。
 当收到创建 watcher 请求的时候，它会把 watcher 监听的 key 范围插入到上面的区间树中，区间的值保存了监听同样 key 范围的 watcher 集合 /watcherSet。
