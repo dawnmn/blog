@@ -331,7 +331,7 @@ etcd的watch机制是基于mvcc多版本实现的。客户端可以提供一个�
 区间树支持快速查找一个 key 是否在某个区间内，时间复杂度 O(LogN)，因此 etcd 基于 map 和区间树实现了 watcher 与事件快速匹配。
 
 
-**数据结构**：`b+树内存 `和 `boltdb磁盘存储`。
+**数据结构** `b+树内存 `和 `boltdb磁盘存储`。
 `b+树`中键值对的 key是revision, revision是一个二元组(main, sub)，其中main是该revision的主版本号，sub是副版本号，用于区分同一个revision不同key，是一个事务中每次一操作的编号。B+树中键值对的value包含了相对于之前revision的修改。b+树按key字典字节序进行排序。
 etcd还在内存中维护了一个基于`b树`的二级索引来加快对key的范围查询。该b树索引的key是向用户暴露的key，而该树索引的value是revision，etcd的压缩操会删除指向B树索引的无效指针。
 etcd在BoltDB中存储的key是reversion, value是etcd自己的key-value组合，也就是说etcd在BoltDB中保存每个版本，从而实现多版本机制。
