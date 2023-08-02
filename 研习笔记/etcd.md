@@ -127,8 +127,8 @@ freelist []pgid // 如果pgid数目超过65535，页头count置为65535，同时
 
 // 页体 branch page类型数据结构
 type branchPageElement struct {
-	pos   uint32 // 该元素与key的偏移量
-	ksize uint32 // key的长度，字节
+	pos   uint32 // 存储键相对于当前页面数据部分的偏移量。
+	ksize uint32 // 键的长度，字节
 	pgid  pgid   // 子节点的页id
 }
 
