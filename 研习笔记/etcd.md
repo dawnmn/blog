@@ -215,6 +215,9 @@ type elemRef struct {
 	index int   //  
 }
 ```
+**读写freelist**
+* 读页面内容到内存：将存储的[]pgid数据读入ids。
+* 写页面内容到磁盘：读取ids数组和pending中的页面id，拼接、排序之后生成[]pgid数据写入磁盘。
 ![](../images/botldb数据结构总览.png)
 **主体说明**
 一个db文件对应一个数据库。db文件由page（页）组成。页分为四类：meta、freelist、leaf、branch。
