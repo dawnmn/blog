@@ -109,8 +109,8 @@ type meta struct {
 	version  uint32 // boltdb版本
 	pageSize uint32 // 操作系统页大小，单位是字节
 	flags    uint32 // 保留字段，未使用
-	root     bucket // x字节，所有bucket的根，bucket.root值初始化为3
-	freelist pgid   // 空闲页id，空闲页只有一个
+	root     bucket // 根bucket结构体，bucket.root值初始化为3
+	freelist pgid   // 空闲页id，初始化为2，空闲页只有一个
 	pgid     pgid   // 下一个将要分配的页id，当前最大页id+1，不一定连续
 	txid     txid   // 下一个将要分配的事务id，从0开始，单调递增
 	checksum uint64 // 以上8个字段值[]byte校验和，保证读取的是上一次写入的数据
@@ -232,7 +232,7 @@ type elemRef struct {
 }
 ```
 **Bucket**
-Bucket类比于mysql中的table，meta的root存储了根bucket，根bucket的root记录了页id，通过读取页id的数据初始化根Bucket结构体。其他table作为子Bucket存储到根Bucket中。Bucket磁盘存储在leaf页中（flags为1），键为Bucket名称，值为Bucket结构体数据。
+Bucket类比于mysql中的table，meta的root存储了根bucket结构体，根bucket的root记录了页id，通过读取页id的数据初始化根Bucket结构体。其他table作为子Bucket存储到根Bucket中。Bucket磁盘存储在leaf页中（flags为1），键为Bucket名称，值为Bucket结构体数据。
 
 `页` 页大小等于系统磁盘页的大小。
 
