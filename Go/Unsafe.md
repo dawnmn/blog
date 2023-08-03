@@ -7,7 +7,7 @@ type ArbitraryType int
 type Pointer *ArbitraryType
 ```
 `unsafe.Pointer`：可以与任意指针相互转换，因此可以作为不同类型的指针相互转换的桥梁。但是它不能进行指针运算，不能读取内存存储的值（必须转换到某一类型的普通指针）。GC不会回收unsafe.Pointer的内存。
-`uintptr`：用于指针运算，GC不把 uintptr 当指针，uintptr 无法持有对象。uintptr 类型的目标会被回收。在结构体成员类型不确定的情况下，可以使用uintptr，在真正使用该成员时，才通过unsafe.Pointer转换。
+`uintptr`：用于指针运算，GC不把 uintptr 当指针，uintptr 无法持有对象。uintptr 类型的目标会被回收。在结构体成员类型不确定的情况下，可以使用uintptr，在真正使用该成员时，才通过unsafe.Pointer转换，示例：`(*meta)(unsafe.Pointer(&p.ptr))`
 `unsafe.Pointer`与`uintptr`之间可以相互转换。
 **byte数组与struct转换**
 ```
