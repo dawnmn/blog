@@ -110,7 +110,7 @@ type meta struct {
 	pageSize uint32 // 操作系统页大小，单位是字节
 	flags    uint32 // 保留字段，未使用
 	root     bucket // 根bucket结构体，bucket.root值初始化为3
-	freelist pgid   // 空闲页id，初始化为2，空闲页只有一个
+	freelist pgid   // 空闲页id，初始化为2
 	pgid     pgid   // 下一个将要分配的页id，当前最大页id+1，不一定连续
 	txid     txid   // 下一个将要分配的事务id，初始化为4，单调递增
 	checksum uint64 // 以上8个字段值[]byte校验和，保证读取的是上一次写入的数据
@@ -142,6 +142,7 @@ type bucket struct {
 ![](../images/boltdb-layout.png)
 ![](../images/meta-page-layout.png)
 **freelist**
+空闲页只有一个，但是可能由多个连续的页组成。
 `存储空间分配` 遍历freelist.ids，找到`连续的pgid数目`=`待分配页数`的`首个pgid`。
 `内存与磁盘转换`：
 
