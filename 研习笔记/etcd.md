@@ -144,7 +144,7 @@ type bucket struct {
 ![](../images/meta-page-layout.png)
 **freelist**
 `存储空间分配` 遍历freelist.ids，找到`连续的pgid数目`=`待分配页数`的`首个pgid`。
-`内存与磁盘转换`
+`内存与磁盘转换`：
 
 * 读页面内容到内存：将存储的[]pgid数据读入ids。
 * 写页面内容到磁盘：读取ids数组和pending中的页面id，拼接、排序之后生成[]pgid数据写入磁盘。
