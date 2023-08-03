@@ -142,7 +142,7 @@ type bucket struct {
 ![](../images/boltdb-layout.png)
 ![](../images/meta-page-layout.png)
 **freelist**
-空闲页只有一个，但是可能由多个连续的页组成。
+空闲页只有一个，但是可能由多个pigid连续的页组成。
 `存储空间分配` 遍历freelist.ids，找到`连续的pgid数目`=`待分配页数`的`首个pgid`。
 `内存与磁盘转换`：
 
