@@ -234,6 +234,8 @@ type elemRef struct {
 **Bucket**
 Bucket类比于mysql中的table，meta的root存储了根bucket，根bucket的root记录了页id，通过读取页id的数据初始化根Bucket结构体。其他table作为子Bucket存储到根Bucket中。Bucket磁盘存储在leaf页中（flags为1），键为Bucket名称，值为Bucket结构体数据。
 
+`页` 页大小等于系统磁盘页的大小。
+
 `磁盘读写方式`：
 * 读取，通过`mmap`对db文件进行只读映射。
 * 写入，通过`File.WriteAt()`、`File.Sync()`、`File.Truncate()`将内存数据写入db文件。
