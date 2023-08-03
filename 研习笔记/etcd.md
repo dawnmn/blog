@@ -231,6 +231,9 @@ type elemRef struct {
 	index int   //  
 }
 ```
+`磁盘读写方式`：
+* 读取，通过`mmap`对db文件进行只读映射。
+* 写入，通过`File.WriteAt()`、`File.Sync()`、`File.Truncate()`将内存数据写入db文件。
 
 ![](../images/botldb数据结构总览.png)
 **主体说明**
