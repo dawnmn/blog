@@ -6,7 +6,7 @@ func Sizeof(x ArbitraryType) uintptr // 返回变量在内存中占用的字节�
 type ArbitraryType int
 type Pointer *ArbitraryType
 ```
-`unsafe.Pointer`：通用指针类型，用于转换不同类型的指针，不能进行指针运算，不能读取内存存储的值（必须转换到某一类型的普通指针）。GC不会回收unsafe.Pointer的内存。
+`unsafe.Pointer`：可以与任意指针相互转换，因此可以作为不同类型的指针相互转换的桥梁。但是它不能进行指针运算，不能读取内存存储的值（必须转换到某一类型的普通指针）。GC不会回收unsafe.Pointer的内存。
 `uintptr`：用于指针运算，GC不把 uintptr 当指针，uintptr 无法持有对象。uintptr 类型的目标会被回收。
 `unsafe.Pointer`与`uintptr`之间可以相互转换。
 **byte数组与struct转换**
