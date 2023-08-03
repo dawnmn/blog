@@ -139,7 +139,6 @@ type bucket struct {
 	sequence uint64 // 从0开始，单调递增
 }
 ```
-一个空的boltDB实例由4个page构成，其中2个`meta page`、1个`freelist page`和1个`leaf page`。
 ![](../images/boltdb-layout.png)
 ![](../images/meta-page-layout.png)
 **freelist**
@@ -233,6 +232,9 @@ type elemRef struct {
 ```
 **Bucket**
 Bucket类比于mysql中的table，meta的root存储了根bucket结构体，根bucket的root记录了页id，通过读取页id的数据初始化根Bucket结构体。其他table作为子Bucket存储到根Bucket中。Bucket磁盘存储在leaf页中（flags为1），键为Bucket名称，值为Bucket结构体数据。
+
+db文件初始化
+一个空的db文件由4个page构成，其中2个`meta page`、1个`freelist page`和1个`leaf page`，`leaf page`不包含任何bucket或。
 
 `页` 页大小等于系统磁盘页的大小。
 
