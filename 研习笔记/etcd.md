@@ -245,7 +245,7 @@ Bucket类比于mysql中的table，meta的root存储了根bucket结构体，根bu
 * 读取，通过`mmap`对db文件进行只读映射。首次读取一个默认的大小到db.data（这是个*[]byte）
 * 写入，通过`File.WriteAt()`、`File.Sync()`、`File.Truncate()`将内存数据写入db文件。
 
-`文件锁` 以读写方式打开db的进程，在关闭之前都将独占db文件。
+`文件锁` 以读写方式打开db的进程，在关闭之前都将独占db文件，它是进程级别的锁。
 
 ![](../images/botldb数据结构总览.png)
 **主体说明**
