@@ -235,6 +235,8 @@ type elemRef struct {
 * 读取，通过`mmap`对db文件进行只读映射。
 * 写入，通过`File.WriteAt()`、`File.Sync()`、`File.Truncate()`将内存数据写入db文件。
 
+`文件锁` 以读写方式打开db的进程，在关闭之前都将独占db文件。
+
 ![](../images/botldb数据结构总览.png)
 **主体说明**
 一个db文件对应一个数据库。db文件由page（页）组成。页分为四类：meta、freelist、leaf、branch。
