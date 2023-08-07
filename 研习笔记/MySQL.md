@@ -122,7 +122,9 @@ innodb中，下一个数据页中用户记录的主键值必须大于上一个�
 
 二级索引：
 ![](../images/innodb二级索引.png)
-二级索引：实际上还有主键字段，图中没画
+`key`：蓝色，二级索引值
+`page_no`：绿色，页号
+`value`：橙色，主键值
 
 **Buffer Pool**
 Buffer Pool是一片连续的内存。
