@@ -83,7 +83,7 @@ innodb中，下一个数据页中用户记录的主键值必须大于上一个�
 
 `Compressed 行格式`
 ![](../images/innodb的compact行格式-有主键.png)
-*****
+`行在页中的组成结构`
 ![](../images/innodb的compact行格式-记录头.png)
 记录头结构：
 |名称     | 大小(bit) | 描述                                         |
