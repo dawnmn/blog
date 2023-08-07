@@ -15,7 +15,7 @@ MySQL服务器会维持一个线程池，为每一个连接进来的客户端分
 |  mysqladmin   |   启动客户端  | [mysqladmin] 、 [client]|
 |   mysqldump  |   启动客户端  | [mysqldump] 、 [client]|
 
-系统变量的设置和查看，默认是SESSION。并不是所有系统变量都具有 GLOBAL 和 SESSION 的作用范围。启动选项和系统变量是互不包含的关系。
+`系统变量`的设置和查看，默认是SESSION。并不是所有系统变量都具有 GLOBAL 和 SESSION 的作用范围。`启动选项`和`系统变量`是互不包含的关系。启动选项可以在`命令行`、`配置文件`、`客户端连接`中设置。
 ```
 SET [GLOBAL|SESSION] 系统变量名=值;
 
