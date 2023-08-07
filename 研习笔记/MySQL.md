@@ -82,8 +82,6 @@ innodb中，下一个数据页中用户记录的主键值必须大于上一个�
 
 
 Compressed 行格式：
-![](../images/innodb的compact行格式.png)
-*****
 ![](../images/innodb的compact行格式示例.png)
 *****
 ![](../images/innodb的compact行格式-有主键.png)
