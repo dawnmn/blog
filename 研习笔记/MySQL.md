@@ -81,7 +81,7 @@ innodb中，下一个数据页中用户记录的主键值必须大于上一个�
 页分裂是磁盘的概念，当记录在一页中装不下时，就会页分裂。不同槽、页的记录再分配的时候会根据主键大小排序。
 
 
-Compressed 行格式：
+`Compressed 行格式`
 ![](../images/innodb的compact行格式-有主键.png)
 *****
 ![](../images/innodb的compact行格式-记录头.png)
@@ -97,7 +97,7 @@ Compressed 行格式：
 |   record_type  | 3       | 表示当前记录的类型:0 普通记录；1 B+树非叶节点记录；2 最小记录；3 最大记录 |
 |   next_record  | 16      |              从当前记录的真实数据到按照主键从小到大下一条记录的真实数据的地址偏移量                              |
 
-Dynamic 和 Compressed 行格式与Compact 行格式很相似，只是在处理 行溢出 数据时不同。Compressed 行格式会采用压缩算法对页面进行压缩。
+`Dynamic `和 `Compressed` 行格式与Compact 行格式很相似，只是在处理 行溢出 数据的方式不同。Compressed 行格式会采用压缩算法对页面进行压缩。
 
 被删除的记录会在delete_mask标记1，并加入垃圾链表，作为可重用空间等待被覆盖。
 
