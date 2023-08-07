@@ -49,6 +49,7 @@ SHOW [GLOBAL|SESSION] STATUS [LIKE 匹配的模式];
 `Dynamic `和 `Compressed` 行格式与`Compact` 行格式很相似，只是在处理 行溢出 数据的方式不同。Compressed 行格式会采用压缩算法对页面进行压缩。
 
 被删除的记录会在delete_mask标记1，并加入垃圾链表，作为可重用空间等待被覆盖。
+*****
 `页` 结构：
 ![](../images/innodb页结构.png)
 |   名称  | 中文名    |    占用空间大小 |  简单描述   |
