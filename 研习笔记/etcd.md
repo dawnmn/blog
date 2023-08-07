@@ -233,9 +233,14 @@ type elemRef struct {
 ```
 **Bucket**
 Bucket类比于mysql中的table，meta的root存储了根bucket结构体，根bucket的root记录了页id，通过读取页id的数据初始化根Bucket结构体。其他table作为子Bucket存储到根Bucket中。Bucket磁盘存储在leaf页中（flags为1），键为Bucket名称，值为Bucket结构体数据。
+在BoltDB中，一个Bucket对应一颗B+Tree。Bucket之间的树结构并不是B+Tree，而是一个逻辑树结构，如BucketBB是BucketB的子Bucket，但并不是说BucketBB所在的节点就是BucketB所在节点的子节点。
+
+
 `内存数据`分为两类：
 * 与磁盘一一对应的`db.data`，它是一个[]byte
 * 结构体，如`freelist`
+
+`page与node关系`：page是磁盘概念，node是内存概念。page是node序列化的结果，page中存的K/V对反序列化后会存在node.inodes中，page中的elements个数与node.inodes中的个数相同，而且一一对应。
 
 `db文件初始化 `一个空的db文件由4个page构成，其中2个`meta page`、1个`freelist page`和1个`leaf page`，`leaf page`不包含任何bucket或。
 
