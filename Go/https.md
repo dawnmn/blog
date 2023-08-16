@@ -38,7 +38,7 @@ func generate(dnsNames []string) {
       },
       DNSNames:  dnsNames,
       NotBefore: time.Now(),
-      NotAfter:  time.Now().Add(time.Hour * 24 * 365 * 3),
+      NotAfter:  time.Now().Add(time.Hour * 24 * 365 * 10),
 
       KeyUsage:              x509.KeyUsageDigitalSignature,
       ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
