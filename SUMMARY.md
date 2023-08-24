@@ -102,7 +102,6 @@
     * [windows安装gcc](windows10/windows安装gcc.md)
 * [DevOps](DevOps.md)
     * [ELK[7.16版本]](DevOps/ELK[7.16版本].md)
-    * [PostgreSQL](DevOps/PostgreSQL.md)
     * [mongodb](DevOps/mongodb.md)
     * [Prometheus](DevOps/Prometheus.md)
     * [zabbix](DevOps/zabbix.md)
