@@ -35,6 +35,8 @@
     * [lnmp1.6一键安装包搭建web服务器集成环境](CentOS服务器/lnmp一键安装包搭建web服务器集成环境.md)
     * [搭建小白](CentOS服务器/搭建小白.md)
     * [Xshell实用技能](CentOS服务器/Xshell实用技能.md)
+    * [PostgresSQL](CentOS服务器/PostgresSQL.md)
+        * [安装](CentOS服务器/PostgresSQL/安装.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
