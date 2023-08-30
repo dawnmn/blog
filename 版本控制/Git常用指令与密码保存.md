@@ -94,4 +94,3 @@ machine  gitee.com
 login  youremail@126.com
 password  yourpassword
 ```
-**windows 配置ssh**
