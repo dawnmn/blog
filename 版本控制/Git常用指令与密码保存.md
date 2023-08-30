@@ -8,17 +8,26 @@ git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 
 git init
+
 # 将新增、修改的文件放入暂存区
 git add * 
 git commit -m '首次提交'
 
+# 查看状态
 git status -s
 
+# 查看日志
+git log
+
+# 删除文件
 git rm -r -f file.txt
 git rm --cached log
 
+# 移动文件
 git mv from.txt to.txt
-git log
+
+# 查看分支
+git branch -a
 
 # 在当前分支上创建一个testing分支
 git branch testing
