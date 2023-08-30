@@ -1,12 +1,11 @@
 **常用指令**
 ```
-# 查看配置
-
+# 查看配置，按q键退出
 git config --list --show-origin
 
+# 配置账号 --global可选，当你想针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 --global 选项的命令来配置。
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
-当你想针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 --global 选项的命令来配置。
 
 git init
 # 将新增、修改的文件放入暂存区
