@@ -9,3 +9,6 @@
 3. 本地vhost 配置 `192.168.2.70 www.ddd.com`
 
 4. `api`访问：`https://www.ddd.com:9443/xxx`
+
+架构图
+![](../images/flow-software-architecture.png)
