@@ -1,18 +1,9 @@
 参见[官网](https://apisix.apache.org/zh/docs/apisix/installation-guide/)，选择docker安装。
-apisix占用的端口：`9000`、`9080`、`9180`、`9443` 、`2379`
-浏览器访问`http://192.168.126.128:9000`，默认账号密码 `admin` `admin`
-接口访问`http://192.168.126.128:9080/admin/login`
+**Apisix默认配置**
+占用的端口：`9000`、`9080`、`9180`、`9443` 、`2379`
+默认账号密码：`admin` `admin`
 
-访问日志路径
-```
-docker exec -it docker-apisix-apisix-1 bash
-vi logs/access.log
-```
-启动
-```
-docker compose -p docker-apisix up -d
-```
-配置HTTPS
+**配置HTTPS**
 1. 用`cert.go`生成密钥，`host`为：`www.ddd.com`
 2. `apisix网站后台`->`证书`-> `cert.pem`、`key.pem`
 3. 本地vhost 配置 `192.168.2.70 www.ddd.com`
