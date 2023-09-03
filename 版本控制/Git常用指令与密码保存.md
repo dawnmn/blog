@@ -73,6 +73,24 @@ echo "yourpath/" >> .git/info/sparse-checkout
 cat .git/info/sparse-checkout
 git pull origin master
 ```
+两个仓库代码同步方法：
+```
+git remote -v
+
+git remote add upstream http://192.168.2.211:19001/phoenix/web-front.git
+
+git remote -v
+
+git fetch upstream
+
+git checkout master
+
+git rebase upstream/master
+
+git merge upstream/master --allow-unrelated-histories
+```
+
+
 
 **linux保存账号密码**
 ```
