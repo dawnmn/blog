@@ -9,8 +9,8 @@ git config --global user.email johndoe@example.com
 
 git init
 
-# 将新增、修改的文件放入暂存区
-git add * 
+# 提交所有变化：新增、修改、删除
+git add -A * 
 git commit -m '首次提交'
 
 # 查看状态
