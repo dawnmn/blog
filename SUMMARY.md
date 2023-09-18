@@ -40,6 +40,7 @@
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
+        * [简单对称加密算法](PHP/算法/简单对称加密算法.md)
     * [composer](PHP/composer.md)
         * [实用技能](PHP/composer/实用技能.md)
     * [PHPStorm](PHP/调试.md)
