@@ -38,6 +38,8 @@
     * [PostgresSQL](CentOS服务器/PostgresSQL.md)
         * [安装](CentOS服务器/PostgresSQL/安装.md)
         * [常用指令](CentOS服务器/PostgresSQL/常用指令.md)
+    * [NebulaGraph](CentOS服务器/NebulaGraph.md)
+        * [安装](CentOS服务器/NebulaGraph/安装.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
