@@ -56,6 +56,12 @@ jps
 #关闭
 bin/zookeeper-server-stop.sh
 bin/kafka-server-stop.sh
+
+#清除重置，清除kafka和zookeeper的所有日志
+cd /tmp/zookeeper
+rm -rf *
+cd /tmp/kafka-logs/
+rm -rf *
 ```
 
 #### **kafka集群**
