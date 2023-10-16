@@ -24,6 +24,7 @@
     * [消息队列](CentOS服务器/消息队列.md)
         * [kafka](CentOS服务器/消息队列/kafka.md)
             * [搭建kafka+php/go运行](CentOS服务器/消息队列/kafka/搭建kafka+php/go运行.md)
+            * [可视化工具](CentOS服务器/消息队列/kafka/可视化工具.md)
         * [rabbitmq](CentOS服务器/消息队列/rabbitmq.md)
             * [搭建rabbitmq-server](CentOS服务器/消息队列/rabbitmq/搭建rabbitmq-server.md)
             * [mqtt插件搭建环境及使用](CentOS服务器/消息队列/rabbitmq/mqtt插件搭建环境及使用.md)
