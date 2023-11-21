@@ -1,3 +1,6 @@
+完整接口调用示例（post + json）
+`curl -X POST -H 'X-APP-ID:21c38f648255976fdb57f490515dc901' -H 'X-APP-KEY:0c6c043c55599e00b59b927795236081' -H 'Content-Type: application/json' --data-raw '{"from":"alarmCenter","orderType":"JYI"}' http://135.1.9.89:19480/serviceAgent/rest/callhttppost/requestByJson`
+
 不带有任何参数时，发出 GET 请求。
 `curl https://www.example.com`
 <br/>
