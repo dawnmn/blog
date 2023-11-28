@@ -21,3 +21,22 @@ Host remote
 ```
 ![](../images/screenshot_1680256995523.png)
 会打开新的VScode窗口，设置远程服务器目录后，开始远程开发，可以在Terminal执行远程服务器指令。
+**文件上传**
+安装sftp扩展：
+![](../images/vscode安装sftp扩展.png)
+按快捷键`ctrl+shift+P`，顶部输入`sftp:config`并回车，在当前目录中会自动生成`.vscode/sftp.json`，配置：
+```
+{
+    "name": "online",
+    "host": "192.168.2.187",
+    "protocol": "sftp",
+    "port": 22345,
+    "username": "root",
+    "remotePath": "/data/www/web-front",
+    "uploadOnSave": true,
+    "useTempFile": false,
+    "openSsh": false
+}
+```
+
+选中要上传的文件，右键Upload File，顶部输入密码并回车。
