@@ -39,4 +39,4 @@ Host remote
 }
 ```
 
-选中要上传的文件，右键Upload File，顶部输入密码并回车。
+选中要上传的文件，右键`Upload File`，顶部输入密码并回车。
