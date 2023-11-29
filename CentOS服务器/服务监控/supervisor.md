@@ -11,3 +11,29 @@ vim /etc/supervisord.conf
 [include]
 files = /etc/supervisord.d/*.conf
 ```
+**配置被监控的应用**
+```
+cd /etc/supervisord.d
+vim hello.conf
+
+[program:hello]
+command=/usr/local/php/bin/php /var/download/hello.php
+directory=/var/download
+autostart=true
+autorestart=true
+stderr_logfile=/var/download/hello.log
+stdout_logfile=/var/download/hello.log
+```
+**启动和控制**
+```
+# 启动
+supervisord -c /etc/supervisord.conf
+# 控制
+supervisorctl status
+supervisorctl stop xxx_app
+supervisorctl start xxx_app
+
+# 修改配置，只重启被修改配置的应用
+supervisorctl reread
+supervisorctl update
+```
