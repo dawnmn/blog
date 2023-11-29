@@ -41,6 +41,8 @@
         * [常用指令](CentOS服务器/PostgresSQL15.4/常用指令.md)
     * [NebulaGraph](CentOS服务器/NebulaGraph.md)
         * [安装3.6.0](CentOS服务器/NebulaGraph/安装3.6.0.md)
+    * [服务监控](CentOS服务器/服务监控.md)
+        * [supervisor](CentOS服务器/服务监控/supervisor.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
