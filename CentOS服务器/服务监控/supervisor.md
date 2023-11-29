@@ -28,6 +28,7 @@ stdout_logfile=/var/download/hello.log
 ```
 # 启动
 supervisord -c /etc/supervisord.conf
+
 # 控制
 supervisorctl status
 supervisorctl stop xxx_app
