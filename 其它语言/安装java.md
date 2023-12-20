@@ -1,4 +1,14 @@
-**安装jdk8**
+**windows安装jdk8**
+[官网下载](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+选择jdk8，选择windows x64，下载并安装
+配置环境变量：
+新建系统变量：
+|    变量名 |变量值     |
+| --- | --- |
+|   JAVA_HOME  |   C:\Program Files\Java\jdk-1.8  |
+|   Path  |   增加一个值：%JAVA_HOME%\bin  |
+
+**linux安装jdk8**
 [官网下载](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 选择jdk8，选择linux x64
 
