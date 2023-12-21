@@ -89,5 +89,4 @@ message Test2 {
 此处，key 是16进制表示的，所以展开是：
 `12` -> `0001 0010`，后三位 010 为 `wire type = 2`，`0001 0010` 右移三位为 `0000 0010`，即 tag = 2。
 length 此处为 7，后边跟着 7 个bytes，即我们的字符串"testing"。
-
-protocol buffers采用压缩的二进制编码
+
