@@ -16,7 +16,7 @@ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 ```
 **使用protobuf**
-`proto/service_center.proto`
+编辑`proto/service_center.proto`文件：
 ```
 syntax = "proto3";
 
