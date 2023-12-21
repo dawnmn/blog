@@ -4,9 +4,10 @@
 
 修改JVM memory settings:
 ```
-/conf/bootstrap.conf
+conf/bootstrap.conf
 
 # JVM memory settings
 java.arg.2=-Xms4g
 java.arg.3=-Xmx8g
 ```
+启动nifi：双击`bin/run-nifi.bat`文件，浏览器打开`https://localhost:8443/nifi/login`，账号密码在`logs/nifi-app.log`中搜索`username`
