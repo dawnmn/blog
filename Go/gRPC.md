@@ -20,8 +20,8 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 # 查看版本
 protoc --version
 
-# 编译user.proto文件，先进入user.proto所在的目录user
-cd user
+# 编译service_center.proto文件，先进入service_center.proto所在的目录proto
+cd proto
 protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative service_center.proto
 ```
 **编码解码**
