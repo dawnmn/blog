@@ -22,7 +22,7 @@ protoc --version
 
 # 编译user.proto文件，先进入user.proto所在的目录user
 cd user
-protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative user.proto
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative service_center.proto
 ```
 **编码解码**
 ```
@@ -31,30 +31,23 @@ proto.Unmarshal(out, &message)
 ```
 **示例**
 官方参考：[Go示例](https://github.com/grpc/grpc-go)
-user.proto
+service_center.proto
 ```
 syntax = "proto3";
 
-package user;
-option go_package="./user";
+package proto;
+option go_package="./proto";
 
-service UserInfo{
-  rpc addUser(User) returns(UserId);
-  rpc getUser(UserId) returns(User);
+service ServiceCenter{
+  rpc allocSchedServAddr(TaskId) returns(Addr);
 }
 
-message User {
-  string id = 1;
-  string name = 2;
-  string description = 3;
+message TaskId {
+  int64 task_id = 1;
 }
 
-message UserId{
-  string Value = 1;
-}
-
-message UserList{
-  repeated User list = 1;
+message Addr {
+  string addr = 1;
 }
 ```
 server
