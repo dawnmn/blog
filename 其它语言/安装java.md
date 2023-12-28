@@ -2,11 +2,11 @@
 [官网下载](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 选择jdk，选择windows x64，下载并安装
 配置环境变量：
-新建系统变量：
 |    变量名 |变量值     |
 | --- | --- |
-|   JAVA_HOME  |   C:\Program Files\Java\jdk-1.8  |
-|   Path  |   增加一个值：%JAVA_HOME%\bin  |
+|   `JAVA_HOME`  |   `C:\Program Files\Java\jdk-1.8`  |
+|   `Path`  |   增加一个值：`%JAVA_HOME%\bin`  |
+| `CLASSPATH` |`.;C:\Program Files\Java\jdk-21\lib`|
 
 **linux安装jdk**
 [官网下载](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
