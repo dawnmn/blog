@@ -180,6 +180,32 @@ func Run(csvFile string) {
 	fmt.Printf("%s\n", l.String())
 }
 ```
+**Expr.g4**
+```
+grammar Expr;
+prog: stat+;
+stat: expr NEWLINE  # printExpr
+    | ID '=' expr NEWLINE # assign
+    | NEWLINE # blank
+    ;
+expr: expr ('*'|'/') expr # MulDiv
+    | expr ('+'|'-') expr # AddSub
+    | INT # int
+    | ID # id
+    | '(' expr ')' # parents
+    ;
+ID: [a-zA-Z]+;
+INT: [0-9]+;
+NEWLINE: '\r'? '\n';
+WS: [ \t]+ -> skip ;
+MUL:'*';
+DIV:'/';
+ADD:'+';
+SUB:'-';
+```
+```
+antlr4 -Dlanguage=Go -o parser -no-listener -visitor Expr.g4
+```
 
 
 
