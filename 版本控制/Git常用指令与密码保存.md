@@ -52,7 +52,7 @@ git branch --no-merged
 # origin git服务器名称
 git remote show origin
 # 修改服务器url
-git remote set-url origin http://192.168.2.211/lxiaokui/auth.git/
+git remote set-url origin http://192.168.2.211/xxx/xxx.git/
 
 # 克隆分支
 git clone -b branchName https://xxx/xxx.git
