@@ -152,3 +152,4 @@
     * [Shell](研习笔记/Shell.md)
     * [Vue](研习笔记/Vue.md)
     * [架构](研习笔记/架构.md)
+    * [kerberos](研习笔记/kerberos.md)
