@@ -20,6 +20,8 @@ $cfg['Servers'][$i]['password'] = 'yourpassword'; // 新增
 配置路径
 ```
 /usr/local/php/etc/php.ini
+/usr/local/php/etc/php-fpm.conf
+
 
 /usr/local/nginx/conf/nginx.conf
 /usr/local/nginx/conf/vhost/xx.conf
