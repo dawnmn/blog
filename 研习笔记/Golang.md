@@ -310,6 +310,8 @@ fmt.Errorf("xxx:%w", err) 格式化生成新的错误对象，构建错误链。
 
 **panic** 能够改变程序的控制流，调用 panic 后会立刻停止执行当前函数的剩余代码，并在当前 Goroutine 中递归执行调用方的 defer。
 panic 只会触发当前 Goroutine 的 defer。
+即使单个goroutine中发生了panic，也会使整个进程崩溃。
+
 recover 可以中止 panic 造成的程序崩溃。它是一个只能在 defer 中发挥作用的函数，在其他作用域中调用不会发挥作用。
 在runtime中包含一些无法捕获的异常，如内存溢出、map并发读写、栈内存耗尽等。
 
