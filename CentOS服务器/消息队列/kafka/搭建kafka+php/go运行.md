@@ -53,9 +53,6 @@ bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
 bin/kafka-server-start.sh -daemon config/server.properties
 jps
 
-# 查看版本
-bin/kafka-server-start.sh --version
-
 #关闭
 bin/zookeeper-server-stop.sh
 bin/kafka-server-stop.sh
@@ -65,6 +62,9 @@ cd /tmp/zookeeper
 rm -rf *
 cd /tmp/kafka-logs/
 rm -rf *
+
+# 查看版本
+bin/kafka-server-start.sh --version
 ```
 
 #### **kafka集群**
