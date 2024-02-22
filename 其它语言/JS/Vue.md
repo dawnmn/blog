@@ -2,5 +2,5 @@
 ```
 npm install -g @vue/cli
 vue create my-project
-npm run serve -- --port 8090
+npm run serve --port 8090
 ```
