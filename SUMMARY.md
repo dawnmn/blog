@@ -104,7 +104,6 @@
     * [Git常用指令与密码保存](版本控制/Git常用指令与密码保存.md)
     * [gitlab](版本控制/gitlab.md)
     * [svn](版本控制/svn.md)
-    * [利用SwitchHosts加速Github](版本控制/利用SwitchHosts加速Github.md)
     * [github](版本控制/github.md)
 * [目录](SUMMARY.md)
 * [jetbrains IDE 产品无限期使用方式](jetbrainsIDE产品无限期试用方式.md)
