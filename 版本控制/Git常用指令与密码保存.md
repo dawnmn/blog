@@ -87,9 +87,7 @@ git fetch upstream
 
 git checkout master
 
-git rebase upstream/master
-
-git merge upstream/master --allow-unrelated-histories
+git push upstream
 ```
 
 
