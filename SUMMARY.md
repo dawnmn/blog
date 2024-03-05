@@ -43,6 +43,8 @@
         * [安装3.6.0](CentOS服务器/NebulaGraph/安装3.6.0.md)
     * [服务监控](CentOS服务器/服务监控.md)
         * [supervisor](CentOS服务器/服务监控/supervisor.md)
+    * [Oracle19](CentOS服务器/Oracle19.md)
+        * [安装](CentOS服务器/Oracle19/安装.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
