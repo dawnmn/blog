@@ -45,6 +45,7 @@
         * [supervisor](CentOS服务器/服务监控/supervisor.md)
     * [Oracle19](CentOS服务器/Oracle19.md)
         * [安装](CentOS服务器/Oracle19/安装.md)
+        * [常用指令](CentOS服务器/Oracle19/常用指令.md)
 * [PHP](PHP.md)
     * [算法](PHP/算法.md)
         * [基本](PHP/算法/基本.md)
