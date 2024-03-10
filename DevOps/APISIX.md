@@ -4,7 +4,7 @@
 默认账号密码：`admin` `admin`
 
 **配置日志**
-在`example`下面创建`apisix_log`目录，在`docker-compose.yml`中配置`apisxi`的`volumes`：
+在`example`下面创建`apisix_log`目录，在`docker-compose.yml`中`apisxi`的`volumes`增加一行：
 ```
 - ./apisix_log:/usr/local/apisix/logs
 ```
