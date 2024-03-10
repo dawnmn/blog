@@ -3,6 +3,12 @@
 占用的端口：`9000`、`9080`、`9180`、`9443` 、`2379`
 默认账号密码：`admin` `admin`
 
+**配置日志**
+在`example`下面创建`apisix_log`目录，在`docker-compose.yml`中配置`apisxi`的`volumes`：
+```
+- ./apisix_log:/usr/local/apisix/logs
+```
+
 **配置HTTPS**
 1. 用`cert.go`生成密钥，`host`为：`www.ddd.com`
 2. `apisix网站后台`->`证书`-> `cert.pem`、`key.pem`
