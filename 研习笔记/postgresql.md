@@ -32,8 +32,9 @@ explain和explain analyze的区别：explain analyze会真正执行sql语句。
 
 postgresql也使用了MVCC
 
-EXPLAIN
+**EXPLAIN**
 
+```
 EXPLAIN SELECT * FROM "abc";
 Seq Scan on hehe2  (cost=0.00..160.77 rows=4977 width=141)
 
@@ -41,22 +42,29 @@ cost 0.00 返回第一行的耗时
 cost 160.77 返回所有行的耗时
 rows 返回的行数
 width 每行占用的数据宽度（字节）
+```
 
 
+```
 EXPLAIN ANALYSE SELECT * FROM "abc"
 Seq Scan on hehe2  (cost=0.00..160.77 rows=4977 width=141) (actual time=0.021..0.895 rows=4977 loops=1)
 Planning Time: 0.078 ms
 Execution Time: 0.833 ms
+```
 
 
+```
 EXPLAIN (ANALYSE,BUFFERS) SELECT * FROM "hehe2"
 Buffers: shared hit=111
 
 shared hit=111 在共享内存里面直接读到111个块；
 read=xx 从磁盘中读了xx块
 written=xx 写磁盘共xx块
+```
 
 
+```
 BEGIN;
 EXPLAIN ANALYZE ...;
 ROLLBACK;
+```
