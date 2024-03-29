@@ -155,6 +155,5 @@
     * [Docker从入门到实践](研习笔记/Docker从入门到实践.md)
     * [Shell](研习笔记/Shell.md)
     * [Vue](研习笔记/Vue.md)
-    * [架构](研习笔记/架构.md)
     * [kerberos](研习笔记/kerberos.md)
     * [postgresql](研习笔记/postgresql.md)
