@@ -1,68 +1,82 @@
-完整接口调用示例（post + json）
-`curl -X POST -H 'X-APP-ID:21c38f648255976fdb57f490515dc901' -H 'X-APP-KEY:0c6c043c55599e00b59b927795236081' -H 'Content-Type: application/json' --data '{"custOrderCode": "ZC-2909246401800008","prodInstId": "2909246402503113"}' http://192.168.2.70:9611/auth`
-
-不带有任何参数时，发出 GET 请求。
-`curl https://www.example.com`
-<br/>
 
 
-`-A `参数指定客户端的用户代理标头，即User-Agent。curl 的默认用户代理字符串是curl/[version]。也可以通过-H参数直接指定标头，更改User-Agent
-`curl -H 'User-Agent: php/1.0' https://google.com`
-<br/>
+**打印日志，跟随重定向**
+`-Lv` `-v` `-L` `--verbose` `--location` 
 
+**HTTP方法**
+GET是默认值, 使用`-d`或`-F`使它成为一个POST，`-I`生成一个HEAD，`-T`发送一个PUT，`-X`指定方法，`-X DELETE`
 
-`-b`参数用来向服务器发送 Cookie。
-`curl -b 'foo1=bar;foo2=bar2' https://google.com`
-<br/>
+**请求头**
+```
+-H 'Content-Type: application/json' --header 'Content-Type: application/json'
+```
 
+**body数据，自动转POST**
+```
+-d haha -d 'haha' -d "haha" --data haha
+```
 
-`-d`参数用于发送 POST 请求的数据体。
-`curl -d'login=emma&password=123'-X POST https://google.com/login`
-使用-d参数以后，HTTP 请求会自动加上标头Content-Type : application/x-www-form-urlencoded。
-<br/>
+**表单文件上传**
+`-F` `--form`
+```
+curl --location 'http://192.168.2.70:9080/auth-mng/general/file-upload' \
+--header 'Api-Platform: BKhEb2u7D2h3C1Djt3WvVTeLsk2UMOz9' \
+--header 'Authorization: Bearer 2sWzd6DztfW2s10KNourgOHkAmRBNB9Qj' \
+--form 'file=@"/var/data/robot-server-v2/test.txt";category="txt"'
+```
 
+**下载文件**
+```
+-o test.txt -o /tmp/test.txt --output test.txt -O --remote-name
+```
 
-`-F`参数用来向服务器上传二进制文件。
-`curl -F 'file=@photo.png;type=image/png' https://google.com/profile`
-上面命令会给 HTTP 请求加上标头Content-Type: multipart/form-data。
-<br/>
+**整个请求的最大时间**
+`-m` `--max-time`
 
+**建立连接的最大时间**
+`--connect-timeout`
 
-`-i`参数打印出服务器回应的 HTTP 标头。
-`curl -i https://www.example.com`
-<br/>
+**代理**
+```
+curl -x 127.0.0.1:29034 http://135.0.120.180:9002
+curl -x 192.168.2.64:29034 http://135.0.120.180:9002/user/login?redirect=%2Froutes%2Flist
+```
 
+**退出状态**
+```
+#!/bin/sh
+curl -x 127.0.0.1:29034 http://135.0.120.180:9002
+res=$?
+if test "$res" != "0"; then
+   echo "the curl command failed with: $res"
+fi
+```
 
-`-k`参数指定跳过 SSL 检测。
+**复制**
+浏览器访问时，可以复制成cURL的格式代码。
 
+**压缩传输**
+`--compressed`
 
-`-L`跟随服务器的重定向。
-<br/>
+**POST转GET请求**
+```
+# http://192.168.2.70:9080/auth/user/login-key?a=100
+curl -d a=100 -G http://192.168.2.70:9080/auth/user/login-key
+curl -d a=100 --get http://192.168.2.70:9080/auth/user/login-key
+# http://192.168.2.70:9080/auth/user/login-key?a=100%20200
+curl --data-urlencode "a=100 200" -G http://192.168.2.70:9080/auth/user/login-key
+```
 
+**跳过SSL检测**
+`-k`
 
-`-o`参数将服务器的回应保存成文件，等同于wget命令。
-`curl -o example.html https://www.example.com`
-<br/>
-
-
-`-O`参数将服务器回应保存成文件，并将 URL 的最后部分当作文件名。
-`curl -O https://www.example.com/foo/bar.html`
-<br/>
-
-
-`-u`参数用来设置服务器认证的用户名和密码。
-`curl -u 'bob:12345' https://google.com/login`
-
+**用户名和密码**
+```
+curl -u 'bob:12345' https://google.com/login
+```
 上面命令设置用户名为bob，密码为12345，然后将其转为 HTTP 标头Authorization: Basic Ym9iOjEyMzQ1。
 
-      
-<br/>
-
-`-X`参数指定 HTTP 请求的方法。
-`curl -X POST https://www.example.com`
-<br/>
-
-
-`--connect-timeout`参数指定 HTTP 请求连接超时时间。
-`-m`参数指定 HTTP 请求数据传输的最大允许时间。
-`curl --connect-timeout 10 -m 20 "http://XXXXXXX"`
+**发送Cookie**
+```
+curl -b 'foo1=bar;foo2=bar2' https://google.com
+```
