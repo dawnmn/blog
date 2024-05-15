@@ -15,6 +15,7 @@
     * [指令语法](CentOS服务器/指令语法.md)
         * [实用技能](CentOS服务器/指令语法/实用技能.md)
         * [curl](CentOS服务器/指令语法/curl.md)
+        * [vim](CentOS服务器/指令语法/vim.md)
     * [缓存服务器](CentOS服务器/缓存服务器.md)
         * [Memcache安装与PHP扩展配置](CentOS服务器/缓存服务器/Memcache安装与PHP扩展配置.md)
         * [Redis安装与PHP扩展配置](CentOS服务器/缓存服务器/Redis安装与PHP扩展配置.md)
