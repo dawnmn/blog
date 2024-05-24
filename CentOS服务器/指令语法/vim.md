@@ -1,4 +1,4 @@
-`vimtutor -g zh`
+vim中文文档`vimtutor -g zh`
 |   指令  | 说明    |
 | --- | --- |
 |  j   |  向下移动光标   |
