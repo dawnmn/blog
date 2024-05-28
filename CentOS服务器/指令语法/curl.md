@@ -29,10 +29,6 @@ curl --location 'http://192.168.2.70:9080/auth-mng/general/file-upload' \
 ```
 -o test.txt -o /tmp/test.txt --output test.txt -O --remote-name
 ```
-**账号密码**
-```
-curl -u alice:12345 http://example.com/
-```
 
 
 **整个请求的最大时间**
