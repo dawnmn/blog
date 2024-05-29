@@ -1,4 +1,10 @@
 **常用指令**
+**提交所有变化** 新增、修改、删除
+```
+git add -A * 
+git commit -m '首次提交'
+```
+
 ```
 # 查看配置，按q键退出
 git config --list --show-origin
@@ -9,9 +15,7 @@ git config --global user.email johndoe@example.com
 
 git init
 
-# 提交所有变化：新增、修改、删除
-git add -A * 
-git commit -m '首次提交'
+
 
 # 查看状态
 git status -s
