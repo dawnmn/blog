@@ -45,3 +45,42 @@ git push origin --delete testing
 git pull origin
 git push origin
 ```
+## 本地
+**保存与提交**
+```
+git add -A * 
+git commit -m '首次提交'
+```
+**拉取与推送**
+```
+git pull
+git push
+```
+## 分支
+**列出本地分支**
+```
+git branch -a
+git branch -vv
+```
+**新建本地分支**
+从当前分支创建新的分支
+```
+git branch testing
+```
+**切换本地分支**
+```
+git checkout testing
+```
+**删除本地分支**
+```
+git branch -d testing
+```
+**拉取远端分支并切换**
+```
+git checkout -b testing origin/testing
+```
+**合并本地分支**
+将hotfix合并到当前分支
+```
+git merge hotfix
+```
