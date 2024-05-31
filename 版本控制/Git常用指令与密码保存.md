@@ -112,6 +112,16 @@ git log -S function_name
 ```
 **HEAD**
 指向当前所在的本地分支，是当前所在的本地分支的别名。
+**查看配置**
+```
+git config --list --show-origin
+```
+**配置账号**
+`--global`可选，当你想针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有`--global`选项的命令来配置。
+```
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+```
 **.gitignore**
 语法如下：
 * 所有空行或者以#开头的行都会被 Git 忽略。
