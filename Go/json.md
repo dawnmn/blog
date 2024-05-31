@@ -16,7 +16,7 @@
 `UseNumber()`，处理`interface{}`默认`float64`大整数精度丢失，使用`json.Number`，它实际上是个`string`。
 
 **float64的精确整数**
-float64的精确整数范围：
+float64的精确整数范围，16位10进制以内：
 `2^54-1` ~ `-2^54-1`
 
 **示例**
