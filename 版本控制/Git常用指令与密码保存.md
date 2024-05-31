@@ -75,12 +75,16 @@ git checkout testing
 ```
 git branch -d testing
 ```
-**拉取远端分支并切换**
-```
-git checkout -b testing origin/testing
-```
 **合并本地分支**
 将hotfix合并到当前分支
 ```
 git merge hotfix
+```
+**拉取远端分支并切换**
+```
+git checkout -b testing origin/testing
+```
+**合并远程分支**
+```
+git merge origin/master
 ```
