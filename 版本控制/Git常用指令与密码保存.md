@@ -136,4 +136,22 @@ git config --global user.email johndoe@example.com
 * `?`只匹配一个任意字符。
 * `[abc]`、`[a-z]`匹配任何一个列在方括号中的字符。
 * `**`匹配任意中间目录，比如 a/**/z 可以匹配 a/z 、 a/b/z 或 a/b/c/z 等。
+## 示例
+**仅拉取一个目录下面文件**
+```
+git init
+git remote add -f origin https://gitee.com/xxx/xxx.git
+git config core.sparsecheckout true
+echo "yourpath/" >> .git/info/sparse-checkout
+cat .git/info/sparse-checkout
+git pull origin master
+```
+**两个仓库代码同步**
+```
+git remote add upstream http://192.168.2.211:19001/phoenix/web-front.git
+git remote -v
+git fetch upstream
+git checkout master
+git push upstream
+```
 
