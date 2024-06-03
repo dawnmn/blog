@@ -38,7 +38,7 @@ git push origin testing
 ```
 **删除远程仓库分支**
 ```
-git push origin --delete testing
+git push origin -d testing
 ```
 **多个远程仓库拉取与推送**
 ```
