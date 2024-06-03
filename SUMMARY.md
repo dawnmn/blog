@@ -106,7 +106,7 @@
         * [安装](云原生/etcd/安装.md)
         * [实用技能](云原生/etcd/实用技能.md)
 * [版本控制](版本控制.md)
-    * [Git常用指令与密码保存](版本控制/Git常用指令与密码保存.md)
+    * [Git指令](版本控制/Git指令.md)
     * [gitlab](版本控制/gitlab.md)
     * [svn](版本控制/svn.md)
     * [github](版本控制/github.md)
