@@ -45,6 +45,14 @@ git push origin -d testing
 git pull origin
 git push origin
 ```
+**拉取远端分支并切换**
+```
+git checkout -b testing origin/testing
+```
+**合并远程分支**
+```
+git merge origin/master
+```
 ## 本地
 **保存与提交**
 ```
