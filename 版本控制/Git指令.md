@@ -145,6 +145,10 @@ git config --global user.email johndoe@example.com
 * `[abc]`、`[a-z]`匹配任何一个列在方括号中的字符。
 * `**`匹配任意中间目录，比如 a/**/z 可以匹配 a/z 、 a/b/z 或 a/b/c/z 等。
 ## 示例
+**导出commit中的文件**
+```
+git diff-tree -r --no-commit-id --name-only e9dc58452dd9cc6618bb94eb33992539dfb42502 | xargs tar -czvf update.tar.gz
+```
 **仅拉取一个目录下面文件**
 ```
 git init
