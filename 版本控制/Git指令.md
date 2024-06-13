@@ -147,7 +147,7 @@ git config --global user.email johndoe@example.com
 ## 示例
 **导出commit中的文件**
 ```
-git diff-tree -r --no-commit-id --name-only e9dc58452dd9cc6618bb94eb33992539dfb42502 | xargs tar -czvf update.tar.gz
+git diff-tree -r --no-commit-id --name-only e9dc58452dd9cc6618bb94eb33992539dfb42502 | xargs tar -czvf ./runtime/update.tar.gz
 ```
 **仅拉取一个目录下面文件**
 ```
