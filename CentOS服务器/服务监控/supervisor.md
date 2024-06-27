@@ -23,6 +23,8 @@ autostart=true
 autorestart=true
 stderr_logfile=/var/download/hello.log
 stdout_logfile=/var/download/hello.log
+startsecs=60
+startretries=10
 ```
 **启动和控制**
 ```
