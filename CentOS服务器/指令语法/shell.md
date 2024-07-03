@@ -23,6 +23,16 @@ unset my_variable
 ```
 如果要用到变量，使用$；如果要操作变量，不使用$。
 修改子shell中全局环境变量并不会影响到父shell中该变量的值。子shell也不能通过export命令改变父shell中全局环境变量的值。
-PATH环境变量。当你在shell命令行界面中输入一个外部命令时，shell必须搜索系统来找到对应的程序。PATH环境变量定义了用于进行命令和程序查找的目录。
+`PATH环境变量`，当你在shell命令行界面中输入一个外部命令时，shell必须搜索系统来找到对应的程序。PATH环境变量定义了用于进行命令和程序查找的目录。
+`/etc/profile`文件是系统上默认的`bash shell`的主启动文件。系统上的每个用户登录时都会执行这个启动文件。
+```
+vim /etc/profile
+source /etc/profile
+```
+
+执行文件中的shell命令：
+```
+source filename
+```
 
 
