@@ -91,4 +91,24 @@ usermod -U test
 ```
 userdel test
 ```
+与用户账户类似，组信息也保存在系统的一个文件中：`/etc/group`。
+创建用户组：
+```
+groupadd testg
+```
+修改用户组：
+修改名称，由于所有的安全权限都是基于 GID 的，你可以随意改变组名而不会影响文件的安全性。
+```
+groupmod -n testgnew testg
+```
+
+查看用户所在的组：
+查看当前登录用户
+```
+groups
+```
+查看test用户
+```
+groups test
+```
 
