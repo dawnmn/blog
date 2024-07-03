@@ -34,5 +34,10 @@ source /etc/profile
 ```
 source filename
 ```
+`数组变量`
+```
+hello=(1 3 'bb' 5)
+echo ${hello[0]}
+```
 
 
