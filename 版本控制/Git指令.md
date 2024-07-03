@@ -96,6 +96,11 @@ git checkout -b testing origin/testing
 ```
 git merge origin/master
 ```
+## 标签
+```
+git tag v1.0.0
+git push origin v1.0.0
+```
 ## 信息
 **状态**
 ```
