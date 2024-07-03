@@ -163,4 +163,13 @@ wc < a.txt
 ```
 command1 | command2
 ```
+shell数学运算符只支持整数运算，除法时只保留整数：
+```
+var1=$[1 + 5]
+echo $var1
+# 6
+var2=$[$var1 * 2]
+echo $var2
+# 12
+```
 
