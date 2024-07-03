@@ -12,6 +12,15 @@ history 30
 **环境变量**
 环境变量存储在内存中，分为全局变量和局部变量。全局环境变量对于shell会话和所有生成的子shell都是可见的。局部变量则只对创建它们的shell可见。
 查看全局变量：`env`
+增加全局变量，注意，只在当前shell进程中有效：
+```
+my_variable="I am Global now"
+export my_variable
+```
+删除全局变量：
+```
+unset my_variable
+```
 如果要用到变量，使用$；如果要操作变量，不使用$。
 修改子shell中全局环境变量并不会影响到父shell中该变量的值。子shell也不能通过export命令改变父shell中全局环境变量的值。
 PATH环境变量。当你在shell命令行界面中输入一个外部命令时，shell必须搜索系统来找到对应的程序。PATH环境变量定义了用于进行命令和程序查找的目录。
