@@ -43,10 +43,52 @@ echo ${hello[0]}
 Linux系统使用一个专门的文件来将用户的登录名匹配到对应的UID值（root的UID为0）。这个文件就是`/etc/passwd`文件，它包含了一些与用户有关的信息：
 * 登录用户名
 * 用户密码
-* 用户账户的 UID（数字形式）
+* 用户账户的UID（数字形式）
 * 用户账户的组 ID（GID）（数字形式）
 * 用户账户的文本描述（称为备注字段）
-* 用户 HOME 目录的位置
-* 用户的默认 shell
+* 用户HOME目录的位置
+* 用户的默认shell
 
+切换到root用户：
+会重新加载/etc/profile文件等，执行后是完全的root环境。
+```
+sudo su - 
+```
+以root身份执行命令：
+```
+sudo command
+```
+创建用户：
+-m命令行选项会使其创建 HOME 目录
+```
+useradd -m test
+```
+
+
+修改当前登录用户密码：
+```
+passwd
+```
+修改test用户的密码：
+```
+passwd test
+```
+
+修改用户所在的组：
+```
+usermod -g www test
+```
+禁用用户：
+```
+usermod -L test
+```
+解禁用户：
+```
+usermod -U test
+```
+
+删除用户：
+```
+userdel test
+```
 
